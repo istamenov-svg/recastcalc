@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Ivan Manov',
+    jobTitle: 'Founder, RecastCalc',
+    description: '25+ year marketing and finance executive with experience at McKinsey, Merkle/Dentsu, and PE-backed multi-site service platforms.',
+    url: 'https://recastcalc.com/about/',
+  },
+};
+---
+
+<BaseLayout
+  title="About RecastCalc — Independent Mortgage Calculators"
+  description="RecastCalc is an independent mortgage utility site built by Ivan Manov, a 25-year marketing and finance executive with McKinsey, Merkle/Dentsu, and PE-backed services experience."
+  schema={schema}
+>
+  <article class="max-w-prose mx-auto px-4 lg:px-6 py-16 prose-recast">
+    <h1 class="text-display-1 font-display font-semibold mb-8">About RecastCalc</h1>
+
+    <h2>What this site is</h2>
+    <p>
+      RecastCalc is a focused set of mortgage utility calculators built to be more useful and more
+      honest than what's currently available online. Every calculator shows competing strategies
+      side-by-side — including the ones that don't generate revenue for us — so that the user can
+      make a decision based on math, not on whichever option pays the highest referral fee.
+    </p>
+
+    <h2>Who built it</h2>
+    <p>
+      I'm <strong>Ivan Manov</strong>. I have 25+ years of operating experience across marketing,
+      finance, and private-equity-backed services. My career includes McKinsey & Company, Merkle/Dentsu,
+      Cancer Treatment Centers of America, and operating partner roles at Varsity Healthcare Partners
+      and several PE-backed multi-site platforms in healthcare services.
+    </p>
+    <p>
+      I built RecastCalc because I needed the recast calculator myself, found that none of the
+      existing ones showed the comparison I wanted, and realized that gap exists across most
+      mortgage tools online. The economics of the project — independent operator, ad-supported,
+      no lender ownership — make it possible to publish the comparisons that lender-owned tools
+      structurally avoid.
+    </p>
+
+    <h2>What we are not</h2>
+    <p>
+      RecastCalc is <strong>not</strong> a lender, a mortgage broker, a financial advisor, or a
+      licensed real estate professional. We do not originate loans, we do not give personalized
+      financial advice, and we do not endorse any specific product. The calculators are estimates
+      based on standard amortization formulas; consult a licensed mortgage professional or
+      Certified Financial Planner before making decisions involving real money.
+    </p>
+
+    <h2>How we make money</h2>
+    <p>
+      Two sources, both clearly disclosed:
+    </p>
+    <ol class="list-decimal pl-6 mb-4 space-y-1">
+      <li><strong>Display advertising</strong> via Google AdSense. Ads are placed below calculator results, never above. We never sell ad placement, never accept "sponsored content," and never modify calculator math based on advertiser interests.</li>
+      <li><strong>Affiliate commissions</strong> from optional links to lender comparison platforms (LendingTree, Credible). These are clearly labeled "Sponsored" and use <code>rel="sponsored nofollow"</code>. Commissions do not change what we recommend or how the calculators behave.</li>
+    </ol>
+    <p>
+      We do not collect email addresses, do not gate calculators behind signups, and do not sell
+      data. See our <a href="/privacy/">Privacy Policy</a>.
+    </p>
+
+    <h2>Editorial integrity</h2>
+    <p>
+      Every calculator on this site is reviewed against published amortization standards and
+      stress-tested against scenarios from CFPB consumer guides, Freddie Mac documentation, and
+      lender disclosures. When we recommend a strategy, we show the math. When the math says the
+      strategy that costs us money is the better choice for the user, we say so.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions, corrections, or partnership inquiries: see our <a href="/contact/">contact page</a>.
+    </p>
+  </article>
+</BaseLayout>

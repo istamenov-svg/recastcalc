@@ -1,0 +1,53 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-ink-200 bg-cream-200 mt-20">
+  <div class="max-w-content mx-auto px-4 lg:px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div class="md:col-span-2">
+        <p class="font-display text-lg font-semibold text-ink-900 mb-2">
+          Recast<span class="text-accent">Calc</span>
+        </p>
+        <p class="text-sm text-ink-600 leading-relaxed max-w-sm">
+          Independent mortgage utility calculators. No signups, no upsells, no email walls.
+          Just the math.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-ink-500 mb-3">Calculators</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/recast/" class="text-ink-700 hover:text-accent">Recast</a></li>
+          <li><a href="/pmi-removal/" class="text-ink-700 hover:text-accent">PMI Removal</a></li>
+          <li><a href="/biweekly-payoff/" class="text-ink-700 hover:text-accent">Biweekly Payoff</a></li>
+          <li><a href="/arm-reset/" class="text-ink-700 hover:text-accent">ARM Reset</a></li>
+          <li><a href="/heloc-vs-refi/" class="text-ink-700 hover:text-accent">HELOC vs Refi</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-ink-500 mb-3">Site</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about/" class="text-ink-700 hover:text-accent">About</a></li>
+          <li><a href="/methodology/" class="text-ink-700 hover:text-accent">Methodology</a></li>
+          <li><a href="/guides/" class="text-ink-700 hover:text-accent">Guides</a></li>
+          <li><a href="/privacy/" class="text-ink-700 hover:text-accent">Privacy</a></li>
+          <li><a href="/terms/" class="text-ink-700 hover:text-accent">Terms</a></li>
+          <li><a href="/contact/" class="text-ink-700 hover:text-accent">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-6 border-t border-ink-300/50 text-xs text-ink-500 space-y-3">
+      <p>
+        <strong class="text-ink-700">Disclosure:</strong> RecastCalc is independent and reader-supported.
+        Some links to lenders or financial products are affiliate links — we may earn a commission at no
+        cost to you. Calculator results are estimates based on the information you enter and standard
+        amortization formulas; consult a licensed mortgage professional before making financial decisions.
+        We are not a lender, broker, or financial advisor.
+      </p>
+      <p>© {year} RecastCalc. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

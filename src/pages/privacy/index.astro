@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const lastUpdated = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="RecastCalc privacy policy. We do not collect personal data, do not sell data, and do not require accounts."
+>
+  <article class="max-w-prose mx-auto px-4 lg:px-6 py-16 prose-recast">
+    <h1 class="text-display-1 font-display font-semibold mb-2">Privacy Policy</h1>
+    <p class="text-sm text-ink-500 mb-8">Last updated: {lastUpdated}</p>
+
+    <h2>What we collect</h2>
+    <p>
+      <strong>Calculator inputs (loan balance, rate, term, lump sum, etc.) never leave your browser.</strong>
+      Calculations happen entirely client-side. We have no servers that store or process your loan data.
+    </p>
+    <p>
+      We collect anonymous aggregate analytics (page views, country, referrer, device type) via a
+      privacy-focused analytics tool. No personally identifiable information, no cross-site tracking,
+      no behavioral profiling.
+    </p>
+
+    <h2>Cookies and tracking</h2>
+    <p>
+      We use:
+    </p>
+    <ul>
+      <li><strong>Google AdSense</strong> for display ads. AdSense may set cookies to serve relevant ads. You can opt out at <a href="https://adssettings.google.com" rel="noopener" target="_blank">Google Ads Settings</a>.</li>
+      <li><strong>Affiliate tracking links</strong> to LendingTree, Credible, and similar lender comparison platforms. Clicking these may set cookies on the destination site (governed by that site's privacy policy, not ours).</li>
+      <li><strong>No first-party tracking cookies.</strong> No remarketing pixels. No social media trackers.</li>
+    </ul>
+
+    <h2>Information we share</h2>
+    <p>
+      We do not sell, rent, or share user data. We have no email list. We have no user accounts.
+      We have no CRM. We have no data to share even if we wanted to.
+    </p>
+    <p>
+      Third-party services we use (AdSense, affiliate networks, hosting) have their own privacy
+      policies governing data collected through their integrations.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      Because we don't collect personal data, there's nothing to request, correct, or delete from
+      us. To control AdSense personalization, use <a href="https://adssettings.google.com" rel="noopener" target="_blank">Google Ads Settings</a>.
+      To clear all third-party cookies, use your browser's privacy settings.
+    </p>
+
+    <h2>Children</h2>
+    <p>
+      RecastCalc is not directed at children under 13. We do not knowingly collect data from
+      children.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this policy: <a href="/contact/">contact page</a>.
+    </p>
+  </article>
+</BaseLayout>

@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const calculators = [
+  {
+    href: '/recast/',
+    title: 'Mortgage Recast Calculator',
+    desc: 'See your new payment after applying a lump sum. Compare recast vs refinance vs extra-payment strategies.',
+    badge: 'Most popular',
+  },
+  {
+    href: '/pmi-removal/',
+    title: 'PMI Removal Calculator',
+    desc: 'When PMI auto-cancels at 78% LTV, when you can request removal at 80%, and how much to pay down to remove it now.',
+  },
+  {
+    href: '/biweekly-payoff/',
+    title: 'Biweekly Payoff Calculator',
+    desc: 'How much interest and time you save by switching to biweekly payments — and whether your lender will actually do it.',
+  },
+  {
+    href: '/arm-reset/',
+    title: 'ARM Reset Calculator',
+    desc: 'Project your adjustable-rate mortgage payment at reset under three rate scenarios. Critical for the 5M ARMs resetting through 2027.',
+  },
+  {
+    href: '/heloc-vs-refi/',
+    title: 'HELOC vs Cash-Out Refi',
+    desc: '5-year cost comparison, breakeven analysis, and which makes sense for your specific cash-out goal.',
+  },
+];
+---
+
+<BaseLayout
+  title="RecastCalc — Honest Mortgage Calculators, No Email Wall"
+  description="Free mortgage calculators: recast, PMI removal, biweekly payoff, ARM reset, HELOC vs refi. Independent, ad-supported, no signup required. Built by a 25-year finance and marketing operator."
+>
+  <!-- Hero -->
+  <section class="max-w-content mx-auto px-4 lg:px-6 pt-16 pb-12 lg:pt-24 lg:pb-20">
+    <div class="max-w-3xl">
+      <p class="text-sm uppercase tracking-widest text-accent font-semibold mb-4">
+        Independent · Ad-supported · No signup
+      </p>
+      <h1 class="text-display-1 font-display font-semibold text-ink-900 mb-6 leading-tight">
+        Mortgage calculators that{' '}
+        <span class="italic text-accent">tell you the truth</span>{' '}
+        about your money.
+      </h1>
+      <p class="text-lg lg:text-xl text-ink-700 leading-relaxed max-w-narrow">
+        Most mortgage calculators are lead-capture funnels for lenders. Ours aren't. We show you
+        every strategy side-by-side — including the one that costs us money — so you can pick what
+        actually works for your numbers.
+      </p>
+      <div class="mt-8 flex gap-3 flex-wrap">
+        <a href="/recast/" class="btn-primary">
+          Open Recast Calculator
+        </a>
+        <a href="#tools" class="inline-flex items-center px-6 py-3 text-ink-700 hover:text-accent font-medium">
+          See all tools →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool grid -->
+  <section id="tools" class="max-w-content mx-auto px-4 lg:px-6 pb-20">
+    <div class="border-t border-ink-200 pt-12">
+      <h2 class="font-display text-h2 font-semibold text-ink-900 mb-2">The Calculators</h2>
+      <p class="text-ink-600 mb-10 max-w-narrow">
+        Five tools, deeply researched, each addressing a specific scenario most mortgage calculators
+        get wrong or oversimplify.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {calculators.map((calc) => (
+          <a
+            href={calc.href}
+            class="group block p-6 lg:p-8 bg-cream-50 border border-ink-200 hover:border-accent transition-all rounded-lg relative"
+          >
+            {calc.badge && (
+              <span class="absolute top-4 right-4 text-[10px] uppercase tracking-widest text-accent font-semibold bg-accent-50 px-2 py-1 rounded">
+                {calc.badge}
+              </span>
+            )}
+            <h3 class="font-display text-xl font-semibold text-ink-900 mb-2 group-hover:text-accent transition-colors">
+              {calc.title}
+            </h3>
+            <p class="text-sm text-ink-600 leading-relaxed">{calc.desc}</p>
+            <p class="text-xs text-accent mt-4 font-medium">
+              Open calculator →
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why we exist -->
+  <section class="max-w-prose mx-auto px-4 lg:px-6 pb-20">
+    <div class="border-t border-ink-200 pt-12">
+      <h2 class="font-display text-h2 font-semibold text-ink-900 mb-6">Why this site exists</h2>
+      <div class="prose-recast">
+        <p>
+          Most mortgage tools online are gated by an email address, owned by a lender, or written by
+          someone whose paycheck depends on you choosing a particular product. The calculator math
+          itself isn't usually wrong — but the framing leaves out the strategies that don't generate
+          a referral fee.
+        </p>
+        <p>
+          A recast that saves you $675/month looks great until you realize that the same lump sum,
+          applied without a recast, would have saved you $147,000 more in total interest. Your bank
+          isn't going to volunteer that math.
+        </p>
+        <p>
+          Every calculator on this site shows the dominant strategies side-by-side, including the
+          one we don't make money on. We earn revenue from advertising and from optional affiliate
+          links to lender comparison sites — clearly disclosed, never required, and never inserted
+          into the math itself.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

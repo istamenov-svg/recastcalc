@@ -1,0 +1,356 @@
+---
+// Mortgage Recast Calculator
+// Vanilla JS island — full functionality with zero framework JS
+---
+
+<section
+  id="recast-calculator"
+  class="bg-cream-50 border border-ink-200 rounded-lg p-6 md:p-8 shadow-sm"
+  aria-labelledby="calculator-heading"
+>
+  <h2 id="calculator-heading" class="font-display text-2xl font-semibold text-ink-900 mb-2">
+    Calculate your recast
+  </h2>
+  <p class="text-sm text-ink-600 mb-6">
+    Enter your current loan details and the lump sum you plan to apply. Results update as you type.
+  </p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- INPUTS -->
+    <form id="recast-form" novalidate>
+      <div class="space-y-5">
+        <div>
+          <label for="balance" class="calc-label">Current loan balance</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input
+              type="number"
+              id="balance"
+              name="balance"
+              class="calc-input pl-7"
+              placeholder="400,000"
+              min="1000"
+              max="10000000"
+              step="1000"
+              value="400000"
+              required
+              inputmode="numeric"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="rate" class="calc-label">Interest rate (annual)</label>
+          <div class="relative">
+            <input
+              type="number"
+              id="rate"
+              name="rate"
+              class="calc-input pr-8"
+              placeholder="6.5"
+              min="0"
+              max="25"
+              step="0.001"
+              value="6.5"
+              required
+              inputmode="decimal"
+            />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="termYears" class="calc-label">Years remaining</label>
+            <input
+              type="number"
+              id="termYears"
+              name="termYears"
+              class="calc-input"
+              placeholder="25"
+              min="1"
+              max="50"
+              step="1"
+              value="25"
+              required
+              inputmode="numeric"
+            />
+          </div>
+          <div>
+            <label for="termMonths" class="calc-label">Plus months</label>
+            <input
+              type="number"
+              id="termMonths"
+              name="termMonths"
+              class="calc-input"
+              placeholder="0"
+              min="0"
+              max="11"
+              step="1"
+              value="0"
+              inputmode="numeric"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="lumpSum" class="calc-label">Lump sum to apply</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input
+              type="number"
+              id="lumpSum"
+              name="lumpSum"
+              class="calc-input pl-7"
+              placeholder="100,000"
+              min="0"
+              max="10000000"
+              step="1000"
+              value="100000"
+              required
+              inputmode="numeric"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="recastFee" class="calc-label">
+            Recast fee
+            <span class="text-ink-400 font-normal">(typically $150–$500)</span>
+          </label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input
+              type="number"
+              id="recastFee"
+              name="recastFee"
+              class="calc-input pl-7"
+              placeholder="250"
+              min="0"
+              max="2000"
+              step="10"
+              value="250"
+              inputmode="numeric"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- RESULTS -->
+    <div id="recast-results" aria-live="polite" aria-atomic="true">
+      <div class="bg-cream-200 rounded-lg p-5 mb-4">
+        <p class="text-xs uppercase tracking-widest text-ink-500 mb-1">Your recast result</p>
+        <div class="grid grid-cols-2 gap-4 mt-3">
+          <div>
+            <p class="text-xs text-ink-500 mb-1">New monthly payment</p>
+            <p class="calc-result text-2xl" data-result="recastPayment">$2,025</p>
+          </div>
+          <div>
+            <p class="text-xs text-ink-500 mb-1">Old monthly payment</p>
+            <p class="calc-result text-2xl text-ink-500 line-through" data-result="baselinePayment">$2,701</p>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-ink-300/50">
+          <p class="text-xs text-ink-500 mb-1">Monthly savings</p>
+          <p class="calc-result text-3xl text-positive" data-result="monthlySavings">$675</p>
+          <p class="text-xs text-ink-500 mt-1">
+            <span data-result="annualSavings">$8,102</span> per year ·
+            recast fee paid back in <span data-result="feePayback">0.4 months</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- The honest comparison: 3 strategies -->
+      <div class="border border-ink-200 rounded-lg overflow-hidden text-sm">
+        <div class="bg-cream-200 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-ink-700 border-b border-ink-200">
+          Three strategies, side-by-side
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="text-left text-xs text-ink-500 border-b border-ink-200">
+              <th class="px-4 py-2 font-medium">Strategy</th>
+              <th class="px-4 py-2 font-medium text-right">Monthly</th>
+              <th class="px-4 py-2 font-medium text-right">Total interest</th>
+            </tr>
+          </thead>
+          <tbody class="font-mono tabular text-ink-800">
+            <tr class="border-b border-ink-100">
+              <td class="px-4 py-3 font-sans text-ink-700">
+                <span class="block font-medium">Do nothing</span>
+                <span class="text-xs text-ink-400">Keep current payment</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="baselineMonthly">$2,701</td>
+              <td class="px-4 py-3 text-right" data-result="baselineInterest">$410,250</td>
+            </tr>
+            <tr class="border-b border-ink-100 bg-accent-50/30">
+              <td class="px-4 py-3 font-sans text-ink-900 font-medium">
+                <span class="block">Recast</span>
+                <span class="text-xs text-ink-500 font-normal">Lower payment, same term</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="recastMonthly">$2,026</td>
+              <td class="px-4 py-3 text-right" data-result="recastInterest">$307,688</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-sans text-ink-700">
+                <span class="block font-medium">Lump sum + keep paying old</span>
+                <span class="text-xs text-ink-400">Faster payoff, no payment relief</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="extraMonthly">$2,701</td>
+              <td class="px-4 py-3 text-right" data-result="extraInterest">$160,203</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p
+        id="best-strategy-callout"
+        class="mt-4 text-sm text-ink-700 leading-relaxed"
+        data-result="strategyCallout"
+      >
+        Loading...
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3">
+        <button
+          type="button"
+          id="copy-link-btn"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent"
+        >
+          Copy link to these results
+        </button>
+        <button
+          type="button"
+          id="print-btn"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent"
+          onclick="window.print()"
+        >
+          Print / save as PDF
+        </button>
+      </div>
+
+      <p class="text-xs text-ink-400 mt-4 leading-relaxed">
+        Estimates only. Includes principal &amp; interest; excludes taxes, insurance, and escrow.
+        Verify lender-specific terms (minimum lump sum, fee, eligibility) before proceeding.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import {
+    calculateRecast,
+    formatCurrency,
+    formatDuration,
+  } from '../scripts/mortgage-math.js';
+
+  const form = document.getElementById('recast-form');
+  const inputs = form.querySelectorAll('input');
+
+  function getInputs() {
+    return {
+      currentBalance: parseFloat(document.getElementById('balance').value) || 0,
+      annualRate: parseFloat(document.getElementById('rate').value) || 0,
+      remainingTermMonths:
+        (parseInt(document.getElementById('termYears').value) || 0) * 12 +
+        (parseInt(document.getElementById('termMonths').value) || 0),
+      lumpSum: parseFloat(document.getElementById('lumpSum').value) || 0,
+      recastFee: parseFloat(document.getElementById('recastFee').value) || 0,
+    };
+  }
+
+  function setResult(key, value) {
+    const el = document.querySelector(`[data-result="${key}"]`);
+    if (el) el.textContent = value;
+  }
+
+  function update() {
+    const params = getInputs();
+    const result = calculateRecast(params);
+
+    if (!result) {
+      setResult('strategyCallout', 'Enter valid loan details to see your recast estimate.');
+      return;
+    }
+
+    if (result.error) {
+      setResult('strategyCallout', result.error);
+      return;
+    }
+
+    // Top summary
+    setResult('recastPayment', formatCurrency(result.recast.payment));
+    setResult('baselinePayment', formatCurrency(result.baseline.payment));
+    setResult('monthlySavings', formatCurrency(result.recast.monthlySavings));
+    setResult('annualSavings', formatCurrency(result.recast.annualSavings));
+    setResult(
+      'feePayback',
+      isFinite(result.recast.feePaybackMonths)
+        ? `${result.recast.feePaybackMonths.toFixed(1)} months`
+        : 'never (no monthly savings)'
+    );
+
+    // Comparison table
+    setResult('baselineMonthly', formatCurrency(result.baseline.payment));
+    setResult('baselineInterest', formatCurrency(result.baseline.totalInterest));
+    setResult('recastMonthly', formatCurrency(result.recast.payment));
+    setResult('recastInterest', formatCurrency(result.recast.totalInterest));
+    setResult('extraMonthly', formatCurrency(result.baseline.payment));
+    setResult('extraInterest', formatCurrency(result.extraPayment.totalInterest));
+
+    // Honest strategy callout
+    const monthsSaved = result.extraPayment.monthsSaved;
+    const interestDiff = formatCurrency(result.interestDifference);
+    let callout = '';
+
+    if (result.bestStrategy === 'extraPayment') {
+      callout = `<strong class="text-ink-900">The math says: keep paying the old payment.</strong> Applying $${params.lumpSum.toLocaleString()} as a one-time principal payment without recasting saves you ${interestDiff} more in interest and pays off the loan ${formatDuration(monthsSaved)} early. Recasting still saves you money — but you're trading total interest savings for monthly cash flow relief. Pick recast if cash flow matters more than total interest paid.`;
+    } else {
+      callout = `<strong class="text-ink-900">Recast wins by ${interestDiff} in total interest savings.</strong> This is unusual and typically means your remaining term is short or your lump sum is small relative to the balance.`;
+    }
+
+    const calloutEl = document.querySelector('[data-result="strategyCallout"]');
+    if (calloutEl) calloutEl.innerHTML = callout;
+  }
+
+  // Update on any input change (debounced via blur for mobile UX, instant on desktop)
+  inputs.forEach((input) => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  // Initial calculation
+  update();
+
+  // Shareable URL (encodes inputs as query params)
+  document.getElementById('copy-link-btn')?.addEventListener('click', () => {
+    const params = getInputs();
+    const url = new URL(window.location.href);
+    url.search = new URLSearchParams({
+      b: params.currentBalance,
+      r: params.annualRate,
+      t: params.remainingTermMonths,
+      l: params.lumpSum,
+      f: params.recastFee,
+    }).toString();
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      const btn = document.getElementById('copy-link-btn');
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => (btn.textContent = original), 2000);
+    });
+  });
+
+  // Hydrate from URL params if present
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('b')) {
+    document.getElementById('balance').value = urlParams.get('b') || '';
+    document.getElementById('rate').value = urlParams.get('r') || '';
+    const t = parseInt(urlParams.get('t') || '0');
+    document.getElementById('termYears').value = Math.floor(t / 12);
+    document.getElementById('termMonths').value = t % 12;
+    document.getElementById('lumpSum').value = urlParams.get('l') || '';
+    document.getElementById('recastFee').value = urlParams.get('f') || '250';
+    update();
+  }
+</script>

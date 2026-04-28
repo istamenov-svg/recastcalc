@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const lastUpdated = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="RecastCalc terms of service. Calculator results are estimates, not financial advice."
+>
+  <article class="max-w-prose mx-auto px-4 lg:px-6 py-16 prose-recast">
+    <h1 class="text-display-1 font-display font-semibold mb-2">Terms of Service</h1>
+    <p class="text-sm text-ink-500 mb-8">Last updated: {lastUpdated}</p>
+
+    <h2>Acceptance</h2>
+    <p>
+      By using RecastCalc, you agree to these terms. If you do not agree, do not use the site.
+    </p>
+
+    <h2>Not financial advice</h2>
+    <p>
+      <strong>Calculator results are estimates only.</strong> RecastCalc is not a lender, mortgage
+      broker, financial advisor, real estate professional, attorney, or tax professional. Nothing on
+      this site constitutes personalized financial, legal, tax, or investment advice. Consult
+      appropriately credentialed professionals before making decisions.
+    </p>
+
+    <h2>Accuracy</h2>
+    <p>
+      We make reasonable efforts to keep calculator math correct and lender data current, but we
+      make no warranty as to accuracy, completeness, or fitness for a particular purpose. Lender
+      policies change frequently and may differ from what's published here. Always verify
+      directly with your lender before acting.
+    </p>
+
+    <h2>Affiliate links</h2>
+    <p>
+      Some links on this site are affiliate links. We may earn a commission if you click and
+      complete an action on the destination site. Affiliate relationships do not influence
+      calculator math or comparison logic. All affiliate links are tagged with
+      <code>rel="sponsored nofollow"</code> and labeled "Sponsored".
+    </p>
+
+    <h2>Liability</h2>
+    <p>
+      To the fullest extent permitted by law, RecastCalc, its operator (Ivan Manov), and its
+      affiliates are not liable for any direct, indirect, incidental, consequential, or
+      special damages arising from use of this site or reliance on calculator results. Use at
+      your own risk.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      We may update these terms periodically. Continued use of the site after changes are posted
+      constitutes acceptance of the updated terms.
+    </p>
+
+    <h2>Governing law</h2>
+    <p>
+      These terms are governed by the laws of the State of Florida, USA.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions: <a href="/contact/">contact page</a>.
+    </p>
+  </article>
+</BaseLayout>

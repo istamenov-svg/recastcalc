@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Methodology: How RecastCalc's Numbers Are Calculated"
+  description="The exact formulas, assumptions, and data sources used in every RecastCalc calculator. Standard mortgage amortization with fully disclosed inputs and edge cases."
+>
+  <article class="max-w-prose mx-auto px-4 lg:px-6 py-16 prose-recast">
+    <h1 class="text-display-1 font-display font-semibold mb-8">Methodology</h1>
+
+    <p class="text-lg text-ink-700">
+      Every calculator on RecastCalc uses the standard mortgage amortization formula, applied
+      transparently. This page documents the math, the assumptions, and the limitations.
+    </p>
+
+    <h2>Standard payment formula</h2>
+    <p>
+      All monthly payment calculations use the standard fixed-rate amortization formula:
+    </p>
+    <pre class="bg-cream-200 p-4 rounded font-mono text-sm overflow-x-auto"><code>M = P × [r(1+r)^n] / [(1+r)^n − 1]
+
+where:
+  M = monthly payment (principal + interest only)
+  P = principal balance
+  r = monthly interest rate (annual rate ÷ 12)
+  n = number of payments (term in months)</code></pre>
+
+    <h2>Recast calculation</h2>
+    <p>
+      A recast applies a lump sum to principal, then re-amortizes the remaining balance over the
+      original remaining term at the original interest rate.
+    </p>
+    <ol class="list-decimal pl-6 mb-4 space-y-1">
+      <li>New balance = current balance − lump sum</li>
+      <li>New monthly payment = standard amortization formula applied to (new balance, original rate, original remaining term)</li>
+      <li>Total interest = (new payment × remaining term) − new balance</li>
+    </ol>
+    <p>
+      We compare three scenarios in every recast calculation:
+    </p>
+    <ul>
+      <li><strong>Baseline (do nothing):</strong> Continue paying the current payment over the remaining term.</li>
+      <li><strong>Recast:</strong> Apply lump sum, payment recalculated.</li>
+      <li><strong>Lump sum + extra payment:</strong> Apply lump sum, but continue paying the original (higher) payment until loan is paid off early.</li>
+    </ul>
+
+    <h2>What's included and what isn't</h2>
+    <h3>Included</h3>
+    <ul>
+      <li>Principal repayment</li>
+      <li>Interest at the stated rate, compounded monthly</li>
+      <li>Recast fee (one-time)</li>
+    </ul>
+    <h3>Excluded</h3>
+    <ul>
+      <li>Property taxes</li>
+      <li>Homeowners insurance</li>
+      <li>Private mortgage insurance (PMI) — see our PMI Removal Calculator</li>
+      <li>HOA fees</li>
+      <li>Escrow account adjustments</li>
+      <li>Tax effects (mortgage interest deduction varies by individual situation)</li>
+    </ul>
+    <p>
+      For a complete monthly housing cost, add your tax + insurance + PMI + HOA estimates to the
+      P&amp;I figure shown by our calculator.
+    </p>
+
+    <h2>Assumptions</h2>
+    <ul>
+      <li>Interest rate is fixed for the full remaining term (does not model ARM resets)</li>
+      <li>Payments are made on time each month with no missed or partial payments</li>
+      <li>Recast lump sum is applied as a single payment, not spread over time</li>
+      <li>The loan permits recasting (not all do — see our lender table)</li>
+      <li>No prepayment penalty (rare on conventional loans, but verify your specific loan documents)</li>
+    </ul>
+
+    <h2>Sources</h2>
+    <ul>
+      <li>Consumer Financial Protection Bureau (CFPB) — mortgage payment guidance</li>
+      <li>Freddie Mac Servicing Guide — recast / re-amortization standards</li>
+      <li>Fannie Mae Selling Guide — eligibility for re-amortization</li>
+      <li>IRS Publication 936 — mortgage interest deduction rules</li>
+      <li>Direct lender disclosure documents and servicing FAQs (Chase, Wells Fargo, Bank of America, US Bank, PNC, Citizens, Truist, Navy Federal Credit Union, and others as cited in the lender table)</li>
+    </ul>
+
+    <h2>Updates</h2>
+    <p>
+      Calculator formulas are reviewed and tested annually. Lender policy data (recast fees,
+      minimum lump sums, eligibility) is reviewed quarterly. Each calculator page displays the
+      "last updated" date in the footer.
+    </p>
+
+    <h2>Errors and corrections</h2>
+    <p>
+      If you find a math error, a lender policy that's out of date, or any other issue, please
+      contact us via the <a href="/contact/">contact page</a>. Corrections are typically made
+      within 48 hours.
+    </p>
+
+    <h2>Not financial advice</h2>
+    <p>
+      Calculator results are estimates based on the inputs provided. RecastCalc is not a lender,
+      broker, or financial advisor and does not provide personalized financial advice. Consult a
+      licensed mortgage professional and/or Certified Financial Planner before making decisions.
+    </p>
+  </article>
+</BaseLayout>

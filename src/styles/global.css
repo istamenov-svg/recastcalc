@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-ink: #0A0A0A;
+    --color-cream: #FAF7F2;
+    --color-accent: #B45309;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  body {
+    @apply font-sans bg-cream text-ink min-h-screen;
+    font-feature-settings: 'ss01', 'cv11', 'tnum';
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  /* Tabular numbers for all calculator output */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Calculator input style */
+  .calc-input {
+    @apply w-full px-4 py-3 bg-cream-50 border border-ink-200 rounded-md
+           font-mono text-ink-900 text-base
+           focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent
+           transition-colors;
+  }
+
+  .calc-input:invalid {
+    @apply border-negative;
+  }
+
+  /* Calculator label */
+  .calc-label {
+    @apply block text-sm font-medium text-ink-700 mb-1.5;
+  }
+
+  /* Calculator result number */
+  .calc-result {
+    @apply font-mono tabular text-ink-900 font-semibold;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3
+           bg-ink-900 text-cream-50 font-medium
+           hover:bg-ink-800 transition-colors
+           focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+
+  /* Affiliate CTA card */
+  .cta-card {
+    @apply border-l-4 border-accent bg-accent-50/40 p-5 my-6;
+  }
+
+  /* Prose tweaks for guides */
+  .prose-recast {
+    @apply max-w-prose;
+  }
+  .prose-recast h2 {
+    @apply text-h2 mt-12 mb-4;
+  }
+  .prose-recast h3 {
+    @apply text-xl font-display mt-8 mb-3;
+  }
+  .prose-recast p {
+    @apply text-base leading-relaxed text-ink-800 mb-4;
+  }
+  .prose-recast a {
+    @apply text-accent underline decoration-accent/40 underline-offset-2 hover:decoration-accent;
+  }
+  .prose-recast ul {
+    @apply list-disc pl-6 mb-4 space-y-1;
+  }
+  .prose-recast table {
+    @apply w-full text-sm my-6 border-collapse;
+  }
+  .prose-recast th {
+    @apply text-left font-semibold border-b-2 border-ink-300 py-2 px-3 bg-cream-200;
+  }
+  .prose-recast td {
+    @apply border-b border-ink-100 py-2 px-3;
+  }
+}
+
+/* AdSense placeholder spacing — prevent CLS */
+.ad-slot {
+  display: block;
+  width: 100%;
+  min-height: 280px;
+  margin: 2rem 0;
+  background: transparent;
+  text-align: center;
+}
+
+.ad-slot--inline {
+  min-height: 250px;
+}
+
+.ad-slot--mobile-anchor {
+  min-height: 50px;
+  margin: 0;
+}

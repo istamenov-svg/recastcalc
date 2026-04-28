@@ -1,0 +1,383 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RecastCalculator from '../../components/RecastCalculator.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+
+const title = 'Mortgage Recast Calculator: See Your New Payment + Savings (2026)';
+const description =
+  'Free mortgage recast calculator. Enter your balance, rate, term, and lump sum to see your new monthly payment, lifetime interest savings, and how recast compares to a refinance or extra principal payment.';
+
+const publishDate = '2026-04-28T00:00:00Z';
+const modifiedDate = new Date().toISOString();
+
+// Schema: WebApplication + FAQ + BreadcrumbList
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Mortgage Recast Calculator',
+    description: 'Calculate your new monthly mortgage payment after applying a lump sum and recasting. Compare recast to refinance and extra-payment strategies.',
+    url: 'https://recastcalc.com/recast/',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Ivan Manov',
+      url: 'https://recastcalc.com/about/',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://recastcalc.com/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Mortgage Recast Calculator',
+        item: 'https://recastcalc.com/recast/',
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is a mortgage recast?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A mortgage recast (also called re-amortization) is when you apply a lump sum to your principal and your lender recalculates your monthly payment over the remaining loan term at the same interest rate. The term length stays the same; only the monthly payment goes down.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How much does a mortgage recast cost?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Most lenders charge a recast fee between $150 and $500. There are no closing costs, no appraisal, no credit check, and no new loan documents — unlike a refinance, which typically costs 2–6% of the loan balance.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the minimum lump sum for a mortgage recast?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Most lenders require a minimum lump sum of $5,000 to $10,000, with some requiring 10% of the original loan balance. The minimum varies by lender — check your servicer’s recast policy before applying.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is a mortgage recast better than a refinance?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It depends. Recast is better when your current rate is lower than today’s rates, you want to avoid closing costs, and you have a lump sum (inheritance, bonus, home sale proceeds). Refinance is better when current rates are meaningfully lower than your existing rate.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I recast an FHA, VA, or USDA loan?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. Government-backed loans (FHA, VA, USDA) generally cannot be recast. Recasting is typically available only for conventional conforming loans, jumbo loans, and some portfolio loans held by the original lender.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does recasting affect my credit score?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. A recast does not require a credit check or hard inquiry. Your loan, term, and rate all remain the same — only the monthly payment changes — so it has no direct effect on your credit score.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Which lenders allow mortgage recasting?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Major lenders that allow recasting include Chase, Wells Fargo, Bank of America, US Bank, Citizens Bank, PNC, and most credit unions. Rocket Mortgage and most online-only lenders generally do not allow recasting. Always verify with your specific servicer.',
+        },
+      },
+    ],
+  },
+];
+
+// Lender data — to be expanded into the full study
+const lenders = [
+  { name: 'Chase', allows: 'Yes', fee: '$150', minLump: '$5,000', notes: 'Conventional only' },
+  { name: 'Wells Fargo', allows: 'Yes', fee: '$0–$500', minLump: '$20,000', notes: 'Portfolio loans, case-by-case' },
+  { name: 'Bank of America', allows: 'Yes', fee: '$250', minLump: '$5,000', notes: 'Once per 12 months' },
+  { name: 'US Bank', allows: 'Yes', fee: '$250', minLump: '$5,000', notes: 'Conventional + jumbo' },
+  { name: 'PNC', allows: 'Yes', fee: '$200–$300', minLump: '$5,000', notes: 'Held in portfolio' },
+  { name: 'Citizens Bank', allows: 'Yes', fee: '$250', minLump: '$5,000', notes: '—' },
+  { name: 'Truist', allows: 'Yes', fee: '$150', minLump: '$5,000', notes: '—' },
+  { name: 'Rocket Mortgage', allows: 'No', fee: '—', minLump: '—', notes: 'Refinance only' },
+  { name: 'Better.com', allows: 'No', fee: '—', minLump: '—', notes: 'Refinance only' },
+  { name: 'Quicken Loans', allows: 'No', fee: '—', minLump: '—', notes: '—' },
+  { name: 'LoanDepot', allows: 'Limited', fee: 'Varies', minLump: '$10,000', notes: 'Servicer-dependent' },
+  { name: 'Navy Federal CU', allows: 'Yes', fee: '$250', minLump: '$10,000', notes: 'Conventional only' },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://recastcalc.com/recast/"
+  schema={schema}
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="max-w-content mx-auto px-4 lg:px-6 pt-6 text-sm text-ink-500">
+    <ol class="flex gap-2 flex-wrap">
+      <li><a href="/" class="hover:text-accent">Home</a></li>
+      <li class="text-ink-400">/</li>
+      <li class="text-ink-700">Mortgage Recast Calculator</li>
+    </ol>
+  </nav>
+
+  <!-- Hero + H1 -->
+  <header class="max-w-content mx-auto px-4 lg:px-6 pt-6 pb-10">
+    <h1 class="text-display-1 font-display font-semibold text-ink-900 mb-4">
+      Mortgage Recast Calculator
+    </h1>
+    <p class="text-lg text-ink-700 max-w-narrow leading-relaxed">
+      See your new monthly payment after applying a lump sum to your mortgage. Compare recast,
+      refinance, and extra-payment strategies side-by-side. No signup. No email wall.
+    </p>
+  </header>
+
+  <!-- CALCULATOR -->
+  <section class="max-w-content mx-auto px-4 lg:px-6 mb-12">
+    <RecastCalculator />
+  </section>
+
+  <!-- First ad slot — only after user has seen the result -->
+  <div class="max-w-content mx-auto px-4 lg:px-6">
+    <AdSlot variant="inline" />
+  </div>
+
+  <!-- First affiliate CTA -->
+  <div class="max-w-prose mx-auto px-4 lg:px-6">
+    <AffiliateCTA
+      title="Considering a refinance instead?"
+      description="If today's rates are below your current rate by 0.75% or more, refinancing usually beats a recast. Compare offers from multiple lenders without affecting your credit."
+      ctaText="Compare refi rates at LendingTree"
+      href="https://lendingtree.com/?ref=recastcalc"
+      partner="LendingTree"
+    />
+  </div>
+
+  <!-- Body content -->
+  <article class="max-w-prose mx-auto px-4 lg:px-6 prose-recast">
+    <h2 id="how-recast-works">How a mortgage recast works</h2>
+    <p>
+      A mortgage recast is a re-amortization. You hand your lender a lump sum — most often from an
+      inheritance, bonus, business sale, or proceeds from selling another property — and pay a
+      processing fee, usually $150 to $500. The lender applies the lump sum to your outstanding
+      principal, then recalculates what your monthly payment needs to be to pay off the (now smaller)
+      balance over your remaining loan term, using your existing interest rate.
+    </p>
+    <p>
+      Three things stay the same: your interest rate, your loan term, and your loan documents.
+      One thing changes: your monthly payment goes down. There is no credit check, no appraisal,
+      no closing costs, no new title insurance, and no new loan.
+    </p>
+
+    <h2 id="recast-vs-refinance">Recast vs. refinance vs. extra payment</h2>
+    <p>
+      These three strategies all involve reducing the cost of your mortgage, but they work
+      differently and produce very different outcomes:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Strategy</th>
+          <th>What changes</th>
+          <th>Cost</th>
+          <th>Best when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Recast</strong></td>
+          <td>Monthly payment ↓; rate, term, balance (after lump) unchanged</td>
+          <td>$150–$500</td>
+          <td>You have a lump sum and want lower monthly cash flow</td>
+        </tr>
+        <tr>
+          <td><strong>Refinance</strong></td>
+          <td>New rate, new term, new loan</td>
+          <td>2–6% of loan balance</td>
+          <td>Current rates are 0.75%+ below your existing rate</td>
+        </tr>
+        <tr>
+          <td><strong>Extra payment</strong></td>
+          <td>Loan pays off early; payment unchanged</td>
+          <td>$0</td>
+          <td>You want to minimize total interest paid</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      The honest answer most calculators avoid: <strong>if your only goal is minimizing total
+      interest, applying the lump sum without recasting and continuing to pay your old payment
+      almost always wins.</strong> Recasting gives you cash flow relief — the monthly payment drops —
+      but you give back some of the interest savings because you're stretching the smaller balance
+      back over the full remaining term. Use the calculator above to see the exact difference for
+      your numbers.
+    </p>
+
+    <h2 id="when-recast-makes-sense">When a recast is the right move</h2>
+    <p>
+      Recasting is the right strategy when at least one of the following is true:
+    </p>
+    <ul>
+      <li>Your current rate is <em>lower</em> than today's market rate (refinancing would mean a higher rate)</li>
+      <li>You have a lump sum and want monthly cash flow relief, not faster payoff</li>
+      <li>You sold another property and now have two mortgages, and want to lower the payment on the one you're keeping</li>
+      <li>You inherited money and want to reduce your monthly obligations without locking up the full inheritance</li>
+      <li>You don't qualify for a refinance (income change, credit drop, equity issues)</li>
+    </ul>
+    <p>
+      Recasting is the wrong strategy when current rates are well below your rate (refinance saves
+      more), when you have no need for lower monthly payments (extra payment saves more), or when
+      your lender won't allow it (most government-backed loans).
+    </p>
+
+    <h2 id="lenders">Which lenders allow mortgage recasting</h2>
+    <p>
+      Recasting is offered at the discretion of your loan servicer, not guaranteed by any law or
+      regulation. Most large banks and credit unions allow recasting on conventional loans they
+      service themselves; most online-only lenders do not. Always verify the current policy with
+      your specific servicer before assuming you can recast.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Lender</th>
+          <th>Allows recast?</th>
+          <th>Typical fee</th>
+          <th>Min. lump sum</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {lenders.map((lender) => (
+          <tr>
+            <td><strong>{lender.name}</strong></td>
+            <td>{lender.allows}</td>
+            <td>{lender.fee}</td>
+            <td>{lender.minLump}</td>
+            <td>{lender.notes}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <p class="text-sm text-ink-500 italic">
+      Last verified: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}.
+      Lender policies change; this table is updated quarterly.
+    </p>
+  </article>
+
+  <!-- Mid-content ad -->
+  <div class="max-w-content mx-auto px-4 lg:px-6">
+    <AdSlot variant="inline" />
+  </div>
+
+  <article class="max-w-prose mx-auto px-4 lg:px-6 prose-recast">
+    <h2 id="step-by-step">How to request a mortgage recast</h2>
+    <ol class="list-decimal pl-6 mb-4 space-y-2 text-ink-800">
+      <li><strong>Confirm eligibility.</strong> Call your loan servicer (the entity you make payments to, not necessarily the original lender) and ask: "Do you offer mortgage recasting on this loan?"</li>
+      <li><strong>Get the specifics.</strong> Confirm the recast fee, minimum lump sum, processing time (typically 30–60 days), and whether there's a frequency limit (most lenders cap at once per 12 months).</li>
+      <li><strong>Use the calculator above</strong> to confirm the recast actually delivers what you want before you commit the lump sum.</li>
+      <li><strong>Submit the lump sum.</strong> Most lenders require the lump sum to be applied to principal first, then a separate recast request. Do not just send extra money and assume it will recast — it won't.</li>
+      <li><strong>Sign the recast agreement.</strong> The lender sends a one-page document confirming the new payment amount and effective date.</li>
+      <li><strong>Verify the first new payment.</strong> Check the next statement for the lower payment and that all auto-pays are updated.</li>
+    </ol>
+
+    <h2 id="faq">Frequently asked questions</h2>
+
+    <h3>What is a mortgage recast?</h3>
+    <p>A mortgage recast (also called re-amortization) is when you apply a lump sum to your principal and your lender recalculates your monthly payment over the remaining loan term at the same interest rate. The term length stays the same; only the monthly payment goes down.</p>
+
+    <h3>How much does a mortgage recast cost?</h3>
+    <p>Most lenders charge a recast fee between $150 and $500. There are no closing costs, no appraisal, no credit check, and no new loan documents — unlike a refinance, which typically costs 2–6% of the loan balance.</p>
+
+    <h3>What is the minimum lump sum?</h3>
+    <p>Most lenders require a minimum lump sum of $5,000 to $10,000, with some requiring 10% of the original loan balance. The minimum varies by lender — check your servicer's recast policy before applying.</p>
+
+    <h3>Is a recast better than a refinance?</h3>
+    <p>It depends. Recast is better when your current rate is lower than today's rates, you want to avoid closing costs, and you have a lump sum. Refinance is better when current rates are meaningfully (typically 0.75%+) lower than your existing rate.</p>
+
+    <h3>Can I recast an FHA, VA, or USDA loan?</h3>
+    <p>No. Government-backed loans generally cannot be recast. Recasting is typically available only for conventional conforming loans, jumbo loans, and some portfolio loans held by the original lender.</p>
+
+    <h3>Does recasting affect my credit score?</h3>
+    <p>No. A recast does not require a credit check or hard inquiry. Your loan, term, and rate all remain the same, so it has no direct effect on your credit score.</p>
+
+    <h3>How long does a recast take?</h3>
+    <p>30 to 60 days typically. The lump sum is applied first, then the lender processes the re-amortization, sends paperwork, and the new payment takes effect on the following monthly cycle.</p>
+  </article>
+
+  <!-- Footer ad -->
+  <div class="max-w-content mx-auto px-4 lg:px-6">
+    <AdSlot variant="inline" />
+  </div>
+
+  <!-- Related calculators -->
+  <section class="max-w-content mx-auto px-4 lg:px-6 mb-16">
+    <h2 class="font-display text-h2 font-semibold text-ink-900 mb-6">
+      Related mortgage calculators
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <a href="/pmi-removal/" class="block p-5 bg-cream-50 border border-ink-200 hover:border-accent rounded-lg transition-colors">
+        <h3 class="font-display font-semibold text-ink-900 mb-1">PMI Removal Calculator</h3>
+        <p class="text-sm text-ink-600">When you can drop private mortgage insurance and how much to pay down to remove it now.</p>
+      </a>
+      <a href="/biweekly-payoff/" class="block p-5 bg-cream-50 border border-ink-200 hover:border-accent rounded-lg transition-colors">
+        <h3 class="font-display font-semibold text-ink-900 mb-1">Biweekly Payoff Calculator</h3>
+        <p class="text-sm text-ink-600">How much you save in interest and time by switching to biweekly payments.</p>
+      </a>
+      <a href="/arm-reset/" class="block p-5 bg-cream-50 border border-ink-200 hover:border-accent rounded-lg transition-colors">
+        <h3 class="font-display font-semibold text-ink-900 mb-1">ARM Reset Calculator</h3>
+        <p class="text-sm text-ink-600">Project your new payment when your adjustable-rate mortgage adjusts under multiple rate scenarios.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author / E-E-A-T footer -->
+  <section class="max-w-prose mx-auto px-4 lg:px-6 mb-16 pt-8 border-t border-ink-200">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-full bg-ink-200 flex items-center justify-center flex-shrink-0">
+        <span class="font-display font-semibold text-ink-700">IM</span>
+      </div>
+      <div>
+        <p class="text-sm">
+          <strong class="text-ink-900">By Ivan Manov</strong>
+          <span class="text-ink-500"> · 25+ years in marketing, finance, and PE-backed services</span>
+        </p>
+        <p class="text-xs text-ink-500 mt-1">
+          Last updated {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.
+          Methodology: <a href="/methodology/" class="text-accent underline underline-offset-2">how we calculate</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

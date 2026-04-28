@@ -1,0 +1,41 @@
+---
+export interface Props {
+  slot?: string;
+  format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
+  variant?: 'inline' | 'sidebar' | 'mobile-anchor';
+  label?: boolean;
+}
+
+const {
+  slot = 'XXXXXXXXXX', // Replace with real slot IDs after AdSense approval
+  format = 'auto',
+  variant = 'inline',
+  label = true,
+} = Astro.props;
+
+const variantClass = {
+  'inline': 'ad-slot ad-slot--inline',
+  'sidebar': 'ad-slot',
+  'mobile-anchor': 'ad-slot ad-slot--mobile-anchor',
+}[variant];
+---
+
+<div class={variantClass} aria-label="Advertisement">
+  {label && (
+    <p class="text-[10px] uppercase tracking-widest text-ink-400 mb-2">Advertisement</p>
+  )}
+  <!--
+  Uncomment after AdSense approval and replace ca-pub-XXX with publisher ID:
+
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot={slot}
+       data-ad-format={format}
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  -->
+  <div class="border border-dashed border-ink-200 rounded p-8 text-xs text-ink-400 italic">
+    AdSense slot — activates after approval
+  </div>
+</div>
