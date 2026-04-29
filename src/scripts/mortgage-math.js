@@ -242,10 +242,19 @@ export function calculatePMIRemoval({
 
   const currentLTV = (currentBalance / homeValue) * 100;
 
-  // If already below 78%, PMI should already be terminated
-  if (currentLTV <= 78) {
+  /* If already at or below 80%, PMI is no longer required (or shouldn't be).
+   * Below 78%, lender must auto-terminate. Between 78 and 80%, borrower can request removal. */
+  if (currentLTV <= 80) {
+    let message;
+    if (currentLTV <= 78) {
+      message = `Your loan-to-value ratio is ${currentLTV.toFixed(1)}%, already below the 78% auto-termination threshold. PMI should already be removed; if you are still being charged, contact your servicer in writing immediately to request retroactive refund of premiums paid below 78%.`;
+    } else {
+      message = `Your loan-to-value ratio is ${currentLTV.toFixed(1)}%, already at or below 80%. You have the legal right to request PMI removal in writing today under the Homeowners Protection Act. Send your servicer a written request; they must honor it if you are current on payments.`;
+    }
     return {
-      error: 'Your loan-to-value ratio is already at or below 78%. PMI should already be removed automatically. Contact your servicer if you are still being charged.',
+      error: message,
+      currentLTV,
+      monthlyPMI,
     };
   }
 

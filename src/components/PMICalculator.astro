@@ -211,6 +211,18 @@
     }
 
     if (result.error) {
+      /* Clear any stale data from previous successful computations */
+      setResult('currentLTV', `${result.currentLTV.toFixed(1)}%`);
+      setResult('monthlyPMI', formatCurrency(params.monthlyPMI));
+      setResult('monthsToAuto', '—');
+      setResult('totalPMIWaiting', '—');
+      setResult('waitingMonths', '—');
+      setResult('waitingPMI', '—');
+      setResult('requestingMonths', '—');
+      setResult('requestingPMI', '—');
+      setResult('acceleratedMonths', '—');
+      setResult('acceleratedPMI', '—');
+
       const calloutEl = document.querySelector('[data-result="strategyCallout"]');
       if (calloutEl) calloutEl.innerHTML = `<strong class="text-ink-900">${result.error}</strong>`;
       return;
