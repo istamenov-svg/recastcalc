@@ -13,6 +13,7 @@ const pillarLabels: Record<string, string> = {
   "/biweekly-payoff/": "Biweekly Payments",
   "/arm-reset/": "ARM Reset",
   "/heloc-vs-refi/": "HELOC vs Refinance",
+  "/escrow/": "Escrow Accounts",
 };
 
 const pillarOrder = [
@@ -21,6 +22,7 @@ const pillarOrder = [
   "/biweekly-payoff/",
   "/arm-reset/",
   "/heloc-vs-refi/",
+  "/escrow/",
 ];
 
 const guidesByPillar: Record<string, typeof sortedGuides> = {};
@@ -31,7 +33,10 @@ for (const guide of sortedGuides) {
 }
 
 const orderedPillars = pillarOrder.filter((p) => guidesByPillar[p]);
-if (guidesByPillar["Other"]) orderedPillars.push("Other");
+// Append any unknown pillars (so new pillars don't silently disappear from the index)
+for (const pillar of Object.keys(guidesByPillar)) {
+  if (!orderedPillars.includes(pillar)) orderedPillars.push(pillar);
+}
 
 const formatDate = (date: Date) =>
   date.toLocaleDateString("en-US", {
