@@ -5,7 +5,7 @@ import GuideLayout from "../../layouts/GuideLayout.astro";
 export async function getStaticPaths() {
   const guides = await getCollection("guides", ({ data }) => !data.draft);
   return guides.map((guide) => ({
-    params: { slug: guide.data.slug },
+    params: { slug: guide.data.urlSlug },
     props: { guide },
   }));
 }
@@ -22,7 +22,7 @@ const { data } = guide;
 <GuideLayout
   title={data.title}
   description={data.description}
-  slug={data.slug}
+  slug={data.urlSlug}
   pubDate={data.pubDate}
   updatedDate={data.updatedDate}
   author={data.author}

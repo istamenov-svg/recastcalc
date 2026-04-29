@@ -1,7 +1,7 @@
 ---
 title: "Recasting a Chase Mortgage: Complete Walkthrough"
 description: "Step-by-step Chase recast process: forms, fees, timeline, contact numbers. Plus the math: will it actually save you money?"
-slug: chase-mortgage-recast
+urlSlug: chase-mortgage-recast
 pubDate: 2026-05-15
 updatedDate: 2026-05-15
 author: Ivan Stamenov

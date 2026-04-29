@@ -1,7 +1,7 @@
 ---
 title: "Should I Recast My Mortgage After a Bonus or Inheritance?"
 description: "Decision flowchart with worked examples. When recasting beats refinancing, extra payments, or doing nothing."
-slug: should-i-recast-my-mortgage
+urlSlug: should-i-recast-my-mortgage
 pubDate: 2026-05-11
 updatedDate: 2026-05-11
 author: Ivan Stamenov

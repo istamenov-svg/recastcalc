@@ -1,7 +1,7 @@
 ---
 title: "How a Mortgage Recast Works (and What Most People Get Wrong)"
 description: "Plain-English explanation of mortgage recasting: what it is, how lenders calculate the new payment, and what most articles get wrong."
-slug: how-mortgage-recast-works
+urlSlug: how-mortgage-recast-works
 pubDate: 2026-04-29
 updatedDate: 2026-04-29
 author: Ivan Stamenov
