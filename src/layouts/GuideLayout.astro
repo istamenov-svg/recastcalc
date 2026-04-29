@@ -1,0 +1,241 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+export interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author?: string;
+  reviewer?: string;
+}
+
+const {
+  title,
+  description,
+  slug,
+  pubDate,
+  updatedDate,
+  author = "Ivan Stamenov",
+  reviewer,
+} = Astro.props;
+
+const canonical = `https://recastcalc.com/guides/${slug}/`;
+const isoPubDate = pubDate.toISOString();
+const isoUpdatedDate = (updatedDate ?? pubDate).toISOString();
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description: description,
+  author: {
+    "@type": "Person",
+    name: author,
+  },
+  datePublished: isoPubDate,
+  dateModified: isoUpdatedDate,
+  publisher: {
+    "@type": "Organization",
+    name: "RecastCalc",
+    url: "https://recastcalc.com",
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonical,
+  },
+};
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+const showReviewer = reviewer && reviewer !== "TBD";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  schema={articleSchema}
+  publishDate={isoPubDate}
+  modifiedDate={isoUpdatedDate}
+>
+  <article class="max-w-narrow mx-auto px-4 lg:px-6 py-12">
+    <nav aria-label="breadcrumb" class="mb-6 text-sm text-ink-500">
+      <a href="/" class="hover:text-accent">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/guides/" class="hover:text-accent">Guides</a>
+      <span class="mx-2">/</span>
+      <span class="text-ink-700">{title}</span>
+    </nav>
+
+    <header class="mb-10 border-b border-ink-200 pb-8">
+      <h1 class="font-display text-display-2 font-semibold text-ink-900">
+        {title}
+      </h1>
+      <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-600">
+        <span>By <strong class="text-ink-900">{author}</strong></span>
+        {showReviewer && (
+          <span>
+            Reviewed by <strong class="text-ink-900">{reviewer}</strong>
+          </span>
+        )}
+        <span>Updated {formatDate(updatedDate ?? pubDate)}</span>
+      </div>
+    </header>
+
+    <div class="guide-prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* Editorial typography for guide content. Matches the cream/ink/accent palette. */
+  .guide-prose {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #2A2A2A;
+  }
+
+  .guide-prose > * + * {
+    margin-top: 1.25em;
+  }
+
+  .guide-prose h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+  }
+
+  .guide-prose h3 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.375rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+  }
+
+  .guide-prose strong {
+    color: #0A0A0A;
+    font-weight: 600;
+  }
+
+  .guide-prose a {
+    color: #B45309;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  .guide-prose a:hover {
+    color: #92400E;
+  }
+
+  .guide-prose blockquote {
+    border-left: 3px solid #B45309;
+    background: #FEF3C7;
+    padding: 1em 1.25em;
+    margin: 1.5em 0;
+    font-size: 1rem;
+    color: #1A1A1A;
+  }
+
+  .guide-prose blockquote > * + * {
+    margin-top: 0.75em;
+  }
+
+  .guide-prose ul,
+  .guide-prose ol {
+    padding-left: 1.5em;
+  }
+
+  .guide-prose ul > li,
+  .guide-prose ol > li {
+    margin-top: 0.5em;
+  }
+
+  .guide-prose ul > li {
+    list-style-type: disc;
+  }
+
+  .guide-prose ol > li {
+    list-style-type: decimal;
+  }
+
+  .guide-prose hr {
+    border: none;
+    border-top: 1px solid #D4D4D4;
+    margin: 2.5em 0;
+  }
+
+  .guide-prose code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.9em;
+    background: #F2EDE3;
+    padding: 0.125em 0.375em;
+    border-radius: 3px;
+  }
+
+  .guide-prose pre {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    background: #1A1A1A;
+    color: #FAF7F2;
+    padding: 1em 1.25em;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .guide-prose pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+  }
+
+  .guide-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: 0.9375rem;
+  }
+
+  .guide-prose table th,
+  .guide-prose table td {
+    padding: 0.625em 0.875em;
+    text-align: left;
+    border-bottom: 1px solid #D4D4D4;
+  }
+
+  .guide-prose table th {
+    background: #F2EDE3;
+    font-weight: 600;
+    color: #0A0A0A;
+  }
+
+  .guide-prose em {
+    font-style: italic;
+  }
+
+  /* Footer disclaimer block */
+  .guide-prose > em {
+    display: block;
+    font-size: 0.875rem;
+    color: #6B6B6B;
+    margin-top: 1.5em;
+  }
+</style>

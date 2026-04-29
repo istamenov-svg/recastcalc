@@ -1,17 +1,94 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const guides = await getCollection("guides", ({ data }) => !data.draft);
+const sortedGuides = guides.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const pillarLabels: Record<string, string> = {
+  "/recast/": "Mortgage Recast",
+  "/pmi-removal/": "PMI Removal",
+  "/biweekly-payoff/": "Biweekly Payments",
+  "/arm-reset/": "ARM Reset",
+  "/heloc-vs-refi/": "HELOC vs Refinance",
+};
+
+const pillarOrder = [
+  "/recast/",
+  "/pmi-removal/",
+  "/biweekly-payoff/",
+  "/arm-reset/",
+  "/heloc-vs-refi/",
+];
+
+const guidesByPillar: Record<string, typeof sortedGuides> = {};
+for (const guide of sortedGuides) {
+  const pillar = guide.data.pillar ?? "Other";
+  if (!guidesByPillar[pillar]) guidesByPillar[pillar] = [];
+  guidesByPillar[pillar].push(guide);
+}
+
+const orderedPillars = pillarOrder.filter((p) => guidesByPillar[p]);
+if (guidesByPillar["Other"]) orderedPillars.push("Other");
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 ---
 
 <BaseLayout
-  title="Mortgage Guides — RecastCalc"
-  description="In-depth guides on mortgage recasting, PMI removal, refinancing, biweekly payments, ARMs, and more. No fluff, no email walls."
+  title="Mortgage Guides"
+  description="Honest, plain-English guides on mortgage recasting, PMI removal, biweekly payments, ARM resets, and HELOCs. No upsells, no email gates."
+  canonical="https://recastcalc.com/guides/"
 >
-  <section class="max-w-content mx-auto px-4 lg:px-6 py-16">
-    <h1 class="font-display text-display-1 font-semibold mb-4">Guides</h1>
-    <p class="text-lg text-ink-700 max-w-narrow mb-12">
-      Plain-English explanations of mortgage strategies most lenders won't volunteer. New guides
-      published weekly.
-    </p>
-    <p class="text-sm text-ink-500 italic">First guides launching shortly.</p>
-  </section>
+  <div class="max-w-content mx-auto px-4 lg:px-6 py-12">
+    <header class="mb-12 border-b border-ink-200 pb-8">
+      <h1 class="font-display text-display-1 font-semibold text-ink-900">
+        Mortgage Guides
+      </h1>
+      <p class="mt-4 max-w-narrow text-lg text-ink-600">
+        Honest, plain-English guides on the mortgage decisions that actually
+        matter. Written for homeowners, not for SEO.
+      </p>
+    </header>
+
+    {
+      orderedPillars.map((pillar) => (
+        <section class="mb-12">
+          <h2 class="font-display text-h2 font-semibold tracking-tight text-ink-900">
+            {pillarLabels[pillar] ?? pillar}
+          </h2>
+          <ul class="mt-4 divide-y divide-ink-200 border-y border-ink-200">
+            {guidesByPillar[pillar].map((guide) => (
+              <li class="py-5">
+                <a
+                  href={`/guides/${guide.data.slug}/`}
+                  class="group flex flex-col gap-1"
+                >
+                  <h3 class="font-display text-xl font-semibold tracking-tight text-ink-900 group-hover:text-accent">
+                    {guide.data.title}
+                  </h3>
+                  <p class="text-ink-600">{guide.data.description}</p>
+                  <p class="mt-1 text-xs text-ink-500">
+                    {formatDate(guide.data.pubDate)}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+
+    {
+      sortedGuides.length === 0 && (
+        <p class="text-ink-500">No guides published yet.</p>
+      )
+    }
+  </div>
 </BaseLayout>
