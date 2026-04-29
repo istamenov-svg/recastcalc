@@ -14,8 +14,14 @@ const currentPath = Astro.url.pathname;
 <header class="border-b border-ink-200 bg-cream sticky top-0 z-40 backdrop-blur-sm bg-cream/95">
   <div class="max-w-content mx-auto px-4 lg:px-6">
     <div class="flex items-center justify-between h-16">
-      <a href="/" class="font-display text-xl font-semibold text-ink-900 tracking-tight hover:text-accent transition-colors">
-        Recast<span class="text-accent">Calc</span>
+      <a href="/" class="flex items-center hover:opacity-80 transition-opacity" aria-label="RecastCalc home">
+        <img
+          src="/logo.svg"
+          alt="RecastCalc"
+          width="180"
+          height="34"
+          class="h-8 w-auto"
+        />
       </a>
 
       <nav aria-label="Primary" class="hidden lg:flex items-center gap-1">
