@@ -1,0 +1,303 @@
+---
+/* ARM Reset Calculator
+ * Vanilla JS island, mirrors RecastCalculator.astro structure */
+---
+
+<section
+  id="arm-calculator"
+  class="bg-cream-50 border border-ink-200 rounded-lg p-6 md:p-8 shadow-sm"
+  aria-labelledby="calculator-heading"
+>
+  <h2 id="calculator-heading" class="font-display text-2xl font-semibold text-ink-900 mb-2">
+    Calculate your ARM reset (and whether refinancing is actually worth it)
+  </h2>
+  <p class="text-sm text-ink-600 mb-6">
+    Enter your loan details and the rate you expect when your adjustable-rate mortgage resets. See if holding the ARM beats refinancing to a fixed rate, accounting for closing costs and your expected hold period.
+  </p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- INPUTS -->
+    <form id="arm-form" novalidate>
+      <div class="space-y-5">
+        <div>
+          <label for="balance" class="calc-label">Current loan balance</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="balance" name="balance" class="calc-input pl-7"
+              placeholder="400,000" min="1000" max="10000000" step="1000" value="400000" required inputmode="numeric" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="originalRate" class="calc-label">
+              Original rate
+              <span class="text-ink-400 font-normal">(when you got the loan)</span>
+            </label>
+            <div class="relative">
+              <input type="number" id="originalRate" name="originalRate" class="calc-input pr-8"
+                placeholder="4.5" min="0" max="25" step="0.001" value="4.5" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+          </div>
+          <div>
+            <label for="expectedNewRate" class="calc-label">
+              Expected new rate
+              <span class="text-ink-400 font-normal">(after reset)</span>
+            </label>
+            <div class="relative">
+              <input type="number" id="expectedNewRate" name="expectedNewRate" class="calc-input pr-8"
+                placeholder="7.5" min="0" max="25" step="0.001" value="7.5" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label for="lifetimeCap" class="calc-label">
+            Lifetime cap
+            <span class="text-ink-400 font-normal">(usually 5 percentage points)</span>
+          </label>
+          <div class="relative">
+            <input type="number" id="lifetimeCap" name="lifetimeCap" class="calc-input pr-8"
+              placeholder="5" min="0" max="20" step="0.5" value="5" required inputmode="decimal" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">pp</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="termYears" class="calc-label">Years remaining</label>
+            <input type="number" id="termYears" name="termYears" class="calc-input"
+              placeholder="25" min="1" max="50" step="1" value="25" required inputmode="numeric" />
+          </div>
+          <div>
+            <label for="termMonths" class="calc-label">Plus months</label>
+            <input type="number" id="termMonths" name="termMonths" class="calc-input"
+              placeholder="0" min="0" max="11" step="1" value="0" inputmode="numeric" />
+          </div>
+        </div>
+
+        <div>
+          <label for="refiRate" class="calc-label">Available refinance rate</label>
+          <div class="relative">
+            <input type="number" id="refiRate" name="refiRate" class="calc-input pr-8"
+              placeholder="6.5" min="0" max="25" step="0.001" value="6.5" required inputmode="decimal" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="closingCosts" class="calc-label">Refi closing costs</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+              <input type="number" id="closingCosts" name="closingCosts" class="calc-input pl-7"
+                placeholder="5,000" min="0" max="50000" step="500" value="5000" inputmode="numeric" />
+            </div>
+          </div>
+          <div>
+            <label for="holdYears" class="calc-label">
+              Years you'll hold
+              <span class="text-ink-400 font-normal">(time horizon)</span>
+            </label>
+            <input type="number" id="holdYears" name="holdYears" class="calc-input"
+              placeholder="5" min="1" max="50" step="1" value="5" required inputmode="numeric" />
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- RESULTS -->
+    <div id="arm-results" aria-live="polite" aria-atomic="true">
+      <div class="bg-cream-200 rounded-lg p-5 mb-4">
+        <p class="text-xs uppercase tracking-widest text-ink-500 mb-1">Your reset reality check</p>
+        <div class="grid grid-cols-2 gap-4 mt-3">
+          <div>
+            <p class="text-xs text-ink-500 mb-1">New ARM payment</p>
+            <p class="calc-result text-2xl" data-result="armPayment">$2,956</p>
+          </div>
+          <div>
+            <p class="text-xs text-ink-500 mb-1">Refinance payment</p>
+            <p class="calc-result text-2xl text-ink-500" data-result="refiPayment">$2,701</p>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-ink-300/50">
+          <p class="text-xs text-ink-500 mb-1">Worst case if rates max out (lifetime cap)</p>
+          <p class="calc-result text-3xl text-negative" data-result="armWorstCase">$3,495</p>
+          <p class="text-xs text-ink-500 mt-1">
+            Bounded by your contract; the cap structure caps your downside at <span data-result="lifetimeMaxRate">9.5%</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Comparison: 2 strategies -->
+      <div class="border border-ink-200 rounded-lg overflow-hidden text-sm">
+        <div class="bg-cream-200 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-ink-700 border-b border-ink-200">
+          Two strategies, side-by-side
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="text-left text-xs text-ink-500 border-b border-ink-200">
+              <th class="px-4 py-2 font-medium">Strategy</th>
+              <th class="px-4 py-2 font-medium text-right">Monthly</th>
+              <th class="px-4 py-2 font-medium text-right">Cost over hold</th>
+            </tr>
+          </thead>
+          <tbody class="font-mono tabular text-ink-800">
+            <tr class="border-b border-ink-100" data-row="holdArm">
+              <td class="px-4 py-3 font-sans text-ink-700">
+                <span class="block font-medium">Hold the ARM</span>
+                <span class="text-xs text-ink-400">Accept new rate</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="armMonthly">$2,956</td>
+              <td class="px-4 py-3 text-right" data-result="armNetCost">$144,288</td>
+            </tr>
+            <tr data-row="refinance">
+              <td class="px-4 py-3 font-sans text-ink-700">
+                <span class="block font-medium">Refinance to fixed</span>
+                <span class="text-xs text-ink-400">Lock current refi rate; pay closing</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="refiMonthly">$2,701</td>
+              <td class="px-4 py-3 text-right" data-result="refiNetCost">$129,298</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p
+        id="best-strategy-callout"
+        class="mt-4 text-sm text-ink-700 leading-relaxed"
+        data-result="strategyCallout"
+      >
+        Loading...
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3">
+        <button type="button" id="copy-link-btn"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent">
+          Copy link to these results
+        </button>
+        <button type="button" id="print-btn" onclick="window.print()"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent">
+          Print / save as PDF
+        </button>
+      </div>
+
+      <p class="text-xs text-ink-400 mt-4 leading-relaxed">
+        Estimates only. Cost-over-hold is interest paid only and does not include principal reduction (which is identical across strategies for the same payment schedule). Real ARM resets depend on the index plus margin in your specific contract; verify expected new rate with your servicer.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { calculateARMReset, formatCurrency } from '../scripts/mortgage-math.js';
+
+  const form = document.getElementById('arm-form');
+  const inputs = form.querySelectorAll('input');
+
+  function getInputs() {
+    return {
+      currentBalance: parseFloat(document.getElementById('balance').value) || 0,
+      originalRate: parseFloat(document.getElementById('originalRate').value) || 0,
+      expectedNewRate: parseFloat(document.getElementById('expectedNewRate').value) || 0,
+      lifetimeCap: parseFloat(document.getElementById('lifetimeCap').value) || 0,
+      remainingTermMonths:
+        (parseInt(document.getElementById('termYears').value) || 0) * 12 +
+        (parseInt(document.getElementById('termMonths').value) || 0),
+      refiRate: parseFloat(document.getElementById('refiRate').value) || 0,
+      refiClosingCosts: parseFloat(document.getElementById('closingCosts').value) || 0,
+      holdYears: parseInt(document.getElementById('holdYears').value) || 0,
+    };
+  }
+
+  function setResult(key, value) {
+    const el = document.querySelector(`[data-result="${key}"]`);
+    if (el) el.textContent = value;
+  }
+
+  function highlightWinner(winner) {
+    document.querySelectorAll('[data-row]').forEach((row) => {
+      row.classList.remove('bg-accent-50/30');
+    });
+    const winningRow = document.querySelector(`[data-row="${winner}"]`);
+    if (winningRow) winningRow.classList.add('bg-accent-50/30');
+  }
+
+  function update() {
+    const params = getInputs();
+    const result = calculateARMReset(params);
+
+    if (!result) {
+      setResult('strategyCallout', 'Enter valid loan details to see your reset analysis.');
+      return;
+    }
+
+    setResult('armPayment', formatCurrency(result.holdArm.monthlyPayment));
+    setResult('refiPayment', formatCurrency(result.refinance.monthlyPayment));
+    setResult('armWorstCase', formatCurrency(result.holdArm.worstCaseMonthlyPayment));
+    setResult('lifetimeMaxRate', `${result.lifetimeMaxRate.toFixed(2)}%`);
+
+    setResult('armMonthly', formatCurrency(result.holdArm.monthlyPayment));
+    setResult('armNetCost', formatCurrency(result.holdArm.netCostOverHold));
+    setResult('refiMonthly', formatCurrency(result.refinance.monthlyPayment));
+    setResult('refiNetCost', formatCurrency(result.refinance.netCostOverHold));
+
+    highlightWinner(result.bestStrategy);
+
+    /* Honest callout */
+    let callout = '';
+    if (result.bestStrategy === 'holdArm') {
+      callout = `<strong class="text-ink-900">Hold the ARM.</strong> Refinancing would cost you ${formatCurrency(result.differenceOverHold)} more over your ${params.holdYears}-year hold (interest plus the ${formatCurrency(params.refiClosingCosts)} closing costs). Your worst case is bounded: even if rates hit your lifetime cap (${result.lifetimeMaxRate.toFixed(2)}%), your payment cannot exceed ${formatCurrency(result.holdArm.worstCaseMonthlyPayment)}/month. Most homeowners panic-refinance at reset; the math often says don't.`;
+    } else {
+      callout = `<strong class="text-ink-900">Refinancing wins by ${formatCurrency(result.differenceOverHold)} over your ${params.holdYears}-year hold</strong>, even after paying ${formatCurrency(params.refiClosingCosts)} in closing costs. The bigger the gap between your expected new ARM rate (${params.expectedNewRate}%) and the available refi rate (${params.refiRate}%), the more refinancing is worth. If you'll hold even longer than ${params.holdYears} years, the refi advantage grows.`;
+    }
+
+    const calloutEl = document.querySelector('[data-result="strategyCallout"]');
+    if (calloutEl) calloutEl.innerHTML = callout;
+  }
+
+  inputs.forEach((input) => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  update();
+
+  document.getElementById('copy-link-btn')?.addEventListener('click', () => {
+    const params = getInputs();
+    const url = new URL(window.location.href);
+    url.search = new URLSearchParams({
+      b: params.currentBalance,
+      o: params.originalRate,
+      n: params.expectedNewRate,
+      c: params.lifetimeCap,
+      t: params.remainingTermMonths,
+      r: params.refiRate,
+      cc: params.refiClosingCosts,
+      h: params.holdYears,
+    }).toString();
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      const btn = document.getElementById('copy-link-btn');
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => (btn.textContent = original), 2000);
+    });
+  });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('b')) {
+    document.getElementById('balance').value = urlParams.get('b') || '';
+    document.getElementById('originalRate').value = urlParams.get('o') || '';
+    document.getElementById('expectedNewRate').value = urlParams.get('n') || '';
+    document.getElementById('lifetimeCap').value = urlParams.get('c') || '5';
+    const t = parseInt(urlParams.get('t') || '0');
+    document.getElementById('termYears').value = Math.floor(t / 12);
+    document.getElementById('termMonths').value = t % 12;
+    document.getElementById('refiRate').value = urlParams.get('r') || '';
+    document.getElementById('closingCosts').value = urlParams.get('cc') || '5000';
+    document.getElementById('holdYears').value = urlParams.get('h') || '5';
+    update();
+  }
+</script>

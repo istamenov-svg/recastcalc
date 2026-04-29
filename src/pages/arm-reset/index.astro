@@ -1,15 +1,258 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ARMResetCalculator from '../../components/ARMResetCalculator.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+
+const title = 'ARM Reset Calculator: New Payment + Refinance Math (2026)';
+const description =
+  'Calculate your new payment when your adjustable-rate mortgage resets, see your worst-case payment under your contract caps, and compare holding the ARM vs. refinancing to a fixed rate. Free, no signup.';
+
+const publishDate = '2026-04-29T00:00:00Z';
+const modifiedDate = new Date().toISOString();
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'ARM Reset Calculator',
+    description: 'Calculate the new payment on an adjustable-rate mortgage at reset, the worst-case payment under contract caps, and the break-even comparison vs. refinancing to a fixed rate.',
+    url: 'https://recastcalc.com/arm-reset/',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Ivan Stamenov', url: 'https://recastcalc.com/about/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://recastcalc.com/' },
+      { '@type': 'ListItem', position: 2, name: 'ARM Reset Calculator', item: 'https://recastcalc.com/arm-reset/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'When does an ARM reset?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A 5/1 ARM resets after 5 years and then annually; a 7/1 ARM resets after 7 years and then annually; a 10/1 ARM resets after 10 years. The first reset replaces your fixed introductory rate with a variable rate based on an index plus margin defined in your loan documents.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the cap structure on an ARM?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Most ARMs use a 2/2/5 cap structure. The first 2 is the initial cap, limiting how much the rate can change at the first reset (typically 2 percentage points). The second 2 is the periodic cap, limiting subsequent annual changes (typically 2 percentage points each). The 5 is the lifetime cap, the maximum increase ever from the original rate (typically 5 percentage points).',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Should I refinance my ARM before it resets?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Depends on the gap between your expected new ARM rate and available refinance rates, plus how long you plan to stay in the home. The calculator above shows the math. As a general rule, refinancing only makes sense if your expected new ARM rate is at least 1 percentage point above the available fixed refi rate, and you will hold the home long enough to recoup closing costs.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I know what my new ARM rate will be?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Your new rate equals the index value plus the margin specified in your loan documents, subject to the cap structure. Common indexes include SOFR (Secured Overnight Financing Rate) and Treasury yields. Your servicer is required to send you a notice 60 to 120 days before reset stating your new rate. You can also calculate it yourself by checking the current index value and adding your margin.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What if I cannot afford the new ARM payment?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Options include: refinancing to a fixed rate (if rates make this favorable), recasting with a lump sum to reduce the balance and lower the payment, requesting a loan modification from your servicer, or selling the home. Forbearance is generally not appropriate for rate-reset situations because it does not solve the underlying payment problem.',
+        },
+      },
+    ],
+  },
+];
 ---
 
 <BaseLayout
-  title="ARM Reset Calculator (Coming Soon)"
-  description="Project your adjustable-rate mortgage payment at reset under multiple rate scenarios. Coming soon."
-  noindex={true}
+  title={title}
+  description={description}
+  canonical="https://recastcalc.com/arm-reset/"
+  schema={schema}
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
 >
-  <section class="max-w-content mx-auto px-4 lg:px-6 py-20 text-center">
-    <h1 class="font-display text-display-1 font-semibold mb-6">ARM Reset Calculator</h1>
-    <p class="text-lg text-ink-700 mb-8">Coming soon — launching within 2 weeks.</p>
-    <a href="/recast/" class="btn-primary">Try the Recast Calculator instead</a>
+  <nav aria-label="Breadcrumb" class="max-w-content mx-auto px-4 lg:px-6 pt-6 text-sm text-ink-500">
+    <ol class="flex gap-2 flex-wrap">
+      <li><a href="/" class="hover:text-accent">Home</a></li>
+      <li class="text-ink-400">/</li>
+      <li class="text-ink-700">ARM Reset Calculator</li>
+    </ol>
+  </nav>
+
+  <header class="max-w-content mx-auto px-4 lg:px-6 pt-6 pb-10">
+    <h1 class="text-display-1 font-display font-semibold text-ink-900 mb-4">
+      ARM Reset Calculator
+    </h1>
+    <p class="text-lg text-ink-700 max-w-narrow leading-relaxed">
+      Your adjustable-rate mortgage is about to reset. See your new payment at the expected rate, your worst-case payment under your contract caps, and whether refinancing to a fixed rate actually saves money over your time horizon.
+    </p>
+  </header>
+
+  <section class="max-w-content mx-auto px-4 lg:px-6 mb-12">
+    <ARMResetCalculator />
   </section>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6">
+    <AdSlot variant="inline" />
+  </div>
+
+  <div class="max-w-prose mx-auto px-4 lg:px-6">
+    <AffiliateCTA
+      title="Comparing fixed-rate refinance options?"
+      description="If the math says refinance, get quotes from multiple lenders without affecting your credit. Rates change daily; locking the right one matters."
+      ctaText="Compare refi rates at LendingTree"
+      href="https://lendingtree.com/?ref=recastcalc"
+      partner="LendingTree"
+    />
+  </div>
+
+  <article class="max-w-prose mx-auto px-4 lg:px-6 prose-recast">
+    <h2 id="how-arm-reset-works">How an ARM reset actually works</h2>
+    <p>
+      A 5/1, 7/1, or 10/1 adjustable-rate mortgage gives you a fixed introductory rate for the first 5, 7, or 10 years. At the end of that period, the rate resets based on an index (commonly SOFR or Treasury yields) plus a fixed margin defined in your loan documents.
+    </p>
+    <p>
+      After the first reset, the rate adjusts annually for the remainder of the loan. Each adjustment is bounded by your cap structure. Most ARMs use a 2/2/5 structure: maximum 2 percentage points at the first reset, 2 percentage points each year after, and 5 percentage points lifetime over your original rate.
+    </p>
+    <p>
+      The key practical insight: even in a worst-case scenario, your payment cannot exceed what 5 percentage points above your original rate would generate. The cap structure caps your downside.
+    </p>
+
+    <h2 id="why-the-cap-matters">Why the lifetime cap matters more than people think</h2>
+    <p>
+      Many homeowners panic at reset and rush to refinance into a fixed rate. The math often says don't.
+    </p>
+    <p>
+      Consider a homeowner who locked a 4.5% ARM in 2021. At reset, the expected new rate might be 7.5%. Available refinance rates might be 6.5%. The natural reaction is to refinance to lock in the lower fixed rate.
+    </p>
+    <p>
+      But the worst-case ARM rate under a 5-percentage-point lifetime cap is 9.5%. The expected new rate is 7.5%. Refinancing locks in 6.5% but costs $5,000 to $10,000 in closing costs, and gives up the option that the index drops in future years.
+    </p>
+    <p>
+      Run the numbers and the answer often becomes: hold the ARM if you'll be in the home less than 5 to 7 more years. The closing costs of refinancing exceed the interest savings over a short hold period.
+    </p>
+
+    <h2 id="when-refinancing-actually-wins">When refinancing actually wins</h2>
+    <p>
+      Refinancing wins when three things are all true: the gap between expected new ARM rate and available refi rate is at least 1 percentage point; you'll hold the home long enough for the lower rate to recoup closing costs (typically 18 to 30 months minimum); and rate forecasts suggest the index will stay elevated rather than fall.
+    </p>
+    <p>
+      Recasting is a third option worth considering. If you have a meaningful lump sum (inheritance, sale proceeds, bonus), applying it to the ARM principal reduces the balance, which reduces the payment at the new higher rate. You keep the option value of the ARM while cutting the dollar impact. See our <a href="/recast/">recast calculator</a> for that math.
+    </p>
+
+    <h2 id="how-to-find-your-expected-new-rate">How to find your expected new rate</h2>
+    <p>
+      Your loan documents specify the index and margin. The new rate is index value plus margin, subject to caps.
+    </p>
+    <p>
+      Common indexes: 30-day Average SOFR (Secured Overnight Financing Rate), 1-year Constant Maturity Treasury, 11th District Cost of Funds. Each one has different rate behavior; check yours.
+    </p>
+    <p>
+      Common margins: 2.25% to 2.75%, depending on credit profile and lender.
+    </p>
+    <p>
+      Your servicer is required by federal regulation to send you a written rate-change notice 60 to 120 days before the reset takes effect. The notice will state the new rate and new payment. If you have not received a notice and your reset is within 60 days, contact your servicer immediately.
+    </p>
+
+    <h2 id="what-to-do-now">What to do now</h2>
+    <p>
+      First, calculate the new payment using your specific numbers. The calculator above lets you input your expected new rate and lifetime cap to see both the typical and worst-case payment scenarios.
+    </p>
+    <p>
+      Second, compare against the cost of refinancing to a fixed rate, accounting for closing costs and your expected time horizon. If you'll hold more than 5 to 7 years and the rate gap is meaningful, refinancing usually wins. If less, holding the ARM usually wins.
+    </p>
+    <p>
+      Third, if neither hold-the-ARM nor refinance is appealing, consider whether a lump-sum recast (or partial principal pay-down) would close the affordability gap. Reducing the balance reduces the dollar impact of the higher rate.
+    </p>
+
+    <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+    <h3>When does my ARM reset?</h3>
+    <p>
+      A 5/1 ARM resets after 5 years and then annually. 7/1 resets after 7 years and then annually. 10/1 resets after 10 years. Check your loan documents for your specific reset date.
+    </p>
+
+    <h3>What is the 2/2/5 cap structure?</h3>
+    <p>
+      Maximum 2 percentage points at the first reset, 2 percentage points each subsequent year, and 5 percentage points lifetime above your original rate.
+    </p>
+
+    <h3>Should I refinance my ARM before it resets?</h3>
+    <p>
+      Depends on the rate gap, closing costs, and how long you'll keep the home. The calculator runs the math. As a rule, refinancing makes sense when expected new ARM rate is at least 1 percentage point above the available fixed rate AND you'll hold the home at least 24 months.
+    </p>
+
+    <h3>What if I cannot afford the new payment?</h3>
+    <p>
+      Options: refinance to a lower fixed rate, recast with a lump sum to reduce the balance, request a loan modification from your servicer, or sell the home. Forbearance is generally not the right tool for rate-reset payment shock.
+    </p>
+
+    <h2 id="related-guides">Related guides</h2>
+    <ul>
+      <li><a href="/guides/arm-rate-reset/">ARM Reset 2026: What to Do Before Your Rate Adjusts</a></li>
+      <li><a href="/guides/5-1-arm-vs-7-1-arm/">5/1 ARM vs. 7/1 ARM vs. 10/1 ARM: When Each Wins</a></li>
+      <li><a href="/guides/arm-cap-rules/">ARM Reset Cap Rules Explained (1/2/5 Cap Structure)</a></li>
+    </ul>
+  </article>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6 mt-12">
+    <AdSlot variant="inline" />
+  </div>
 </BaseLayout>
+
+<style>
+  .prose-recast h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+  }
+  .prose-recast h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+  }
+  .prose-recast p {
+    color: #2A2A2A;
+    line-height: 1.7;
+    margin-bottom: 1.25em;
+  }
+  .prose-recast a {
+    color: #B45309;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-recast ul {
+    padding-left: 1.5em;
+    margin-bottom: 1.25em;
+  }
+  .prose-recast li {
+    margin-bottom: 0.5em;
+    list-style-type: disc;
+  }
+</style>

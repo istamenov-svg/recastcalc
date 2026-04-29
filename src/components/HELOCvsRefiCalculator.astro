@@ -1,0 +1,291 @@
+---
+/* HELOC vs Refinance Calculator
+ * Vanilla JS island, mirrors RecastCalculator.astro structure */
+---
+
+<section
+  id="heloc-calculator"
+  class="bg-cream-50 border border-ink-200 rounded-lg p-6 md:p-8 shadow-sm"
+  aria-labelledby="calculator-heading"
+>
+  <h2 id="calculator-heading" class="font-display text-2xl font-semibold text-ink-900 mb-2">
+    HELOC vs. cash-out refinance: which costs you less?
+  </h2>
+  <p class="text-sm text-ink-600 mb-6">
+    Enter your existing mortgage details and how much cash you need. See exactly which option costs less over your expected hold period, accounting for closing costs and interest.
+  </p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- INPUTS -->
+    <form id="heloc-form" novalidate>
+      <div class="space-y-5">
+        <div>
+          <label for="balance" class="calc-label">Current loan balance</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="balance" name="balance" class="calc-input pl-7"
+              placeholder="300,000" min="1000" max="10000000" step="1000" value="300000" required inputmode="numeric" />
+          </div>
+        </div>
+
+        <div>
+          <label for="currentRate" class="calc-label">
+            Current mortgage rate
+            <span class="text-ink-400 font-normal">(your existing rate)</span>
+          </label>
+          <div class="relative">
+            <input type="number" id="currentRate" name="currentRate" class="calc-input pr-8"
+              placeholder="4.0" min="0" max="25" step="0.001" value="4.0" required inputmode="decimal" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="termYears" class="calc-label">Years remaining</label>
+            <input type="number" id="termYears" name="termYears" class="calc-input"
+              placeholder="25" min="1" max="50" step="1" value="25" required inputmode="numeric" />
+          </div>
+          <div>
+            <label for="termMonths" class="calc-label">Plus months</label>
+            <input type="number" id="termMonths" name="termMonths" class="calc-input"
+              placeholder="0" min="0" max="11" step="1" value="0" inputmode="numeric" />
+          </div>
+        </div>
+
+        <div>
+          <label for="cashNeeded" class="calc-label">Cash you need</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="cashNeeded" name="cashNeeded" class="calc-input pl-7"
+              placeholder="50,000" min="1000" max="2000000" step="1000" value="50000" required inputmode="numeric" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="helocRate" class="calc-label">HELOC rate (today)</label>
+            <div class="relative">
+              <input type="number" id="helocRate" name="helocRate" class="calc-input pr-8"
+                placeholder="8.5" min="0" max="25" step="0.001" value="8.5" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+          </div>
+          <div>
+            <label for="refiRate" class="calc-label">Cash-out refi rate</label>
+            <div class="relative">
+              <input type="number" id="refiRate" name="refiRate" class="calc-input pr-8"
+                placeholder="6.5" min="0" max="25" step="0.001" value="6.5" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="closingCosts" class="calc-label">Refi closing costs</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+              <input type="number" id="closingCosts" name="closingCosts" class="calc-input pl-7"
+                placeholder="5,000" min="0" max="50000" step="500" value="5000" inputmode="numeric" />
+            </div>
+          </div>
+          <div>
+            <label for="holdYears" class="calc-label">Years until you'll pay off</label>
+            <input type="number" id="holdYears" name="holdYears" class="calc-input"
+              placeholder="7" min="1" max="50" step="1" value="7" required inputmode="numeric" />
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- RESULTS -->
+    <div id="heloc-results" aria-live="polite" aria-atomic="true">
+      <div class="bg-cream-200 rounded-lg p-5 mb-4">
+        <p class="text-xs uppercase tracking-widest text-ink-500 mb-1">Your better option</p>
+        <p class="calc-result text-2xl mt-3" data-result="winnerName">HELOC + keep mortgage</p>
+        <div class="mt-4 pt-4 border-t border-ink-300/50">
+          <p class="text-xs text-ink-500 mb-1">Saves over <span data-result="holdYearsLabel">7</span> years</p>
+          <p class="calc-result text-3xl text-positive" data-result="totalSavings">$47,653</p>
+          <p class="text-xs text-ink-500 mt-1">
+            vs. the alternative option (interest plus closing costs)
+          </p>
+        </div>
+      </div>
+
+      <!-- Comparison: 2 strategies -->
+      <div class="border border-ink-200 rounded-lg overflow-hidden text-sm">
+        <div class="bg-cream-200 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-ink-700 border-b border-ink-200">
+          Two strategies, side-by-side
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="text-left text-xs text-ink-500 border-b border-ink-200">
+              <th class="px-4 py-2 font-medium">Strategy</th>
+              <th class="px-4 py-2 font-medium text-right">Monthly</th>
+              <th class="px-4 py-2 font-medium text-right">Total cost over hold</th>
+            </tr>
+          </thead>
+          <tbody class="font-mono tabular text-ink-800">
+            <tr class="border-b border-ink-100" data-row="heloc">
+              <td class="px-4 py-3 font-sans text-ink-700">
+                <span class="block font-medium">HELOC + keep mortgage</span>
+                <span class="text-xs text-ink-400">Mortgage stays at current rate</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="helocMonthly">$1,938</td>
+              <td class="px-4 py-3 text-right" data-result="helocCost">$106,308</td>
+            </tr>
+            <tr data-row="refinance">
+              <td class="px-4 py-3 font-sans text-ink-700">
+                <span class="block font-medium">Cash-out refinance</span>
+                <span class="text-xs text-ink-400">New loan at refi rate; pay closing</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="refiMonthly">$2,363</td>
+              <td class="px-4 py-3 text-right" data-result="refiCost">$153,961</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p
+        id="best-strategy-callout"
+        class="mt-4 text-sm text-ink-700 leading-relaxed"
+        data-result="strategyCallout"
+      >
+        Loading...
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3">
+        <button type="button" id="copy-link-btn"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent">
+          Copy link to these results
+        </button>
+        <button type="button" id="print-btn" onclick="window.print()"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent">
+          Print / save as PDF
+        </button>
+      </div>
+
+      <p class="text-xs text-ink-400 mt-4 leading-relaxed">
+        Estimates only. HELOC cost assumes interest-only payment on the full balance for the hold period (a simplification; real HELOCs have a draw period and then amortize). Refinance cost assumes you pay closing costs out of pocket. Tax deductibility (mortgage interest, HELOC interest used for home improvement) is not modeled and may affect the comparison.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { calculateHelocVsRefi, formatCurrency } from '../scripts/mortgage-math.js';
+
+  const form = document.getElementById('heloc-form');
+  const inputs = form.querySelectorAll('input');
+
+  function getInputs() {
+    return {
+      currentBalance: parseFloat(document.getElementById('balance').value) || 0,
+      currentRate: parseFloat(document.getElementById('currentRate').value) || 0,
+      remainingTermMonths:
+        (parseInt(document.getElementById('termYears').value) || 0) * 12 +
+        (parseInt(document.getElementById('termMonths').value) || 0),
+      cashNeeded: parseFloat(document.getElementById('cashNeeded').value) || 0,
+      helocRate: parseFloat(document.getElementById('helocRate').value) || 0,
+      refiRate: parseFloat(document.getElementById('refiRate').value) || 0,
+      refiClosingCosts: parseFloat(document.getElementById('closingCosts').value) || 0,
+      holdYears: parseInt(document.getElementById('holdYears').value) || 0,
+    };
+  }
+
+  function setResult(key, value) {
+    const el = document.querySelector(`[data-result="${key}"]`);
+    if (el) el.textContent = value;
+  }
+
+  function highlightWinner(winner) {
+    document.querySelectorAll('[data-row]').forEach((row) => {
+      row.classList.remove('bg-accent-50/30');
+    });
+    const winningRow = document.querySelector(`[data-row="${winner}"]`);
+    if (winningRow) winningRow.classList.add('bg-accent-50/30');
+  }
+
+  function update() {
+    const params = getInputs();
+    const result = calculateHelocVsRefi(params);
+
+    if (!result) {
+      setResult('strategyCallout', 'Enter valid loan details to see the comparison.');
+      return;
+    }
+
+    /* Top summary */
+    const winnerName = result.bestStrategy === 'heloc'
+      ? 'HELOC + keep mortgage'
+      : 'Cash-out refinance';
+    setResult('winnerName', winnerName);
+    setResult('totalSavings', formatCurrency(result.difference));
+    setResult('holdYearsLabel', params.holdYears);
+
+    /* Comparison */
+    setResult('helocMonthly', formatCurrency(result.heloc.totalMonthlyPayment));
+    setResult('helocCost', formatCurrency(result.heloc.totalCost));
+    setResult('refiMonthly', formatCurrency(result.refinance.monthlyPayment));
+    setResult('refiCost', formatCurrency(result.refinance.totalCost));
+
+    highlightWinner(result.bestStrategy);
+
+    /* Honest callout (no forced contrarian — show the real driver) */
+    let callout = '';
+    const rateGap = (params.currentRate - params.refiRate).toFixed(2);
+
+    if (result.bestStrategy === 'heloc') {
+      callout = `<strong class="text-ink-900">A HELOC keeps your existing ${params.currentRate}% mortgage in place</strong>, and you only pay the higher HELOC rate on the ${formatCurrency(params.cashNeeded)} you actually borrow. Cash-out refinancing would force the entire ${formatCurrency(params.currentBalance + params.cashNeeded)} balance up to ${params.refiRate}%; over ${params.holdYears} years, that costs ${formatCurrency(result.difference)} more. The longer you'll hold the existing mortgage, the more this gap widens.`;
+    } else {
+      callout = `<strong class="text-ink-900">Cash-out refinancing wins by ${formatCurrency(result.difference)} over ${params.holdYears} years</strong>, even after closing costs. This happens when the refinance rate (${params.refiRate}%) is close to or below your current rate (${params.currentRate}%) — at that point, refinancing the whole balance is cheaper than carrying a higher-rate HELOC. If your existing rate is below market, this answer flips toward HELOC.`;
+    }
+
+    const calloutEl = document.querySelector('[data-result="strategyCallout"]');
+    if (calloutEl) calloutEl.innerHTML = callout;
+  }
+
+  inputs.forEach((input) => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  update();
+
+  document.getElementById('copy-link-btn')?.addEventListener('click', () => {
+    const params = getInputs();
+    const url = new URL(window.location.href);
+    url.search = new URLSearchParams({
+      b: params.currentBalance,
+      cr: params.currentRate,
+      t: params.remainingTermMonths,
+      cn: params.cashNeeded,
+      hr: params.helocRate,
+      rr: params.refiRate,
+      cc: params.refiClosingCosts,
+      h: params.holdYears,
+    }).toString();
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      const btn = document.getElementById('copy-link-btn');
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => (btn.textContent = original), 2000);
+    });
+  });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('b')) {
+    document.getElementById('balance').value = urlParams.get('b') || '';
+    document.getElementById('currentRate').value = urlParams.get('cr') || '';
+    const t = parseInt(urlParams.get('t') || '0');
+    document.getElementById('termYears').value = Math.floor(t / 12);
+    document.getElementById('termMonths').value = t % 12;
+    document.getElementById('cashNeeded').value = urlParams.get('cn') || '';
+    document.getElementById('helocRate').value = urlParams.get('hr') || '';
+    document.getElementById('refiRate').value = urlParams.get('rr') || '';
+    document.getElementById('closingCosts').value = urlParams.get('cc') || '5000';
+    document.getElementById('holdYears').value = urlParams.get('h') || '7';
+    update();
+  }
+</script>

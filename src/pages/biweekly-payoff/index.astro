@@ -1,15 +1,261 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BiweeklyCalculator from '../../components/BiweeklyCalculator.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+
+const title = 'Biweekly Mortgage Calculator: Real Savings + Free DIY Method (2026)';
+const description =
+  'Calculate exactly how much a biweekly mortgage program saves, and how to replicate the same savings free by adding 1/12th of your monthly payment to each payment. No signup.';
+
+const publishDate = '2026-04-29T00:00:00Z';
+const modifiedDate = new Date().toISOString();
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Biweekly Mortgage Calculator',
+    description: 'Compare biweekly mortgage payment programs against the free DIY equivalent of adding 1/12th of monthly payment to each payment.',
+    url: 'https://recastcalc.com/biweekly-payoff/',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Ivan Stamenov', url: 'https://recastcalc.com/about/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://recastcalc.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Biweekly Mortgage Calculator', item: 'https://recastcalc.com/biweekly-payoff/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'How do biweekly mortgage payments save money?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Biweekly payments split your monthly payment in half and pay every two weeks. Since there are 26 biweekly periods in a year (52 weeks divided by 2), you make the equivalent of 13 monthly payments per year instead of 12. The extra payment each year goes to principal, shortening your loan and reducing total interest.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are biweekly mortgage programs worth the fee?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Generally no. Biweekly programs charge setup fees ($200 to $400) plus per-payment fees ($2 to $10) that can add up to thousands of dollars over the life of the loan. You can replicate the entire interest-savings benefit free by adding 1/12 of your monthly payment to each monthly payment yourself.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I do biweekly payments without a program?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Take your monthly payment, divide by 12, and add that amount to each monthly payment as extra principal. Designate the extra clearly as principal-only payment. Most online banking systems let you split a monthly payment so the principal portion is added directly. Same interest savings, no fee.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Will biweekly payments hurt my credit?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. Whether you pay biweekly through a program or monthly with extra principal, your credit report shows on-time monthly payments. Lenders report monthly status, not payment frequency.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I pay biweekly directly to my lender?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Most lenders do not accept partial biweekly payments directly; they require at minimum the full monthly amount before the due date. The way "biweekly" programs technically work is they hold your half-payment in an account until they have the full monthly amount, then forward it to your lender. This is the service you are paying for, and it is not necessary to capture the interest savings.',
+        },
+      },
+    ],
+  },
+];
 ---
 
 <BaseLayout
-  title="Biweekly Mortgage Payoff Calculator (Coming Soon)"
-  description="Calculate interest savings and payoff acceleration from biweekly mortgage payments. Coming soon."
-  noindex={true}
+  title={title}
+  description={description}
+  canonical="https://recastcalc.com/biweekly-payoff/"
+  schema={schema}
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
 >
-  <section class="max-w-content mx-auto px-4 lg:px-6 py-20 text-center">
-    <h1 class="font-display text-display-1 font-semibold mb-6">Biweekly Payoff Calculator</h1>
-    <p class="text-lg text-ink-700 mb-8">Coming soon — launching within 2 weeks.</p>
-    <a href="/recast/" class="btn-primary">Try the Recast Calculator instead</a>
+  <nav aria-label="Breadcrumb" class="max-w-content mx-auto px-4 lg:px-6 pt-6 text-sm text-ink-500">
+    <ol class="flex gap-2 flex-wrap">
+      <li><a href="/" class="hover:text-accent">Home</a></li>
+      <li class="text-ink-400">/</li>
+      <li class="text-ink-700">Biweekly Mortgage Calculator</li>
+    </ol>
+  </nav>
+
+  <header class="max-w-content mx-auto px-4 lg:px-6 pt-6 pb-10">
+    <h1 class="text-display-1 font-display font-semibold text-ink-900 mb-4">
+      Biweekly Mortgage Calculator
+    </h1>
+    <p class="text-lg text-ink-700 max-w-narrow leading-relaxed">
+      Biweekly payment programs save you tens of thousands in interest. So does the free version anyone can do without enrolling. See exactly how much each saves, what the program fee actually costs you, and how to capture the full benefit yourself.
+    </p>
+  </header>
+
+  <section class="max-w-content mx-auto px-4 lg:px-6 mb-12">
+    <BiweeklyCalculator />
   </section>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6">
+    <AdSlot variant="inline" />
+  </div>
+
+  <div class="max-w-prose mx-auto px-4 lg:px-6">
+    <AffiliateCTA
+      title="Refinancing might save more than biweekly"
+      description="If today's rates are below your current rate by 0.75% or more, refinancing usually saves more than biweekly payments and frees up monthly cash flow."
+      ctaText="Compare refi rates at LendingTree"
+      href="https://lendingtree.com/?ref=recastcalc"
+      partner="LendingTree"
+    />
+  </div>
+
+  <article class="max-w-prose mx-auto px-4 lg:px-6 prose-recast">
+    <h2 id="how-biweekly-works">How biweekly payments actually work</h2>
+    <p>
+      The biweekly idea is straightforward: instead of one monthly mortgage payment, you make a half-payment every two weeks. There are 52 weeks in a year, which means 26 biweekly periods, which equals 13 full monthly payments per year (because 26 halves equals 13 wholes).
+    </p>
+    <p>
+      That extra payment each year goes entirely to principal, since your scheduled monthly amount has already been collected. Over a 30-year loan, the extra principal compounds: less interest accrues, more principal reduction stacks on top, and the loan pays off years early.
+    </p>
+    <p>
+      For a $400,000 loan at 6.5% over 30 years, biweekly payments save roughly $116,000 in interest and shorten the loan by about 6 years. Real, meaningful money.
+    </p>
+
+    <h2 id="why-pay-a-program">Why programs charge for this</h2>
+    <p>
+      Most lenders do not accept partial monthly payments directly. They require the full monthly amount on or before the due date. So third-party "biweekly" companies sit between you and your lender. They take your half-payment every two weeks, hold it in escrow, and forward the full monthly amount to the lender when the second half arrives.
+    </p>
+    <p>
+      For this service they charge a setup fee (typically $200 to $400) and often per-payment fees (typically $2 to $10 per biweekly transaction). Over 30 years that adds up to $1,500 to $3,000 in fees. The fees are entirely for the service of holding your money for two weeks at a time.
+    </p>
+    <p>
+      None of those fees buy you any interest savings beyond what you'd get yourself.
+    </p>
+
+    <h2 id="the-free-equivalent">The free equivalent</h2>
+    <p>
+      Here is the trick: take your monthly payment, divide by 12, and add that amount to each monthly payment as extra principal. Over the year, you've paid 13 full payments instead of 12. Same as biweekly. Identical interest savings.
+    </p>
+    <p>
+      Example: $400,000 loan at 6.5%, monthly payment $2,528. Divide by 12: $211. Pay $2,528 + $211 = $2,739 each month. The $211 goes directly to principal because the lender already received the full scheduled payment. Same payoff acceleration as biweekly. No setup fee, no per-payment charge, no third party holding your money.
+    </p>
+    <p>
+      The calculator above shows the exact dollar amount to add to your specific monthly payment.
+    </p>
+
+    <h2 id="how-to-do-it">How to actually set this up</h2>
+    <p>
+      Most online banking systems let you split a monthly payment into a regular amount and an extra principal payment. The setup is usually three steps:
+    </p>
+    <p>
+      First, log into your mortgage servicer's online portal. Look for a "make extra payment" or "principal-only payment" option. If you can't find it, call the servicer directly and ask how they prefer extra principal payments to be designated.
+    </p>
+    <p>
+      Second, set up an automatic transfer for the 1/12 amount each month. Some servicers let you bake this into your normal monthly autopay; some require a separate transaction. Either way, it should be a "set and forget" automation.
+    </p>
+    <p>
+      Third, verify after the first month that your statement shows the extra payment applied to principal, not held as a future payment or applied to escrow. If it's misapplied, call immediately to have it reapplied.
+    </p>
+
+    <h2 id="when-biweekly-isnt-the-right-move">When biweekly isn't the right move</h2>
+    <p>
+      Biweekly (or its free equivalent) makes sense when you have stable income, no higher-interest debt elsewhere, and an emergency fund. If any of those is missing, the math changes.
+    </p>
+    <p>
+      Higher-interest debt first. If you're carrying credit card debt at 22% or auto loans at 9%, paying those down beats the 6.5% return from accelerating your mortgage.
+    </p>
+    <p>
+      Emergency fund first. Locking extra money into your house equity reduces your liquidity. If a car breaks down or a medical bill arrives, you can't easily get money out of your home equity quickly. Three to six months of expenses in liquid savings before accelerating the mortgage.
+    </p>
+    <p>
+      Consider investing instead. If you have a sub-4% mortgage rate, putting the extra $211/month into a brokerage account at safe yields above 4% generates more wealth than accelerating the mortgage.
+    </p>
+
+    <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+    <h3>How much do biweekly mortgage programs save?</h3>
+    <p>
+      Roughly $116,000 in interest and 6 years off a typical $400,000 loan at 6.5%. The exact number depends on your balance, rate, and remaining term. The calculator shows your specific number.
+    </p>
+
+    <h3>Are biweekly programs worth the fee?</h3>
+    <p>
+      Generally no. The fee buys you a service (holding your half-payment for two weeks) that doesn't deliver any savings beyond what the free DIY equivalent provides.
+    </p>
+
+    <h3>How do I do biweekly without a program?</h3>
+    <p>
+      Add 1/12 of your monthly payment to each payment as extra principal. Same math, no fee.
+    </p>
+
+    <h3>Can I just pay extra principal sporadically?</h3>
+    <p>
+      Yes. There's no requirement that the extra payments happen every month. Lump sums (tax refunds, bonuses) work the same as monthly extras. The benefit is the same: every dollar of extra principal reduces interest accrual immediately.
+    </p>
+
+    <h2 id="related-guides">Related guides</h2>
+    <ul>
+      <li><a href="/guides/biweekly-mortgage-payments/">Biweekly Mortgage Payments: Do They Actually Work?</a></li>
+      <li><a href="/guides/biweekly-calculator-comparison/">Biweekly Mortgage Calculator: Calculate Your Real Savings</a></li>
+      <li><a href="/guides/recast-vs-extra-payment/">Recast vs. Extra Payment: The Math No One Shows You</a></li>
+    </ul>
+  </article>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6 mt-12">
+    <AdSlot variant="inline" />
+  </div>
 </BaseLayout>
+
+<style>
+  .prose-recast h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+  }
+  .prose-recast h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+  }
+  .prose-recast p {
+    color: #2A2A2A;
+    line-height: 1.7;
+    margin-bottom: 1.25em;
+  }
+  .prose-recast a {
+    color: #B45309;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-recast ul {
+    padding-left: 1.5em;
+    margin-bottom: 1.25em;
+  }
+  .prose-recast li {
+    margin-bottom: 0.5em;
+    list-style-type: disc;
+  }
+</style>

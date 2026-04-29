@@ -1,15 +1,244 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PMICalculator from '../../components/PMICalculator.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+
+const title = 'PMI Removal Calculator: When Your Private Mortgage Insurance Ends (2026)';
+const description =
+  'Calculate exactly when your PMI auto-terminates, when you can request removal at 80% loan-to-value, and how much you save by acting at the earlier date. Free, no signup.';
+
+const publishDate = '2026-04-29T00:00:00Z';
+const modifiedDate = new Date().toISOString();
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'PMI Removal Calculator',
+    description: 'Calculate when private mortgage insurance can be removed from your loan, including auto-termination at 78% loan-to-value and borrower-requested removal at 80%.',
+    url: 'https://recastcalc.com/pmi-removal/',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Ivan Stamenov', url: 'https://recastcalc.com/about/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://recastcalc.com/' },
+      { '@type': 'ListItem', position: 2, name: 'PMI Removal Calculator', item: 'https://recastcalc.com/pmi-removal/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'When does PMI automatically end?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Under the Homeowners Protection Act, your lender must automatically terminate PMI when your loan-to-value ratio reaches 78%, based on the original property value and the original amortization schedule. This happens whether you request it or not, but you have to be current on payments.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I request PMI removal before 78%?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. The Homeowners Protection Act gives you the right to request PMI cancellation when your loan-to-value reaches 80%. You must submit the request in writing, be current on payments, and have a satisfactory payment history. Some lenders require an appraisal at your cost.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How much does PMI cost on average?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'PMI typically costs 0.46% to 1.5% of the loan amount per year, paid monthly. On a $400,000 loan that is $150 to $500 per month. Your exact rate depends on credit score, down payment, and loan-to-value. Check your monthly mortgage statement for your current premium.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does FHA mortgage insurance work the same way?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. FHA loans carry mortgage insurance premium (MIP), not PMI. For most FHA loans originated after June 2013, MIP cannot be removed by reaching 80% loan-to-value; it lasts the life of the loan unless you refinance into a conventional loan. This calculator is for conventional loan PMI only.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Will an appraisal help me drop PMI faster?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Sometimes. If your home value has appreciated meaningfully and you are between 78% and 80% loan-to-value at the original purchase price, paying for a new appraisal (typically $300 to $600) and using the new value can let you request PMI removal earlier. Confirm your servicer accepts third-party appraisals before paying.',
+        },
+      },
+    ],
+  },
+];
 ---
 
 <BaseLayout
-  title="PMI Removal Calculator (Coming Soon)"
-  description="Calculate when private mortgage insurance auto-cancels and how much to pay down to remove it now. Coming soon."
-  noindex={true}
+  title={title}
+  description={description}
+  canonical="https://recastcalc.com/pmi-removal/"
+  schema={schema}
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
 >
-  <section class="max-w-content mx-auto px-4 lg:px-6 py-20 text-center">
-    <h1 class="font-display text-display-1 font-semibold mb-6">PMI Removal Calculator</h1>
-    <p class="text-lg text-ink-700 mb-8">Coming soon — launching within 2 weeks.</p>
-    <a href="/recast/" class="btn-primary">Try the Recast Calculator instead</a>
+  <nav aria-label="Breadcrumb" class="max-w-content mx-auto px-4 lg:px-6 pt-6 text-sm text-ink-500">
+    <ol class="flex gap-2 flex-wrap">
+      <li><a href="/" class="hover:text-accent">Home</a></li>
+      <li class="text-ink-400">/</li>
+      <li class="text-ink-700">PMI Removal Calculator</li>
+    </ol>
+  </nav>
+
+  <header class="max-w-content mx-auto px-4 lg:px-6 pt-6 pb-10">
+    <h1 class="text-display-1 font-display font-semibold text-ink-900 mb-4">
+      PMI Removal Calculator
+    </h1>
+    <p class="text-lg text-ink-700 max-w-narrow leading-relaxed">
+      Most homeowners pay private mortgage insurance for months longer than legally required. See exactly when your PMI ends, when you have the legal right to request removal, and how much waiting costs you. No signup, no email wall.
+    </p>
+  </header>
+
+  <section class="max-w-content mx-auto px-4 lg:px-6 mb-12">
+    <PMICalculator />
   </section>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6">
+    <AdSlot variant="inline" />
+  </div>
+
+  <div class="max-w-prose mx-auto px-4 lg:px-6">
+    <AffiliateCTA
+      title="Refinancing might drop PMI faster"
+      description="If your home value has appreciated meaningfully and current rates are below your existing rate, refinancing can eliminate PMI and lower your payment in one move."
+      ctaText="Compare refinance rates at LendingTree"
+      href="https://lendingtree.com/?ref=recastcalc"
+      partner="LendingTree"
+    />
+  </div>
+
+  <article class="max-w-prose mx-auto px-4 lg:px-6 prose-recast">
+    <h2 id="how-pmi-removal-works">How PMI removal actually works</h2>
+    <p>
+      Private mortgage insurance protects your lender, not you, in case you default on a loan with less than 20% down. The Homeowners Protection Act of 1998 gives you two paths to stop paying it.
+    </p>
+    <p>
+      The first is automatic termination. Once your loan balance reaches 78% of the original property value (based on the original amortization schedule), your lender is required by federal law to remove PMI. You don't have to ask.
+    </p>
+    <p>
+      The second is borrower-requested cancellation. When your balance reaches 80% of the original value, you have the legal right to request removal in writing. Your lender must honor the request as long as you're current on payments, have a satisfactory payment history, and the home value has not declined.
+    </p>
+    <p>
+      The gap between 80% and 78% is where most homeowners lose money. The waiting period at 80% can be 12 to 18 months on a typical 30-year loan, and during those months you're paying PMI you don't legally have to pay.
+    </p>
+
+    <h2 id="why-most-homeowners-overpay">Why most homeowners overpay</h2>
+    <p>
+      Servicers don't notify you when you hit 80%. They notify you when you hit 78%, because that's when they're required to terminate PMI on their own. Until then, you're expected to know your loan-to-value ratio and request removal yourself.
+    </p>
+    <p>
+      Most homeowners don't track loan-to-value monthly, so they miss the 80% milestone entirely. The calculator above shows exactly when you'll hit 80% and how much PMI you'll pay between then and the auto-termination date if you don't request removal.
+    </p>
+
+    <h2 id="three-ways-to-speed-it-up">Three ways to speed it up</h2>
+    <p>
+      The 80% milestone moves in based on your scheduled amortization. You can pull it forward in three ways:
+    </p>
+    <p>
+      <strong>Make extra principal payments.</strong> Adding even $200 a month to principal can shave a year or more off the time to 80% loan-to-value. The calculator includes an "extra principal" input so you can see exactly how much PMI you save by accelerating.
+    </p>
+    <p>
+      <strong>Use a lump sum.</strong> Tax refunds, bonuses, inheritances, sale proceeds. Apply directly to principal (not to escrow or future payments) and you can shave months or years off your PMI payment timeline. The math is simple: every dollar that goes to principal early reduces both your loan balance and your loan-to-value ratio.
+    </p>
+    <p>
+      <strong>Get an appraisal.</strong> If your home has appreciated meaningfully since you bought it, a new appraisal showing higher market value can put you over the 80% threshold based on current value rather than original value. Some lenders accept this; some don't. Cost is typically $300 to $600. Confirm your servicer's policy before paying for the appraisal.
+    </p>
+
+    <h2 id="when-to-just-refinance">When refinancing makes more sense</h2>
+    <p>
+      If today's rates are below your current rate, refinancing can eliminate PMI and lower your payment simultaneously. The new loan is typically structured at 80% loan-to-value automatically, so PMI is gone from day one.
+    </p>
+    <p>
+      The math depends on the rate spread, the refinance closing costs, and how long you'll keep the home. Run our <a href="/heloc-vs-refi/">refinance comparison calculator</a> to see when refinancing beats waiting for PMI to drop off naturally.
+    </p>
+
+    <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+    <h3>When does PMI automatically end?</h3>
+    <p>
+      Under the Homeowners Protection Act, your lender must automatically terminate PMI when your loan-to-value reaches 78% of the original property value. This is calculated using the original amortization schedule, not actual payments made.
+    </p>
+
+    <h3>Can I request PMI removal before 78%?</h3>
+    <p>
+      Yes. At 80% loan-to-value, you have the legal right to submit a written request. Your lender must honor it if you're current on payments and have a satisfactory payment history.
+    </p>
+
+    <h3>What does PMI cost on average?</h3>
+    <p>
+      PMI typically costs 0.46% to 1.5% of the loan amount per year. On a $400,000 loan, that's $150 to $500 per month. Your specific premium depends on credit score, down payment, and loan-to-value at origination.
+    </p>
+
+    <h3>Does FHA mortgage insurance work the same way?</h3>
+    <p>
+      No. FHA loans use mortgage insurance premium (MIP), which generally cannot be removed at 80% loan-to-value. For most FHA loans, the only way to drop MIP is to refinance into a conventional loan.
+    </p>
+
+    <h2 id="related-guides">Related guides</h2>
+    <ul>
+      <li><a href="/guides/how-to-remove-pmi/">How to Remove PMI From Your Mortgage (5 Ways That Actually Work)</a></li>
+      <li><a href="/guides/pmi-removal-ltv/">PMI Removal: 80% Loan-to-Value vs. 78% Loan-to-Value Rules Explained</a></li>
+      <li><a href="/guides/drop-pmi-without-refinancing/">How to Drop PMI Without Refinancing</a></li>
+    </ul>
+  </article>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6 mt-12">
+    <AdSlot variant="inline" />
+  </div>
 </BaseLayout>
+
+<style>
+  .prose-recast h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+  }
+  .prose-recast h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+  }
+  .prose-recast p {
+    color: #2A2A2A;
+    line-height: 1.7;
+    margin-bottom: 1.25em;
+  }
+  .prose-recast a {
+    color: #B45309;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-recast ul {
+    padding-left: 1.5em;
+    margin-bottom: 1.25em;
+  }
+  .prose-recast li {
+    margin-bottom: 0.5em;
+    list-style-type: disc;
+  }
+</style>

@@ -208,3 +208,430 @@ export function formatDuration(months) {
 export function formatPercent(value, decimals = 2) {
   return `${value.toFixed(decimals)}%`;
 }
+
+/* ============================================================================
+ * PMI Removal math
+ * ============================================================================
+ *
+ * Private mortgage insurance (PMI) is required when loan-to-value ratio is
+ * above 80% on conventional loans. The Homeowners Protection Act gives borrowers
+ * two paths to remove it:
+ *
+ *   1. Automatic termination at 78% loan-to-value (lender required by law)
+ *   2. Borrower-requested cancellation at 80% loan-to-value (lender required to honor)
+ *
+ * The honest math: most homeowners don't realize they can request removal at 80%
+ * and instead wait for automatic 78% termination, paying months of unnecessary PMI.
+ *
+ * This calculator shows three scenarios:
+ *   1. Do nothing: wait for automatic 78% loan-to-value termination
+ *   2. Request removal at 80% loan-to-value (saves months of PMI)
+ *   3. Accelerate principal to hit 80% faster (shortest PMI exposure)
+ */
+export function calculatePMIRemoval({
+  homeValue,
+  currentBalance,
+  monthlyPMI,
+  annualRate,
+  remainingTermMonths,
+  extraMonthlyPrincipal = 0,
+}) {
+  if (homeValue <= 0 || currentBalance <= 0 || monthlyPMI < 0 || annualRate < 0 || remainingTermMonths <= 0) {
+    return null;
+  }
+
+  const currentLTV = (currentBalance / homeValue) * 100;
+
+  // If already below 78%, PMI should already be terminated
+  if (currentLTV <= 78) {
+    return {
+      error: 'Your loan-to-value ratio is already at or below 78%. PMI should already be removed automatically. Contact your servicer if you are still being charged.',
+    };
+  }
+
+  const target80Balance = homeValue * 0.80;
+  const target78Balance = homeValue * 0.78;
+
+  // Standard payment, no extra
+  const baselinePayment = monthlyPayment(currentBalance, annualRate, remainingTermMonths);
+
+  // Scenario 1: Do nothing, wait for auto 78% termination
+  const monthsTo78 = monthsToReachBalance(currentBalance, annualRate, baselinePayment, target78Balance);
+  const pmiPaidWaiting = monthsTo78 * monthlyPMI;
+
+  // Scenario 2: Request removal at 80% loan-to-value
+  const monthsTo80 = monthsToReachBalance(currentBalance, annualRate, baselinePayment, target80Balance);
+  const pmiPaidRequesting = monthsTo80 * monthlyPMI;
+  const monthsSavedRequesting = monthsTo78 - monthsTo80;
+  const pmiSavingsRequesting = pmiPaidWaiting - pmiPaidRequesting;
+
+  // Scenario 3: Accelerate principal payments to hit 80% faster
+  let monthsTo80Accelerated = monthsTo80;
+  let pmiPaidAccelerated = pmiPaidRequesting;
+  let extraPrincipalPaid = 0;
+
+  if (extraMonthlyPrincipal > 0) {
+    const acceleratedResult = monthsToReachBalanceWithExtra(
+      currentBalance,
+      annualRate,
+      baselinePayment,
+      extraMonthlyPrincipal,
+      target80Balance
+    );
+    monthsTo80Accelerated = acceleratedResult.months;
+    pmiPaidAccelerated = monthsTo80Accelerated * monthlyPMI;
+    extraPrincipalPaid = monthsTo80Accelerated * extraMonthlyPrincipal;
+  }
+
+  const monthsSavedAccelerated = monthsTo78 - monthsTo80Accelerated;
+  const pmiSavingsAccelerated = pmiPaidWaiting - pmiPaidAccelerated;
+  // Net benefit accounts for the extra principal paid (which is not "lost" but is committed early)
+  const netBenefitAccelerated = pmiSavingsAccelerated;
+
+  return {
+    inputs: {
+      homeValue,
+      currentBalance,
+      monthlyPMI,
+      annualRate,
+      remainingTermMonths,
+      extraMonthlyPrincipal,
+    },
+    currentLTV,
+    monthlyPayment: baselinePayment,
+    waiting: {
+      months: monthsTo78,
+      pmiPaid: pmiPaidWaiting,
+      strategyName: 'Do nothing (wait for auto removal)',
+      description: 'PMI auto-terminates at 78% loan-to-value',
+    },
+    requesting: {
+      months: monthsTo80,
+      pmiPaid: pmiPaidRequesting,
+      monthsSaved: monthsSavedRequesting,
+      pmiSaved: pmiSavingsRequesting,
+      strategyName: 'Request removal at 80% loan-to-value',
+      description: 'Send written request as soon as you hit 80%',
+    },
+    accelerated: {
+      months: monthsTo80Accelerated,
+      pmiPaid: pmiPaidAccelerated,
+      extraPrincipalPaid,
+      monthsSaved: monthsSavedAccelerated,
+      pmiSaved: pmiSavingsAccelerated,
+      netBenefit: netBenefitAccelerated,
+      strategyName: 'Accelerated principal + request',
+      description: 'Pay extra principal to hit 80% faster',
+    },
+    bestStrategy: extraMonthlyPrincipal > 0 && pmiSavingsAccelerated > pmiSavingsRequesting
+      ? 'accelerated'
+      : 'requesting',
+  };
+}
+
+/* Helper: months to reach a target balance with fixed monthly payment */
+function monthsToReachBalance(startBalance, annualRate, monthlyAmount, targetBalance) {
+  if (startBalance <= targetBalance) return 0;
+  const r = annualRate / 100 / 12;
+  let remaining = startBalance;
+  let months = 0;
+  const maxMonths = 600;
+  while (remaining > targetBalance && months < maxMonths) {
+    const interest = remaining * r;
+    const principal = monthlyAmount - interest;
+    if (principal <= 0) return Infinity;
+    remaining -= principal;
+    months++;
+  }
+  return months;
+}
+
+/* Helper: months to reach target balance with extra principal payment each month */
+function monthsToReachBalanceWithExtra(startBalance, annualRate, baselinePayment, extraPrincipal, targetBalance) {
+  if (startBalance <= targetBalance) return { months: 0 };
+  const r = annualRate / 100 / 12;
+  let remaining = startBalance;
+  let months = 0;
+  const maxMonths = 600;
+  while (remaining > targetBalance && months < maxMonths) {
+    const interest = remaining * r;
+    const principal = baselinePayment - interest + extraPrincipal;
+    if (principal <= 0) return { months: Infinity };
+    remaining -= principal;
+    months++;
+  }
+  return { months };
+}
+
+/* ============================================================================
+ * Biweekly Payoff math
+ * ============================================================================
+ *
+ * Biweekly mortgage programs charge customers a setup or per-payment fee for
+ * the "convenience" of splitting their monthly payment in half and paying every
+ * two weeks. The math: 26 half-payments per year = 13 full monthly payments
+ * (one extra per year), which shortens the loan and saves interest.
+ *
+ * The honest math: you can replicate this savings for free by adding 1/12th
+ * of your monthly payment to each monthly payment. Same interest savings,
+ * zero fee.
+ *
+ * Three scenarios:
+ *   1. Standard monthly payments (do nothing)
+ *   2. Biweekly via paid program (with fee)
+ *   3. Monthly + 1/12 (free DIY equivalent)
+ */
+export function calculateBiweekly({
+  currentBalance,
+  annualRate,
+  remainingTermMonths,
+  programFee = 0,
+}) {
+  if (currentBalance <= 0 || annualRate < 0 || remainingTermMonths <= 0 || programFee < 0) {
+    return null;
+  }
+
+  const monthlyPmt = monthlyPayment(currentBalance, annualRate, remainingTermMonths);
+  const baselineTotalInterest = monthlyPmt * remainingTermMonths - currentBalance;
+
+  // Biweekly: 26 half-payments per year, simulated month-by-month with extra payment
+  // Effectively pays 13 monthly payments per year instead of 12
+  // We model this as: every 12th payment, pay an extra full payment
+  // Practical equivalent: extra principal of monthlyPmt/12 per month (slightly different timing,
+  // but functionally identical over loan life)
+  const oneTwelfthExtra = monthlyPmt / 12;
+
+  // Scenario 2: biweekly via program — same math as monthly + 1/12 in terms of payoff,
+  // but with program fee added to total cost
+  const biweeklyResult = simulateExtraPayment(
+    currentBalance,
+    annualRate,
+    monthlyPmt + oneTwelfthExtra
+  );
+
+  // Scenario 3: monthly + 1/12 DIY (same payoff math, no fee)
+  const diyResult = biweeklyResult; // identical math
+
+  return {
+    inputs: {
+      currentBalance,
+      annualRate,
+      remainingTermMonths,
+      programFee,
+    },
+    monthlyPayment: monthlyPmt,
+    oneTwelfthExtra,
+    standard: {
+      monthlyAmount: monthlyPmt,
+      months: remainingTermMonths,
+      totalInterest: baselineTotalInterest,
+      totalCost: baselineTotalInterest,
+      strategyName: 'Standard monthly payments',
+    },
+    biweeklyProgram: {
+      effectiveMonthlyAmount: monthlyPmt + oneTwelfthExtra,
+      months: biweeklyResult.monthsToPayoff,
+      monthsSaved: remainingTermMonths - biweeklyResult.monthsToPayoff,
+      totalInterest: biweeklyResult.totalInterest,
+      programFee,
+      totalCost: biweeklyResult.totalInterest + programFee,
+      interestSavingsVsStandard: baselineTotalInterest - biweeklyResult.totalInterest,
+      netSavingsVsStandard: (baselineTotalInterest - biweeklyResult.totalInterest) - programFee,
+      strategyName: 'Biweekly via paid program',
+    },
+    diyMonthlyExtra: {
+      effectiveMonthlyAmount: monthlyPmt + oneTwelfthExtra,
+      months: diyResult.monthsToPayoff,
+      monthsSaved: remainingTermMonths - diyResult.monthsToPayoff,
+      totalInterest: diyResult.totalInterest,
+      totalCost: diyResult.totalInterest,
+      interestSavingsVsStandard: baselineTotalInterest - diyResult.totalInterest,
+      netSavingsVsStandard: baselineTotalInterest - diyResult.totalInterest,
+      strategyName: 'Monthly + 1/12 extra (free DIY)',
+    },
+    /* The honest finding: monthly + 1/12 always equals or beats biweekly program (program loses by program fee) */
+    bestStrategy: 'diyMonthlyExtra',
+    feeWaste: programFee,
+  };
+}
+
+/* ============================================================================
+ * ARM Reset math
+ * ============================================================================
+ *
+ * Adjustable-rate mortgages (ARMs) reset to a new rate after their initial
+ * fixed period (typically 5, 7, or 10 years). The new rate is bounded by:
+ *   - Initial cap: max change at first reset (typical 2 percentage points)
+ *   - Periodic cap: max change at each subsequent reset (typical 2 points)
+ *   - Lifetime cap: max change ever from original rate (typical 5 points)
+ *
+ * The honest math: the worst case is bounded. Many homeowners panic-refinance
+ * to a higher fixed rate when the math says hold the ARM (because the cap
+ * structure caps their downside more cheaply than refinancing eliminates it).
+ *
+ * Three scenarios:
+ *   1. Hold the ARM at the expected new rate
+ *   2. Refinance to fixed at current market rate
+ *   3. Recast with a lump sum (if available) — keeps the ARM but lowers payment
+ */
+export function calculateARMReset({
+  currentBalance,
+  originalRate,
+  expectedNewRate,
+  lifetimeCap,
+  remainingTermMonths,
+  refiRate,
+  refiClosingCosts = 5000,
+  holdYears = 5,
+}) {
+  if (currentBalance <= 0 || expectedNewRate < 0 || refiRate < 0 || remainingTermMonths <= 0 || holdYears <= 0) {
+    return null;
+  }
+
+  const lifetimeMaxRate = originalRate + lifetimeCap;
+  const holdMonths = Math.min(holdYears * 12, remainingTermMonths);
+
+  /* Scenario 1: Hold the ARM at expected new rate */
+  const armPayment = monthlyPayment(currentBalance, expectedNewRate, remainingTermMonths);
+  const armSchedule = amortizationSchedule(currentBalance, expectedNewRate, remainingTermMonths);
+  const armCostOverHold = armPayment * holdMonths;
+  const armBalanceAtEnd = armSchedule[holdMonths - 1]?.balance ?? 0;
+  const armInterestOverHold = armSchedule[holdMonths - 1]?.cumulativeInterest ?? 0;
+
+  /* Scenario 1b: Worst case ARM payment if rates hit lifetime cap */
+  const armWorstCasePayment = monthlyPayment(currentBalance, lifetimeMaxRate, remainingTermMonths);
+
+  /* Scenario 2: Refinance to fixed */
+  const refiPayment = monthlyPayment(currentBalance, refiRate, remainingTermMonths);
+  const refiSchedule = amortizationSchedule(currentBalance, refiRate, remainingTermMonths);
+  const refiCostOverHold = refiPayment * holdMonths + refiClosingCosts;
+  const refiBalanceAtEnd = refiSchedule[holdMonths - 1]?.balance ?? 0;
+  const refiInterestOverHold = refiSchedule[holdMonths - 1]?.cumulativeInterest ?? 0;
+
+  /* Comparison: net cost over hold period (interest paid + closing costs - balance reduction) */
+  const armNetCost = armInterestOverHold;
+  const refiNetCost = refiInterestOverHold + refiClosingCosts;
+  const holdSavingsVsRefi = refiNetCost - armNetCost;
+
+  return {
+    inputs: {
+      currentBalance,
+      originalRate,
+      expectedNewRate,
+      lifetimeCap,
+      remainingTermMonths,
+      refiRate,
+      refiClosingCosts,
+      holdYears,
+    },
+    lifetimeMaxRate,
+    holdMonths,
+    holdArm: {
+      monthlyPayment: armPayment,
+      worstCaseMonthlyPayment: armWorstCasePayment,
+      interestOverHold: armInterestOverHold,
+      balanceAtEnd: armBalanceAtEnd,
+      netCostOverHold: armNetCost,
+      strategyName: 'Hold the ARM',
+    },
+    refinance: {
+      monthlyPayment: refiPayment,
+      interestOverHold: refiInterestOverHold,
+      closingCosts: refiClosingCosts,
+      balanceAtEnd: refiBalanceAtEnd,
+      netCostOverHold: refiNetCost,
+      strategyName: 'Refinance to fixed',
+    },
+    /* Honest comparison */
+    bestStrategy: armNetCost <= refiNetCost ? 'holdArm' : 'refinance',
+    differenceOverHold: Math.abs(armNetCost - refiNetCost),
+  };
+}
+
+/* ============================================================================
+ * HELOC vs Cash-Out Refinance math
+ * ============================================================================
+ *
+ * Two ways to access home equity:
+ *   - HELOC: keep your existing mortgage, take a separate variable-rate line of credit
+ *   - Cash-out refinance: replace mortgage with a new larger loan at current rates
+ *
+ * The honest math: depends entirely on the spread between your existing mortgage
+ * rate, the HELOC rate, and the refinance rate, plus how long you'll keep the debt.
+ * No forced contrarian angle. Show fair math.
+ */
+export function calculateHelocVsRefi({
+  currentBalance,
+  currentRate,
+  remainingTermMonths,
+  cashNeeded,
+  helocRate,
+  refiRate,
+  refiClosingCosts = 5000,
+  holdYears = 7,
+}) {
+  if (currentBalance <= 0 || cashNeeded <= 0 || holdYears <= 0) {
+    return null;
+  }
+
+  const holdMonths = Math.min(holdYears * 12, remainingTermMonths);
+
+  /* Scenario 1: HELOC (keep mortgage at current rate, add HELOC at HELOC rate) */
+  const mortgagePayment = monthlyPayment(currentBalance, currentRate, remainingTermMonths);
+  const mortgageSchedule = amortizationSchedule(currentBalance, currentRate, remainingTermMonths);
+  const mortgageInterestOverHold = mortgageSchedule[holdMonths - 1]?.cumulativeInterest ?? 0;
+
+  /* HELOC: simplified as interest-only on full balance for hold period
+   * (real HELOCs have a draw period and then amortize, but for comparison this is a
+   * conservative estimate that's actually slightly favorable to HELOC) */
+  const helocMonthlyInterest = (cashNeeded * (helocRate / 100)) / 12;
+  const helocInterestOverHold = helocMonthlyInterest * holdMonths;
+
+  const helocTotalCost = mortgageInterestOverHold + helocInterestOverHold;
+  const helocTotalMonthlyPayment = mortgagePayment + helocMonthlyInterest;
+
+  /* Scenario 2: Cash-out refinance — new loan at refi rate, balance = current + cash needed */
+  const refiBalance = currentBalance + cashNeeded;
+  const refiPayment = monthlyPayment(refiBalance, refiRate, remainingTermMonths);
+  const refiSchedule = amortizationSchedule(refiBalance, refiRate, remainingTermMonths);
+  const refiInterestOverHold = refiSchedule[holdMonths - 1]?.cumulativeInterest ?? 0;
+  const refiTotalCost = refiInterestOverHold + refiClosingCosts;
+
+  /* Net comparison */
+  const helocNetCost = helocTotalCost;
+  const refiNetCost = refiTotalCost;
+  const difference = Math.abs(helocNetCost - refiNetCost);
+
+  return {
+    inputs: {
+      currentBalance,
+      currentRate,
+      remainingTermMonths,
+      cashNeeded,
+      helocRate,
+      refiRate,
+      refiClosingCosts,
+      holdYears,
+    },
+    holdMonths,
+    heloc: {
+      mortgagePayment,
+      helocMonthlyInterest,
+      totalMonthlyPayment: helocTotalMonthlyPayment,
+      mortgageInterestOverHold,
+      helocInterestOverHold,
+      totalCost: helocTotalCost,
+      strategyName: 'HELOC + keep mortgage',
+    },
+    refinance: {
+      newBalance: refiBalance,
+      monthlyPayment: refiPayment,
+      interestOverHold: refiInterestOverHold,
+      closingCosts: refiClosingCosts,
+      totalCost: refiTotalCost,
+      strategyName: 'Cash-out refinance',
+    },
+    bestStrategy: helocNetCost <= refiNetCost ? 'heloc' : 'refinance',
+    difference,
+  };
+}

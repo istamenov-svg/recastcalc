@@ -1,0 +1,285 @@
+---
+/* PMI Removal Calculator
+ * Vanilla JS island, mirrors RecastCalculator.astro structure */
+---
+
+<section
+  id="pmi-calculator"
+  class="bg-cream-50 border border-ink-200 rounded-lg p-6 md:p-8 shadow-sm"
+  aria-labelledby="calculator-heading"
+>
+  <h2 id="calculator-heading" class="font-display text-2xl font-semibold text-ink-900 mb-2">
+    Calculate when your PMI ends (and how to end it sooner)
+  </h2>
+  <p class="text-sm text-ink-600 mb-6">
+    Enter your home value, current balance, and monthly PMI premium. Results update as you type.
+  </p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- INPUTS -->
+    <form id="pmi-form" novalidate>
+      <div class="space-y-5">
+        <div>
+          <label for="homeValue" class="calc-label">Current home value</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="homeValue" name="homeValue" class="calc-input pl-7"
+              placeholder="450,000" min="10000" max="20000000" step="1000" value="450000" required inputmode="numeric" />
+          </div>
+        </div>
+
+        <div>
+          <label for="balance" class="calc-label">Current loan balance</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="balance" name="balance" class="calc-input pl-7"
+              placeholder="400,000" min="1000" max="10000000" step="1000" value="400000" required inputmode="numeric" />
+          </div>
+        </div>
+
+        <div>
+          <label for="pmiPremium" class="calc-label">
+            Monthly PMI premium
+            <span class="text-ink-400 font-normal">(check your statement)</span>
+          </label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="pmiPremium" name="pmiPremium" class="calc-input pl-7"
+              placeholder="200" min="0" max="2000" step="5" value="200" required inputmode="numeric" />
+          </div>
+        </div>
+
+        <div>
+          <label for="rate" class="calc-label">Mortgage interest rate (annual)</label>
+          <div class="relative">
+            <input type="number" id="rate" name="rate" class="calc-input pr-8"
+              placeholder="6.5" min="0" max="25" step="0.001" value="6.5" required inputmode="decimal" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="termYears" class="calc-label">Years remaining</label>
+            <input type="number" id="termYears" name="termYears" class="calc-input"
+              placeholder="28" min="1" max="50" step="1" value="28" required inputmode="numeric" />
+          </div>
+          <div>
+            <label for="termMonths" class="calc-label">Plus months</label>
+            <input type="number" id="termMonths" name="termMonths" class="calc-input"
+              placeholder="0" min="0" max="11" step="1" value="0" inputmode="numeric" />
+          </div>
+        </div>
+
+        <div>
+          <label for="extraPrincipal" class="calc-label">
+            Extra monthly principal
+            <span class="text-ink-400 font-normal">(optional)</span>
+          </label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="extraPrincipal" name="extraPrincipal" class="calc-input pl-7"
+              placeholder="0" min="0" max="10000" step="50" value="0" inputmode="numeric" />
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- RESULTS -->
+    <div id="pmi-results" aria-live="polite" aria-atomic="true">
+      <div class="bg-cream-200 rounded-lg p-5 mb-4">
+        <p class="text-xs uppercase tracking-widest text-ink-500 mb-1">Your PMI status</p>
+        <div class="grid grid-cols-2 gap-4 mt-3">
+          <div>
+            <p class="text-xs text-ink-500 mb-1">Current loan-to-value</p>
+            <p class="calc-result text-2xl" data-result="currentLTV">88.9%</p>
+          </div>
+          <div>
+            <p class="text-xs text-ink-500 mb-1">Monthly PMI cost</p>
+            <p class="calc-result text-2xl text-negative" data-result="monthlyPMI">$200</p>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-ink-300/50">
+          <p class="text-xs text-ink-500 mb-1">If you do nothing, PMI ends in</p>
+          <p class="calc-result text-3xl" data-result="monthsToAuto">97 months</p>
+          <p class="text-xs text-ink-500 mt-1">
+            Total PMI you would pay: <span data-result="totalPMIWaiting">$19,400</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- The honest comparison: 3 strategies -->
+      <div class="border border-ink-200 rounded-lg overflow-hidden text-sm">
+        <div class="bg-cream-200 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-ink-700 border-b border-ink-200">
+          Three strategies, side-by-side
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="text-left text-xs text-ink-500 border-b border-ink-200">
+              <th class="px-4 py-2 font-medium">Strategy</th>
+              <th class="px-4 py-2 font-medium text-right">Months until removed</th>
+              <th class="px-4 py-2 font-medium text-right">Total PMI paid</th>
+            </tr>
+          </thead>
+          <tbody class="font-mono tabular text-ink-800">
+            <tr class="border-b border-ink-100">
+              <td class="px-4 py-3 font-sans text-ink-700">
+                <span class="block font-medium">Do nothing</span>
+                <span class="text-xs text-ink-400">Auto-removal at 78%</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="waitingMonths">97</td>
+              <td class="px-4 py-3 text-right" data-result="waitingPMI">$19,400</td>
+            </tr>
+            <tr class="border-b border-ink-100 bg-accent-50/30">
+              <td class="px-4 py-3 font-sans text-ink-900 font-medium">
+                <span class="block">Request at 80%</span>
+                <span class="text-xs text-ink-500 font-normal">Written request when you hit 80%</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="requestingMonths">84</td>
+              <td class="px-4 py-3 text-right" data-result="requestingPMI">$16,800</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-sans text-ink-700">
+                <span class="block font-medium">Accelerated + request</span>
+                <span class="text-xs text-ink-400">Extra principal until 80%</span>
+              </td>
+              <td class="px-4 py-3 text-right" data-result="acceleratedMonths">59</td>
+              <td class="px-4 py-3 text-right" data-result="acceleratedPMI">$11,800</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p
+        id="best-strategy-callout"
+        class="mt-4 text-sm text-ink-700 leading-relaxed"
+        data-result="strategyCallout"
+      >
+        Loading...
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3">
+        <button type="button" id="copy-link-btn"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent">
+          Copy link to these results
+        </button>
+        <button type="button" id="print-btn" onclick="window.print()"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent">
+          Print / save as PDF
+        </button>
+      </div>
+
+      <p class="text-xs text-ink-400 mt-4 leading-relaxed">
+        Estimates only. Assumes home value stays constant; real appreciation lowers loan-to-value faster. PMI removal at 80% requires a written request and may require an appraisal at your cost ($300–$600).
+        Verify lender-specific terms before requesting.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { calculatePMIRemoval, formatCurrency } from '../scripts/mortgage-math.js';
+
+  const form = document.getElementById('pmi-form');
+  const inputs = form.querySelectorAll('input');
+
+  function getInputs() {
+    return {
+      homeValue: parseFloat(document.getElementById('homeValue').value) || 0,
+      currentBalance: parseFloat(document.getElementById('balance').value) || 0,
+      monthlyPMI: parseFloat(document.getElementById('pmiPremium').value) || 0,
+      annualRate: parseFloat(document.getElementById('rate').value) || 0,
+      remainingTermMonths:
+        (parseInt(document.getElementById('termYears').value) || 0) * 12 +
+        (parseInt(document.getElementById('termMonths').value) || 0),
+      extraMonthlyPrincipal: parseFloat(document.getElementById('extraPrincipal').value) || 0,
+    };
+  }
+
+  function setResult(key, value) {
+    const el = document.querySelector(`[data-result="${key}"]`);
+    if (el) el.textContent = value;
+  }
+
+  function update() {
+    const params = getInputs();
+    const result = calculatePMIRemoval(params);
+
+    if (!result) {
+      setResult('strategyCallout', 'Enter valid loan details to see your PMI removal estimate.');
+      return;
+    }
+
+    if (result.error) {
+      const calloutEl = document.querySelector('[data-result="strategyCallout"]');
+      if (calloutEl) calloutEl.innerHTML = `<strong class="text-ink-900">${result.error}</strong>`;
+      return;
+    }
+
+    /* Top summary */
+    setResult('currentLTV', `${result.currentLTV.toFixed(1)}%`);
+    setResult('monthlyPMI', formatCurrency(params.monthlyPMI));
+    setResult('monthsToAuto', `${result.waiting.months} months`);
+    setResult('totalPMIWaiting', formatCurrency(result.waiting.pmiPaid));
+
+    /* Comparison table */
+    setResult('waitingMonths', result.waiting.months);
+    setResult('waitingPMI', formatCurrency(result.waiting.pmiPaid));
+    setResult('requestingMonths', result.requesting.months);
+    setResult('requestingPMI', formatCurrency(result.requesting.pmiPaid));
+    setResult('acceleratedMonths', params.extraMonthlyPrincipal > 0 ? result.accelerated.months : '—');
+    setResult('acceleratedPMI', params.extraMonthlyPrincipal > 0 ? formatCurrency(result.accelerated.pmiPaid) : '—');
+
+    /* Honest callout */
+    let callout = '';
+    if (result.bestStrategy === 'accelerated' && params.extraMonthlyPrincipal > 0) {
+      callout = `<strong class="text-ink-900">Adding $${params.extraMonthlyPrincipal.toLocaleString()}/month to principal hits 80% loan-to-value ${result.accelerated.monthsSaved - result.requesting.monthsSaved} months sooner than just waiting to request removal at 80%.</strong> You save ${formatCurrency(result.accelerated.pmiSaved)} in PMI premiums; the extra principal you paid (${formatCurrency(result.accelerated.extraPrincipalPaid)}) is not lost since it goes to your equity.`;
+    } else {
+      callout = `<strong class="text-ink-900">Most homeowners pay PMI longer than required.</strong> If you do nothing, your lender must terminate PMI when your balance drops to 78% loan-to-value (${result.waiting.months} months from now). But you have the legal right to request removal at 80% loan-to-value (${result.requesting.months} months) under the Homeowners Protection Act. Filing a written request when you hit 80% saves you ${formatCurrency(result.requesting.pmiSaved)} in PMI premiums.`;
+    }
+
+    const calloutEl = document.querySelector('[data-result="strategyCallout"]');
+    if (calloutEl) calloutEl.innerHTML = callout;
+  }
+
+  inputs.forEach((input) => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  update();
+
+  /* Shareable URL */
+  document.getElementById('copy-link-btn')?.addEventListener('click', () => {
+    const params = getInputs();
+    const url = new URL(window.location.href);
+    url.search = new URLSearchParams({
+      v: params.homeValue,
+      b: params.currentBalance,
+      p: params.monthlyPMI,
+      r: params.annualRate,
+      t: params.remainingTermMonths,
+      e: params.extraMonthlyPrincipal,
+    }).toString();
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      const btn = document.getElementById('copy-link-btn');
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => (btn.textContent = original), 2000);
+    });
+  });
+
+  /* Hydrate from URL */
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('b')) {
+    document.getElementById('homeValue').value = urlParams.get('v') || '';
+    document.getElementById('balance').value = urlParams.get('b') || '';
+    document.getElementById('pmiPremium').value = urlParams.get('p') || '';
+    document.getElementById('rate').value = urlParams.get('r') || '';
+    const t = parseInt(urlParams.get('t') || '0');
+    document.getElementById('termYears').value = Math.floor(t / 12);
+    document.getElementById('termMonths').value = t % 12;
+    document.getElementById('extraPrincipal').value = urlParams.get('e') || '0';
+    update();
+  }
+</script>
