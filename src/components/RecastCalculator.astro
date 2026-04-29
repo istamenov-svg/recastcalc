@@ -1,6 +1,14 @@
 ---
 // Mortgage Recast Calculator
 // Vanilla JS island — full functionality with zero framework JS
+
+import rates from '../data/rates.json';
+const r30 = rates.rates["30yr_fixed"];
+const r15 = rates.rates["15yr_fixed"];
+const rArm = rates.rates["5_1_arm"];
+const rHeloc = rates.rates["heloc"];
+const rPmi = rates.rates["pmi_typical"];
+
 ---
 
 <section
@@ -51,7 +59,7 @@
               min="0"
               max="25"
               step="0.001"
-              value="6.5"
+              value={r30}
               required
               inputmode="decimal"
             />

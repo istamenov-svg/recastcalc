@@ -1,0 +1,18 @@
+{
+  "$schema_note": "Update weekly each Thursday after Freddie Mac PMMS publishes at 12pm ET. See scripts/update-rates.md.",
+  "source": "Freddie Mac Primary Mortgage Market Survey (PMMS)",
+  "sourceUrl": "https://www.freddiemac.com/pmms",
+  "asOf": "2026-04-23",
+  "rates": {
+    "30yr_fixed": 6.23,
+    "15yr_fixed": 5.58,
+    "5_1_arm": 6.50,
+    "heloc": 8.50,
+    "pmi_typical": 0.75
+  },
+  "trend": {
+    "30yr_fixed_prior_week": 6.30,
+    "30yr_fixed_year_ago": 6.81,
+    "direction_weekly": "down"
+  }
+}

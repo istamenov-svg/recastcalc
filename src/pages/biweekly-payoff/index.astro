@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BiweeklyCalculator from '../../components/BiweeklyCalculator.astro';
+import RateBanner from '../../components/RateBanner.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import AffiliateCTA from '../../components/AffiliateCTA.astro';
 
@@ -107,6 +108,7 @@ const schema = [
   </header>
 
   <section class="max-w-content mx-auto px-4 lg:px-6 mb-12">
+    <RateBanner variant="30yr_fixed" />
     <BiweeklyCalculator />
   </section>
 

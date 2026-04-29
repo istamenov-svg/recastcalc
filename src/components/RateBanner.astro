@@ -1,0 +1,81 @@
+---
+/**
+ * RateBanner — displays current reference mortgage rate from Freddie Mac PMMS.
+ *
+ * Props:
+ *   variant: which rate to feature ('30yr_fixed' | '15yr_fixed' | '5_1_arm' | 'heloc' | 'pmi')
+ *
+ * Updates weekly via src/data/rates.json. See scripts/update-rates.md for the
+ * Thursday update procedure.
+ */
+import rates from '../data/rates.json';
+
+interface Props {
+  variant?: '30yr_fixed' | '15yr_fixed' | '5_1_arm' | 'heloc' | 'pmi';
+}
+
+const { variant = '30yr_fixed' } = Astro.props;
+
+const labels: Record<string, string> = {
+  '30yr_fixed': '30-year fixed mortgage',
+  '15yr_fixed': '15-year fixed mortgage',
+  '5_1_arm': '5/1 ARM',
+  'heloc': 'HELOC',
+  'pmi': 'PMI annual rate (typical)',
+};
+
+const rateValue = (() => {
+  if (variant === 'pmi') return rates.rates.pmi_typical;
+  return rates.rates[variant as keyof typeof rates.rates];
+})();
+
+const label = labels[variant];
+
+// Format the asOf date as readable string (e.g., "April 23, 2026")
+const asOfDate = new Date(rates.asOf + 'T12:00:00Z').toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+// Trend indicator (only for 30yr_fixed since that's the headline rate)
+const showTrend = variant === '30yr_fixed';
+const trendUp = rates.trend.direction_weekly === 'up';
+const priorWeekRate = rates.trend['30yr_fixed_prior_week'];
+const trendDelta = Math.abs(rateValue - priorWeekRate).toFixed(2);
+---
+
+<aside
+  class="bg-cream-100 border border-ink-200 rounded-md px-4 py-3 mb-6 text-sm flex flex-wrap items-center justify-between gap-3"
+  aria-label="Reference mortgage rate"
+>
+  <div class="flex items-center gap-3 flex-wrap">
+    <span class="text-ink-500 text-xs uppercase tracking-wider font-medium">
+      Reference rate
+    </span>
+    <span class="text-ink-900">
+      <strong class="font-mono tabular text-base">{rateValue.toFixed(2)}%</strong>
+      <span class="text-ink-600 ml-1">{label}</span>
+    </span>
+    {showTrend && (
+      <span class="text-xs text-ink-500" aria-label={`Down ${trendDelta} percentage points from prior week`}>
+        {trendUp ? '↑' : '↓'} {trendDelta}pp from prior week
+      </span>
+    )}
+  </div>
+  <div class="text-xs text-ink-500">
+    <a
+      href={rates.sourceUrl}
+      target="_blank"
+      rel="noopener"
+      class="underline decoration-ink-300 hover:decoration-accent hover:text-accent"
+    >
+      Freddie Mac PMMS
+    </a>
+    <span aria-hidden="true"> · </span>
+    <span>Week of {asOfDate}</span>
+    <span aria-hidden="true"> · </span>
+    <span class="text-ink-400">For context only — enter your specific rate above</span>
+  </div>
+</aside>
