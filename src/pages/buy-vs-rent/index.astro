@@ -1,0 +1,277 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BuyVsRentCalculator from '../../components/BuyVsRentCalculator.astro';
+import RateBanner from '../../components/RateBanner.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import AffiliateCTA from '../../components/AffiliateCTA.astro';
+
+const title = 'Buy vs. Rent Calculator: The Honest Math (2026)';
+const description =
+  'Free buy vs. rent calculator. Includes the down payment opportunity cost, realistic maintenance, and break-even analysis most other calculators bury. No signup, no email gate.';
+
+const publishDate = '2026-04-29T00:00:00Z';
+const modifiedDate = new Date().toISOString();
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Buy vs. Rent Calculator',
+    description: 'Compare buying vs. renting using honest math. Includes the opportunity cost of the down payment if invested in the market, realistic 1.5% annual maintenance, and a break-even chart.',
+    url: 'https://recastcalc.com/buy-vs-rent/',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Ivan Stamenov', url: 'https://recastcalc.com/about/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://recastcalc.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Buy vs. Rent Calculator', item: 'https://recastcalc.com/buy-vs-rent/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Is it better to buy or rent right now?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It depends on three things: how long you plan to stay, the gap between mortgage rates and rent inflation in your area, and what you would do with the down payment if you did not buy. Generally, holds under 5 years favor renting (transaction costs eat the gain). Holds over 10 years favor buying. The 5-10 year window is where the math is sensitive to all three variables. Run the calculator above with your specific numbers.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the opportunity cost of a down payment?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'If you put $80,000 down on a house, that $80,000 is no longer available to invest in the stock market. Over 7 years at 7% annual return (S&P 500 historical average), $80,000 would grow to about $128,000. That $48,000 of foregone investment growth is the opportunity cost. Most rent vs. buy calculators ignore this. We surface it because it materially changes the answer for many situations.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is a realistic maintenance estimate for a home?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Industry rule of thumb is 1% to 2% of home value per year, with 1.5% being a defensible middle estimate based on Bureau of Labor Statistics Consumer Expenditure Survey data. Many calculators default to 0.5% or 1%, which is too low for older homes or homes in regions with weather extremes. Our default is 1.5%. Adjust based on your actual home age, condition, and location.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is the mortgage interest deduction worth it?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'For most middle-income homeowners since 2017, the mortgage interest deduction provides less benefit than people assume. The standard deduction for married filing jointly is $29,200 in 2024. To itemize and benefit from the mortgage interest deduction, your total itemized deductions must exceed that amount. Many borrowers with average mortgages do not clear that bar. The calculator above includes mortgage interest tax savings (capped at $750,000 of loan balance per federal law) as a buying-side benefit.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Why does rent inflation matter so much?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Rent goes up over time, but a fixed-rate mortgage payment does not (taxes and insurance do, but the principal and interest stays flat). The longer you stay, the more this gap matters. If rent inflates at 5% per year, your $2,500 rent becomes $4,000+ in 10 years. Buying locks in your housing cost. This is one of the strongest arguments for buying when you plan to stay long-term, and it is fully reflected in the calculator.',
+        },
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://recastcalc.com/buy-vs-rent/"
+  schema={schema}
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+>
+  <nav aria-label="Breadcrumb" class="max-w-content mx-auto px-4 lg:px-6 pt-6 text-sm text-ink-500">
+    <ol class="flex gap-2 flex-wrap">
+      <li><a href="/" class="hover:text-accent">Home</a></li>
+      <li class="text-ink-400">/</li>
+      <li class="text-ink-700">Buy vs. Rent Calculator</li>
+    </ol>
+  </nav>
+
+  <header class="max-w-content mx-auto px-4 lg:px-6 pt-6 pb-10">
+    <h1 class="text-display-1 font-display font-semibold text-ink-900 mb-4">
+      Buy vs. Rent Calculator
+    </h1>
+    <p class="text-lg text-ink-700 max-w-narrow leading-relaxed">
+      Most rent-vs-buy calculators are built by real estate companies and quietly tilt toward buying.
+      This one shows the honest math, including what your down payment would be worth if you invested
+      it in the stock market instead.
+    </p>
+  </header>
+
+  <section class="max-w-content mx-auto px-4 lg:px-6 mb-12">
+    <RateBanner variant="30yr_fixed" />
+    <BuyVsRentCalculator />
+  </section>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6">
+    <AdSlot variant="inline" />
+  </div>
+
+  <div class="max-w-prose mx-auto px-4 lg:px-6">
+    <AffiliateCTA
+      headline="Looking at a specific home?"
+      body="Get rate quotes from multiple lenders to plug into the calculator above. The difference between the cheapest and most expensive lender on the same loan is often 0.25% to 0.50%, which is real money over 30 years."
+      ctaText="Compare lender rates"
+      ctaHref="https://www.lendingtree.com/?via=recastcalc"
+    />
+  </div>
+
+  <article class="max-w-prose mx-auto px-4 lg:px-6 mb-16 prose-recast">
+    <h2>Why this calculator is different</h2>
+
+    <p>
+      Most rent vs. buy calculators are owned by companies whose business depends on you buying.
+      Zillow, Redfin, and most real estate sites bury the variables that favor renting. The result
+      is calculators that consistently say "buy" even when the math actually favors renting.
+    </p>
+
+    <p>This one is different in three specific ways:</p>
+
+    <h3>1. We show the down payment opportunity cost</h3>
+
+    <p>
+      A $100,000 down payment is not "free money you would otherwise spend." It's capital you could
+      invest in the stock market. At 7% annual return (S&amp;P 500 historical average), $100,000
+      grows to $197,000 in 10 years and $387,000 in 20 years. That growth is what you give up by
+      tying the money into home equity.
+    </p>
+
+    <p>
+      Home equity does grow too — through appreciation and principal paydown. But typical home
+      appreciation is 3% per year, which is less than half the long-term stock market return. The
+      math has to account for both sides honestly.
+    </p>
+
+    <h3>2. We use realistic maintenance</h3>
+
+    <p>
+      Industry rule of thumb is 1% to 2% of home value per year for ongoing maintenance and
+      eventual replacement (roof, HVAC, water heater, appliances, paint, flooring, etc.). Most
+      calculators default to 0.5% or 1%. We default to 1.5%, which lines up with Bureau of Labor
+      Statistics data on actual homeowner maintenance spending.
+    </p>
+
+    <p>
+      On a $500,000 home over 10 years, the difference between 0.5% maintenance and 1.5%
+      maintenance is $50,000. That's the size of the bias most calculators carry.
+    </p>
+
+    <h3>3. We surface the break-even point honestly</h3>
+
+    <p>
+      The chart in the results section shows when buying overtakes renting (if ever). Most
+      buy-vs-rent calculators give you a single answer for one hold period. The reality is that
+      the answer changes dramatically based on how long you stay.
+    </p>
+
+    <p>
+      In a 6-7% interest rate environment, break-even is often year 8 to year 12. If there's any
+      chance you'll move sooner, the calculator will show you that and recommend renting.
+    </p>
+
+    <h2>When buying usually wins</h2>
+
+    <p>Buying tends to be the right answer when:</p>
+
+    <ul>
+      <li>You plan to stay 10+ years (long enough to outrun transaction costs and let appreciation compound)</li>
+      <li>Mortgage rates are below 5% (which makes the monthly cost competitive with renting from day one)</li>
+      <li>Rent in your area is rising fast (4%+ annually) while home appreciation is stable (3%+)</li>
+      <li>You'd be a renter in the same neighborhood for the same property type (apples-to-apples)</li>
+      <li>You have additional savings beyond the down payment for a real emergency fund</li>
+    </ul>
+
+    <h2>When renting usually wins</h2>
+
+    <p>Renting tends to be the right answer when:</p>
+
+    <ul>
+      <li>You might move within 5 years (transaction costs alone can be 10%+ of home price)</li>
+      <li>Mortgage rates are 7%+ (most early payments are interest, equity grows slowly)</li>
+      <li>You'd invest the down payment difference in the stock market (and actually do it)</li>
+      <li>Your local rent-to-price ratio is favorable (annual rent is less than 3% of home price)</li>
+      <li>You value flexibility and lower monthly housing costs more than building home equity</li>
+    </ul>
+
+    <h2>The variables that matter most</h2>
+
+    <p>
+      In our testing, the three variables that move the answer the most are:
+    </p>
+
+    <ol>
+      <li><strong>Hold period.</strong> The most under-considered variable. People assume they'll stay 10 years, average actual hold is closer to 7. Run the calculator with both numbers and see how much the answer changes.</li>
+      <li><strong>Mortgage rate.</strong> A 1 percentage point change in rate moves break-even by 2-3 years. At 4%, break-even is often year 5-6. At 7%, it's year 9-12.</li>
+      <li><strong>Investment return assumption.</strong> If you assume 7% on the down payment, renting wins more scenarios. If you assume 4%, buying wins more. The right answer depends on what you'd actually do with the money.</li>
+    </ol>
+
+    <p>
+      The calculator above lets you adjust all three. We recommend running it three times: with
+      your "expected" hold period, with a shorter realistic hold (e.g., 5 years), and with a longer
+      one (e.g., 12 years). If the answer flips between scenarios, hold period is your dominant
+      uncertainty.
+    </p>
+
+    <h2>Honest disclosures about the math</h2>
+
+    <p>
+      We make a few simplifying assumptions worth knowing:
+    </p>
+
+    <ul>
+      <li><strong>Property tax is not added to the deductible amount.</strong> Most middle-income borrowers in high-tax states have already used up the $10,000 SALT cap with state income tax, so property tax provides no additional federal tax benefit. We don't add it. (If you're in a no-state-income-tax state and your property tax is under $10,000, you may get more tax benefit than we show. The understatement is small relative to the other variables.)</li>
+      <li><strong>Investment return is nominal, not real.</strong> 7% includes inflation. We compare to nominal home appreciation of 3%. Both sides are nominal, so the comparison is fair.</li>
+      <li><strong>We assume you actually invest the difference if renting.</strong> If you'd spend the down payment money instead, renting loses to buying every time. Buying is, in part, a forced savings tool. The calculator shows what's possible if you have the discipline to invest.</li>
+      <li><strong>Selling costs are 6% of sale price.</strong> Realtor commissions (5-6%), transfer taxes, staging, minor repairs. Some sellers pay less, some pay more.</li>
+    </ul>
+
+    <p>
+      Full methodology and formulas are in our <a href="/methodology/">calculation methodology page</a>.
+    </p>
+  </article>
+
+  <section class="max-w-prose mx-auto px-4 lg:px-6 mb-16">
+    <h2 class="font-display text-h2 font-semibold text-ink-900 mb-6">Frequently asked questions</h2>
+
+    <div class="space-y-6">
+      {schema[2].mainEntity.map((qa: any) => (
+        <details class="border-b border-ink-200 pb-4 group">
+          <summary class="font-display font-semibold text-ink-900 cursor-pointer list-none flex justify-between items-start gap-4">
+            <span>{qa.name}</span>
+            <span class="text-accent font-mono text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="mt-3 text-sm text-ink-700 leading-relaxed">{qa.acceptedAnswer.text}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-prose mx-auto px-4 lg:px-6 mb-16 pt-8 border-t border-ink-200">
+    <h2 class="font-display text-h2 font-semibold text-ink-900 mb-4">Related calculators</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <a href="/recast/" class="block p-5 bg-cream-50 border border-ink-200 hover:border-accent rounded-lg transition-colors">
+        <h3 class="font-display font-semibold text-ink-900 mb-1">Mortgage Recast Calculator</h3>
+        <p class="text-sm text-ink-600">If you've already bought, see how a lump sum can lower your payment without refinancing.</p>
+      </a>
+      <a href="/pmi-removal/" class="block p-5 bg-cream-50 border border-ink-200 hover:border-accent rounded-lg transition-colors">
+        <h3 class="font-display font-semibold text-ink-900 mb-1">PMI Removal Calculator</h3>
+        <p class="text-sm text-ink-600">When can you drop private mortgage insurance, and how much to pay down to remove it sooner.</p>
+      </a>
+      <a href="/biweekly-payoff/" class="block p-5 bg-cream-50 border border-ink-200 hover:border-accent rounded-lg transition-colors">
+        <h3 class="font-display font-semibold text-ink-900 mb-1">Biweekly Payoff Calculator</h3>
+        <p class="text-sm text-ink-600">How much you save by switching to biweekly payments (and how to do it free).</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

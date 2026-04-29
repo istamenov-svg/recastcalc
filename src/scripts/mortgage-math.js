@@ -644,3 +644,210 @@ export function calculateHelocVsRefi({
     difference,
   };
 }
+
+/* ============================================================================
+ * Buy vs. Rent math (corrected wealth framing)
+ * ============================================================================
+ *
+ * The right way to compare buying vs. renting is to compare wealth (assets you'd
+ * have at end of hold period) on each side, where housing costs themselves are
+ * consumption (you'd pay them either way for shelter).
+ *
+ * BUYER'S WEALTH AT END = Home equity at sale - cumulative tax savings already
+ *   captured (added back as wealth) - any investment portfolio if buying was
+ *   cheaper monthly than renting (rare but happens when buyer's monthly is below
+ *   the rent the renter would have paid).
+ *
+ * RENTER'S WEALTH AT END = (Down payment + closing costs the buyer would have
+ *   paid) compounded at investment return + (monthly housing cost difference)
+ *   compounded if renting is cheaper than buying monthly.
+ *
+ * The honest comparison surfaces the contrarian truth:
+ *   - In high rate environments, the renter usually wins for short holds (<7yr)
+ *     because the down payment compounds in the market while the buyer's equity
+ *     grows slowly (most of the mortgage payment is interest in early years).
+ *   - In low rate environments or long holds (10+yr), buying usually wins.
+ *
+ * Defaults reflect honest assumptions:
+ *   - 1.5% maintenance (BLS data; calculators using 0.5% understate this)
+ *   - 4% rent inflation (recent reality)
+ *   - 6% selling costs (realtor + transfer + staging)
+ *   - 7% investment return (S&P 500 long-term nominal)
+ */
+
+export function calculateBuyVsRent({
+  homePrice,
+  downPaymentPct = 20,
+  mortgageRate,
+  loanTermYears = 30,
+  propertyTaxPct = 1.2,
+  insuranceAnnual = 1800,
+  hoaMonthly = 0,
+  maintenancePct = 1.5,
+  appreciationPct = 3.0,
+  closingCostsPct = 3.0,
+  monthlyRent,
+  rentInflationPct = 4.0,
+  rentersInsuranceAnnual = 200,
+  holdYears = 7,
+  marginalTaxRate = 24,
+  investmentReturnPct = 7.0,
+}) {
+  if (homePrice <= 0 || mortgageRate < 0 || loanTermYears <= 0 || holdYears <= 0 || monthlyRent <= 0) {
+    return null;
+  }
+
+  /* Loan setup */
+  const downPayment = homePrice * (downPaymentPct / 100);
+  const loanAmount = homePrice - downPayment;
+  const closingCosts = homePrice * (closingCostsPct / 100);
+  const initialCashOut = downPayment + closingCosts;
+  const monthsTotal = loanTermYears * 12;
+  const monthlyMortgagePayment = monthlyPayment(loanAmount, mortgageRate, monthsTotal);
+  const monthlyRate = mortgageRate / 100 / 12;
+  const taxDeductionLimit = 750000;
+
+  /* Year-by-year simulation */
+  const buyingByYear = [];
+  const rentingByYear = [];
+
+  let remainingLoanBalance = loanAmount;
+  let currentHomeValue = homePrice;
+  let currentMonthlyRent = monthlyRent;
+  let buyerSideInvestment = 0; /* if buying is cheaper than renting in some year, buyer banks the difference */
+  let renterSideInvestment = initialCashOut; /* renter starts with the down payment + closing costs invested */
+  let cumulativeTaxSavings = 0;
+
+  for (let year = 1; year <= 15; year++) {
+    /* === Compute this year's mortgage interest and remaining balance === */
+    let interestPaidThisYear = 0;
+    for (let m = 0; m < 12; m++) {
+      const interestThisMonth = remainingLoanBalance * monthlyRate;
+      const principalThisMonth = monthlyMortgagePayment - interestThisMonth;
+      interestPaidThisYear += interestThisMonth;
+      remainingLoanBalance = Math.max(0, remainingLoanBalance - principalThisMonth);
+    }
+
+    /* Tax savings from mortgage interest deduction (capped at $750K loan balance) */
+    const deductibleInterest = loanAmount > taxDeductionLimit
+      ? interestPaidThisYear * (taxDeductionLimit / loanAmount)
+      : interestPaidThisYear;
+    const taxSavingsThisYear = deductibleInterest * (marginalTaxRate / 100);
+    cumulativeTaxSavings += taxSavingsThisYear;
+
+    /* Buying costs this year (excluding tax savings) */
+    const propertyTaxThisYear = currentHomeValue * (propertyTaxPct / 100);
+    const insuranceThisYear = insuranceAnnual;
+    const hoaThisYear = hoaMonthly * 12;
+    const maintenanceThisYear = currentHomeValue * (maintenancePct / 100);
+    const mortgagePaymentsThisYear = monthlyMortgagePayment * 12;
+    const totalBuyingCostsThisYear = mortgagePaymentsThisYear + propertyTaxThisYear
+      + insuranceThisYear + hoaThisYear + maintenanceThisYear - taxSavingsThisYear;
+
+    /* Renting costs this year */
+    const rentThisYear = currentMonthlyRent * 12;
+    const totalRentingCostsThisYear = rentThisYear + rentersInsuranceAnnual;
+
+    /* Cash flow difference: positive means buying costs MORE per year than renting,
+     * so the renter has surplus to invest. Negative means buying is cheaper, so the
+     * buyer can invest the surplus. */
+    const cashFlowDiff = totalBuyingCostsThisYear - totalRentingCostsThisYear;
+    if (cashFlowDiff > 0) {
+      /* Buying is more expensive — renter invests the difference */
+      renterSideInvestment += cashFlowDiff;
+    } else if (cashFlowDiff < 0) {
+      /* Buying is cheaper — buyer can invest the difference */
+      buyerSideInvestment += Math.abs(cashFlowDiff);
+    }
+
+    /* Both sides' investments grow at market rate */
+    renterSideInvestment = renterSideInvestment * (1 + investmentReturnPct / 100);
+    buyerSideInvestment = buyerSideInvestment * (1 + investmentReturnPct / 100);
+
+    /* Home value appreciates */
+    currentHomeValue = currentHomeValue * (1 + appreciationPct / 100);
+
+    /* Wealth at end of this year if we sold/exited now */
+    const sellingCosts = currentHomeValue * 0.06;
+    const homeEquity = Math.max(0, currentHomeValue - sellingCosts - remainingLoanBalance);
+
+    /* Buyer's total wealth = home equity + any investments accumulated from cheaper monthly costs */
+    const buyingWealthThisYear = homeEquity + buyerSideInvestment;
+
+    /* Renter's total wealth = investment portfolio (rent is consumption, not subtracted) */
+    const rentingWealthThisYear = renterSideInvestment;
+
+    buyingByYear.push({
+      year,
+      homeValue: currentHomeValue,
+      remainingLoan: remainingLoanBalance,
+      homeEquity,
+      buyerSideInvestment,
+      cumulativeTaxSavings,
+      monthlyCost: totalBuyingCostsThisYear / 12,
+      wealth: buyingWealthThisYear,
+    });
+
+    rentingByYear.push({
+      year,
+      rentThisMonth: currentMonthlyRent,
+      investmentBalance: renterSideInvestment,
+      monthlyCost: totalRentingCostsThisYear / 12,
+      wealth: rentingWealthThisYear,
+    });
+
+    /* Rent inflates for next year */
+    currentMonthlyRent = currentMonthlyRent * (1 + rentInflationPct / 100);
+  }
+
+  /* Pull out values at the requested hold period (clamped to series length) */
+  const idx = Math.min(holdYears - 1, buyingByYear.length - 1);
+  const buyingAtHold = buyingByYear[idx];
+  const rentingAtHold = rentingByYear[idx];
+  const wealthDifference = buyingAtHold.wealth - rentingAtHold.wealth;
+  const winner = wealthDifference > 0 ? 'buy' : 'rent';
+
+  /* Break-even: first year buying overtakes renting */
+  let breakEvenYear = null;
+  for (let i = 0; i < buyingByYear.length; i++) {
+    if (buyingByYear[i].wealth > rentingByYear[i].wealth) {
+      breakEvenYear = buyingByYear[i].year;
+      break;
+    }
+  }
+
+  return {
+    inputs: {
+      homePrice, downPaymentPct, mortgageRate, loanTermYears, propertyTaxPct,
+      insuranceAnnual, hoaMonthly, maintenancePct, appreciationPct, closingCostsPct,
+      monthlyRent, rentInflationPct, rentersInsuranceAnnual, holdYears,
+      marginalTaxRate, investmentReturnPct,
+    },
+    setup: {
+      downPayment, loanAmount, closingCosts, monthlyMortgagePayment,
+    },
+    buying: {
+      monthlyCost: buyingAtHold.monthlyCost,
+      cumulativeTaxSavings: buyingAtHold.cumulativeTaxSavings,
+      homeValueAtEnd: buyingAtHold.homeValue,
+      remainingLoanAtEnd: buyingAtHold.remainingLoan,
+      homeEquityAtEnd: buyingAtHold.homeEquity,
+      buyerSideInvestment: buyingAtHold.buyerSideInvestment,
+      wealth: buyingAtHold.wealth,
+    },
+    renting: {
+      monthlyCost: rentingAtHold.monthlyCost,
+      investmentBalance: rentingAtHold.investmentBalance,
+      wealth: rentingAtHold.wealth,
+    },
+    comparison: {
+      winner,
+      wealthDifference: Math.abs(wealthDifference),
+      breakEvenYear,
+    },
+    series: {
+      buying: buyingByYear.map(y => ({ year: y.year, wealth: y.wealth })),
+      renting: rentingByYear.map(y => ({ year: y.year, wealth: y.wealth })),
+    },
+  };
+}

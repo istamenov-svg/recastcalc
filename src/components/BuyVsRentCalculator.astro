@@ -1,0 +1,507 @@
+---
+/* Buy vs. Rent Calculator
+ * Vanilla JS island, mirrors HELOCvsRefiCalculator.astro structure
+ * Plain-English labels for less-financially-literate audience.
+ */
+
+import rates from '../data/rates.json';
+const r30 = rates.rates["30yr_fixed"];
+---
+
+<section
+  id="buyrent-calculator"
+  class="bg-cream-50 border border-ink-200 rounded-lg p-6 md:p-8 shadow-sm"
+  aria-labelledby="calculator-heading"
+>
+  <h2 id="calculator-heading" class="font-display text-2xl font-semibold text-ink-900 mb-2">
+    Should you buy or keep renting? See the honest math.
+  </h2>
+  <p class="text-sm text-ink-600 mb-6">
+    Enter the home you're considering, the rent you'd pay instead, and how long you plan to stay.
+    The calculator shows which option leaves you with more money at the end, including the
+    investment growth most other calculators ignore.
+  </p>
+
+  <form id="buyrent-form" novalidate>
+    <!-- Three column grid: Property, Rent, Decision -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+
+      <!-- COLUMN 1: PROPERTY -->
+      <fieldset class="border border-ink-200 rounded-md p-4">
+        <legend class="font-display font-semibold text-ink-900 px-2 text-sm uppercase tracking-wider">If you buy</legend>
+
+        <div class="space-y-4 mt-2">
+          <div>
+            <label for="homePrice" class="calc-label">Home price</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+              <input type="number" id="homePrice" name="homePrice" class="calc-input pl-7"
+                placeholder="500,000" min="10000" max="20000000" step="1000" value="500000" required inputmode="numeric" />
+            </div>
+          </div>
+
+          <div>
+            <label for="downPaymentPct" class="calc-label">Down payment</label>
+            <div class="relative">
+              <input type="number" id="downPaymentPct" name="downPaymentPct" class="calc-input pr-8"
+                placeholder="20" min="0" max="100" step="0.5" value="20" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">Cash you put up front.</p>
+          </div>
+
+          <div>
+            <label for="mortgageRate" class="calc-label">Mortgage rate</label>
+            <div class="relative">
+              <input type="number" id="mortgageRate" name="mortgageRate" class="calc-input pr-8"
+                placeholder={r30.toString()} min="0" max="25" step="0.001" value={r30} required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+          </div>
+
+          <div>
+            <label for="loanTermYears" class="calc-label">Loan length</label>
+            <div class="relative">
+              <input type="number" id="loanTermYears" name="loanTermYears" class="calc-input pr-12"
+                placeholder="30" min="5" max="40" step="1" value="30" required inputmode="numeric" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 text-xs">years</span>
+            </div>
+          </div>
+
+          <div>
+            <label for="propertyTaxPct" class="calc-label">Property tax (yearly)</label>
+            <div class="relative">
+              <input type="number" id="propertyTaxPct" name="propertyTaxPct" class="calc-input pr-8"
+                placeholder="1.2" min="0" max="10" step="0.01" value="1.2" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">As percent of home value. US median is 1.2%.</p>
+          </div>
+
+          <div>
+            <label for="insuranceAnnual" class="calc-label">Home insurance (yearly)</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+              <input type="number" id="insuranceAnnual" name="insuranceAnnual" class="calc-input pl-7"
+                placeholder="1,800" min="0" max="50000" step="100" value="1800" required inputmode="numeric" />
+            </div>
+          </div>
+
+          <div>
+            <label for="hoaMonthly" class="calc-label">HOA fees (monthly)</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+              <input type="number" id="hoaMonthly" name="hoaMonthly" class="calc-input pl-7"
+                placeholder="0" min="0" max="5000" step="10" value="0" required inputmode="numeric" />
+            </div>
+            <p class="text-xs text-ink-500 mt-1">Leave 0 if no HOA.</p>
+          </div>
+
+          <div>
+            <label for="maintenancePct" class="calc-label">Maintenance (yearly)</label>
+            <div class="relative">
+              <input type="number" id="maintenancePct" name="maintenancePct" class="calc-input pr-8"
+                placeholder="1.5" min="0" max="10" step="0.1" value="1.5" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">Repairs, replacements, upkeep. Honest estimate is 1.5% of home value per year.</p>
+          </div>
+
+          <div>
+            <label for="appreciationPct" class="calc-label">Home value growth (yearly)</label>
+            <div class="relative">
+              <input type="number" id="appreciationPct" name="appreciationPct" class="calc-input pr-8"
+                placeholder="3" min="-10" max="20" step="0.1" value="3.0" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">Long-term US average is about 3% per year.</p>
+          </div>
+
+          <div>
+            <label for="closingCostsPct" class="calc-label">Closing costs (one-time)</label>
+            <div class="relative">
+              <input type="number" id="closingCostsPct" name="closingCostsPct" class="calc-input pr-8"
+                placeholder="3" min="0" max="10" step="0.1" value="3.0" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">Lender fees, title, taxes you pay at closing. Typical is 2-4%.</p>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- COLUMN 2: RENT -->
+      <fieldset class="border border-ink-200 rounded-md p-4">
+        <legend class="font-display font-semibold text-ink-900 px-2 text-sm uppercase tracking-wider">If you rent</legend>
+
+        <div class="space-y-4 mt-2">
+          <div>
+            <label for="monthlyRent" class="calc-label">Monthly rent</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+              <input type="number" id="monthlyRent" name="monthlyRent" class="calc-input pl-7"
+                placeholder="2,500" min="100" max="100000" step="50" value="2500" required inputmode="numeric" />
+            </div>
+            <p class="text-xs text-ink-500 mt-1">For a comparable place.</p>
+          </div>
+
+          <div>
+            <label for="rentInflationPct" class="calc-label">Rent goes up by (yearly)</label>
+            <div class="relative">
+              <input type="number" id="rentInflationPct" name="rentInflationPct" class="calc-input pr-8"
+                placeholder="4" min="0" max="20" step="0.1" value="4.0" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">Recent reality has been 4-5% in most cities.</p>
+          </div>
+
+          <div>
+            <label for="rentersInsuranceAnnual" class="calc-label">Renter's insurance (yearly)</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+              <input type="number" id="rentersInsuranceAnnual" name="rentersInsuranceAnnual" class="calc-input pl-7"
+                placeholder="200" min="0" max="5000" step="50" value="200" required inputmode="numeric" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- COLUMN 3: DECISION FACTORS -->
+      <fieldset class="border border-ink-200 rounded-md p-4">
+        <legend class="font-display font-semibold text-ink-900 px-2 text-sm uppercase tracking-wider">Your situation</legend>
+
+        <div class="space-y-4 mt-2">
+          <div>
+            <label for="holdYears" class="calc-label">How long will you stay?</label>
+            <div class="relative">
+              <input type="number" id="holdYears" name="holdYears" class="calc-input pr-12"
+                placeholder="7" min="1" max="15" step="1" value="7" required inputmode="numeric" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 text-xs">years</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">Be honest. Most people overestimate this.</p>
+          </div>
+
+          <div>
+            <label for="marginalTaxRate" class="calc-label">Your tax bracket</label>
+            <div class="relative">
+              <input type="number" id="marginalTaxRate" name="marginalTaxRate" class="calc-input pr-8"
+                placeholder="24" min="0" max="50" step="1" value="24" required inputmode="numeric" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">Federal income tax bracket. Most middle-income earners are 22-24%.</p>
+          </div>
+
+          <div>
+            <label for="investmentReturnPct" class="calc-label">Investment growth rate</label>
+            <div class="relative">
+              <input type="number" id="investmentReturnPct" name="investmentReturnPct" class="calc-input pr-8"
+                placeholder="7" min="0" max="20" step="0.1" value="7.0" required inputmode="decimal" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+            </div>
+            <p class="text-xs text-ink-500 mt-1">If you don't buy, your down payment grows at this rate. S&amp;P 500 historical average is about 7%.</p>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <button type="submit" class="btn-primary w-full md:w-auto">
+      Compare buy vs. rent
+    </button>
+  </form>
+
+  <!-- RESULTS -->
+  <div id="results" class="mt-8 hidden" role="region" aria-live="polite" aria-label="Results">
+    <!-- Top winner box -->
+    <div id="winner-box" class="bg-cream-200 border border-ink-300 rounded-lg p-6 mb-6">
+      <p class="text-sm text-ink-600 mb-1">Over <span id="result-years" class="font-semibold text-ink-900">7</span> years:</p>
+      <p class="text-2xl md:text-3xl font-display font-semibold text-ink-900">
+        <span id="winner-action">Renting</span> leaves you with
+        <span id="wealth-difference" class="text-accent">$0</span> more.
+      </p>
+      <p class="text-sm text-ink-600 mt-2" id="break-even-line">
+        Break-even point: <span id="break-even-year" class="font-semibold">never within 15 years</span>.
+      </p>
+    </div>
+
+    <!-- Side by side comparison -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div class="border border-ink-200 rounded-md p-5 bg-white">
+        <h3 class="font-display font-semibold text-ink-900 mb-3 text-sm uppercase tracking-wider">If you buy</h3>
+        <dl class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <dt class="text-ink-600">Monthly cost (all-in)</dt>
+            <dd class="font-mono tabular text-ink-900" id="buy-monthly">$0</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-ink-600">Home value at end</dt>
+            <dd class="font-mono tabular text-ink-900" id="buy-home-value">$0</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-ink-600">Loan still owed</dt>
+            <dd class="font-mono tabular text-ink-900" id="buy-loan-remaining">$0</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-ink-600">Equity (after selling costs)</dt>
+            <dd class="font-mono tabular text-ink-900" id="buy-equity">$0</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-ink-600">Tax savings (cumulative)</dt>
+            <dd class="font-mono tabular text-ink-900" id="buy-tax-savings">$0</dd>
+          </div>
+          <div class="flex justify-between border-t border-ink-200 pt-2 mt-2">
+            <dt class="text-ink-900 font-semibold">Wealth at end</dt>
+            <dd class="font-mono tabular text-ink-900 font-semibold" id="buy-wealth">$0</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="border border-ink-200 rounded-md p-5 bg-white">
+        <h3 class="font-display font-semibold text-ink-900 mb-3 text-sm uppercase tracking-wider">If you rent &amp; invest</h3>
+        <dl class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <dt class="text-ink-600">Monthly cost (all-in)</dt>
+            <dd class="font-mono tabular text-ink-900" id="rent-monthly">$0</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-ink-600">Investment portfolio at end</dt>
+            <dd class="font-mono tabular text-ink-900" id="rent-investment">$0</dd>
+          </div>
+          <div class="flex justify-between border-t border-ink-200 pt-2 mt-2">
+            <dt class="text-ink-900 font-semibold">Wealth at end</dt>
+            <dd class="font-mono tabular text-ink-900 font-semibold" id="rent-wealth">$0</dd>
+          </div>
+        </dl>
+        <p class="text-xs text-ink-500 mt-3 leading-relaxed">
+          Assumes you invest the down payment + closing costs in the market, plus any monthly savings if renting is cheaper than buying.
+        </p>
+      </div>
+    </div>
+
+    <!-- Break-even chart -->
+    <div class="border border-ink-200 rounded-md p-5 bg-white mb-6">
+      <h3 class="font-display font-semibold text-ink-900 mb-3 text-sm uppercase tracking-wider">Wealth over time</h3>
+      <p class="text-xs text-ink-500 mb-4">
+        Green = wealth from buying. Orange = wealth from renting and investing. Where they cross is your break-even point.
+      </p>
+      <div id="chart-container" class="overflow-x-auto">
+        <svg id="breakeven-chart" viewBox="0 0 600 280" class="w-full h-auto" preserveAspectRatio="xMidYMid meet" aria-label="Break-even chart"></svg>
+      </div>
+    </div>
+
+    <!-- Honest math callout -->
+    <div id="callout-box" class="cta-card hidden">
+      <p id="callout-text" class="text-sm text-ink-800 leading-relaxed"></p>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="flex flex-wrap gap-3 mt-6">
+      <button type="button" id="copy-link-btn" class="text-sm px-4 py-2 border border-ink-300 rounded hover:bg-cream-100 transition-colors">
+        Copy link to these results
+      </button>
+      <button type="button" id="print-btn" class="text-sm px-4 py-2 border border-ink-300 rounded hover:bg-cream-100 transition-colors">
+        Print
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { calculateBuyVsRent, formatCurrency } from '../scripts/mortgage-math.js';
+
+  const form = document.getElementById('buyrent-form') as HTMLFormElement;
+  const resultsEl = document.getElementById('results') as HTMLElement;
+
+  /* On page load, hydrate inputs from URL params if present */
+  function hydrateFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const fields = ['homePrice','downPaymentPct','mortgageRate','loanTermYears','propertyTaxPct',
+      'insuranceAnnual','hoaMonthly','maintenancePct','appreciationPct','closingCostsPct',
+      'monthlyRent','rentInflationPct','rentersInsuranceAnnual','holdYears','marginalTaxRate','investmentReturnPct'];
+    let hadParams = false;
+    fields.forEach(f => {
+      const v = params.get(f);
+      if (v !== null) {
+        const el = document.getElementById(f) as HTMLInputElement;
+        if (el) { el.value = v; hadParams = true; }
+      }
+    });
+    if (hadParams) {
+      /* Auto-submit if URL had params */
+      setTimeout(() => form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true })), 0);
+    }
+  }
+
+  function getFormValues() {
+    const fd = new FormData(form);
+    return {
+      homePrice: parseFloat(fd.get('homePrice') as string),
+      downPaymentPct: parseFloat(fd.get('downPaymentPct') as string),
+      mortgageRate: parseFloat(fd.get('mortgageRate') as string),
+      loanTermYears: parseFloat(fd.get('loanTermYears') as string),
+      propertyTaxPct: parseFloat(fd.get('propertyTaxPct') as string),
+      insuranceAnnual: parseFloat(fd.get('insuranceAnnual') as string),
+      hoaMonthly: parseFloat(fd.get('hoaMonthly') as string),
+      maintenancePct: parseFloat(fd.get('maintenancePct') as string),
+      appreciationPct: parseFloat(fd.get('appreciationPct') as string),
+      closingCostsPct: parseFloat(fd.get('closingCostsPct') as string),
+      monthlyRent: parseFloat(fd.get('monthlyRent') as string),
+      rentInflationPct: parseFloat(fd.get('rentInflationPct') as string),
+      rentersInsuranceAnnual: parseFloat(fd.get('rentersInsuranceAnnual') as string),
+      holdYears: parseInt(fd.get('holdYears') as string),
+      marginalTaxRate: parseFloat(fd.get('marginalTaxRate') as string),
+      investmentReturnPct: parseFloat(fd.get('investmentReturnPct') as string),
+    };
+  }
+
+  function buildChart(series: { buying: any[], renting: any[] }, holdYears: number) {
+    const svg = document.getElementById('breakeven-chart') as unknown as SVGSVGElement;
+    if (!svg) return;
+    const w = 600, h = 280, pad = 40;
+    const innerW = w - pad * 2;
+    const innerH = h - pad * 2;
+
+    const allWealth = [...series.buying.map(p => p.wealth), ...series.renting.map(p => p.wealth)];
+    const minY = Math.min(...allWealth, 0);
+    const maxY = Math.max(...allWealth);
+    const yRange = maxY - minY || 1;
+    const xMax = series.buying.length;
+
+    const x = (year: number) => pad + (year / xMax) * innerW;
+    const y = (val: number) => pad + innerH - ((val - minY) / yRange) * innerH;
+
+    const buyPath = 'M' + series.buying.map(p => `${x(p.year)},${y(p.wealth)}`).join(' L');
+    const rentPath = 'M' + series.renting.map(p => `${x(p.year)},${y(p.wealth)}`).join(' L');
+
+    /* Y-axis labels */
+    const yTickValues = [minY, minY + yRange/2, maxY];
+    const yTicksHtml = yTickValues.map(v =>
+      `<text x="${pad - 6}" y="${y(v) + 4}" text-anchor="end" font-size="10" fill="#737373">${formatCurrency(v, 0)}</text>`
+    ).join('');
+
+    /* X-axis labels */
+    const xTicksHtml = [1, 5, 10, 15].map(yr =>
+      `<text x="${x(yr)}" y="${h - pad + 16}" text-anchor="middle" font-size="10" fill="#737373">Year ${yr}</text>`
+    ).join('');
+
+    /* Hold-year vertical line */
+    const holdLine = holdYears <= xMax
+      ? `<line x1="${x(holdYears)}" y1="${pad}" x2="${x(holdYears)}" y2="${h - pad}" stroke="#a3a3a3" stroke-width="1" stroke-dasharray="3,3" />
+         <text x="${x(holdYears)}" y="${pad - 6}" text-anchor="middle" font-size="10" fill="#737373">Your ${holdYears}-yr mark</text>`
+      : '';
+
+    /* Zero line */
+    const zeroLine = (minY < 0 && maxY > 0)
+      ? `<line x1="${pad}" y1="${y(0)}" x2="${w - pad}" y2="${y(0)}" stroke="#d4d4d4" stroke-width="1" />`
+      : '';
+
+    svg.innerHTML = `
+      <rect x="${pad}" y="${pad}" width="${innerW}" height="${innerH}" fill="none" stroke="#e5e5e5" stroke-width="1" />
+      ${zeroLine}
+      ${holdLine}
+      <path d="${buyPath}" fill="none" stroke="#10b981" stroke-width="2.5" />
+      <path d="${rentPath}" fill="none" stroke="#b45309" stroke-width="2.5" />
+      ${yTicksHtml}
+      ${xTicksHtml}
+      <text x="${w/2}" y="${h - 4}" text-anchor="middle" font-size="11" fill="#404040" font-weight="500">Years from now</text>
+    `;
+  }
+
+  function buildCallout(result: any, inputs: any): string | null {
+    const { winner, wealthDifference, breakEvenYear } = result.comparison;
+    const { mortgageRate, holdYears, downPaymentPct, homePrice, investmentReturnPct } = inputs;
+    const downPayment = homePrice * (downPaymentPct / 100);
+
+    /* Priority order: short hold + high rate, large down payment opportunity cost, etc. */
+    if (holdYears < 5 && winner === 'rent') {
+      return `<strong>Short holds favor renting.</strong> At ${holdYears} years, transaction costs (3% to buy, 6% to sell) eat most of the gain you'd build from owning. If there's any chance you'll move in under 5 years, rent.`;
+    }
+
+    if (mortgageRate >= 7 && winner === 'rent') {
+      return `<strong>High rates change the math.</strong> At ${mortgageRate.toFixed(2)}% interest, most of your early mortgage payments are interest, not equity. Your down payment compounds faster in the market than your home equity grows. ${breakEvenYear ? `Break-even isn't until year ${breakEvenYear}.` : `Break-even doesn't happen within 15 years at these inputs.`}`;
+    }
+
+    if (downPayment >= 100000 && winner === 'rent') {
+      const oppCost = Math.round(downPayment * Math.pow(1 + investmentReturnPct/100, holdYears) - downPayment);
+      return `<strong>The opportunity cost is real.</strong> Your ${formatCurrency(downPayment, 0)} down payment, invested at ${investmentReturnPct}% for ${holdYears} years, would grow to about ${formatCurrency(downPayment + oppCost, 0)}. That's the money you give up by tying it up in home equity. Most calculators don't show this.`;
+    }
+
+    if (winner === 'buy' && breakEvenYear && breakEvenYear < holdYears - 2) {
+      return `<strong>Buying clearly wins here.</strong> Break-even is at year ${breakEvenYear}, so by your ${holdYears}-year mark, you're well ahead. The combination of low-ish rate (${mortgageRate.toFixed(2)}%), home value growth, and a long enough hold period tilts the math toward owning.`;
+    }
+
+    if (winner === 'buy' && breakEvenYear && Math.abs(breakEvenYear - holdYears) <= 2) {
+      return `<strong>Close call.</strong> Buying wins, but break-even is at year ${breakEvenYear} — barely before your ${holdYears}-year mark. If you end up moving sooner than expected (which most people do), this flips. The result is more sensitive to your hold-period assumption than to anything else.`;
+    }
+
+    if (winner === 'rent' && !breakEvenYear) {
+      return `<strong>Buying never breaks even within 15 years</strong> at these inputs. With ${mortgageRate.toFixed(2)}% rates and ${investmentReturnPct}% expected investment returns, the math favors renting and investing the difference for the long haul. This is the contrarian truth most real estate calculators bury.`;
+    }
+
+    return null;
+  }
+
+  function renderResults(result: any, inputs: any) {
+    if (!result) return;
+    const { winner, wealthDifference, breakEvenYear } = result.comparison;
+    const winnerAction = winner === 'buy' ? 'Buying' : 'Renting and investing';
+
+    document.getElementById('result-years')!.textContent = inputs.holdYears.toString();
+    document.getElementById('winner-action')!.textContent = winnerAction;
+    document.getElementById('wealth-difference')!.textContent = formatCurrency(wealthDifference, 0);
+    document.getElementById('break-even-year')!.textContent = breakEvenYear ? `year ${breakEvenYear}` : 'never within 15 years';
+
+    /* Buying side */
+    document.getElementById('buy-monthly')!.textContent = formatCurrency(result.buying.monthlyCost, 0);
+    document.getElementById('buy-home-value')!.textContent = formatCurrency(result.buying.homeValueAtEnd, 0);
+    document.getElementById('buy-loan-remaining')!.textContent = formatCurrency(result.buying.remainingLoanAtEnd, 0);
+    document.getElementById('buy-equity')!.textContent = formatCurrency(result.buying.homeEquityAtEnd, 0);
+    document.getElementById('buy-tax-savings')!.textContent = formatCurrency(result.buying.cumulativeTaxSavings, 0);
+    document.getElementById('buy-wealth')!.textContent = formatCurrency(result.buying.wealth, 0);
+
+    /* Renting side */
+    document.getElementById('rent-monthly')!.textContent = formatCurrency(result.renting.monthlyCost, 0);
+    document.getElementById('rent-investment')!.textContent = formatCurrency(result.renting.investmentBalance, 0);
+    document.getElementById('rent-wealth')!.textContent = formatCurrency(result.renting.wealth, 0);
+
+    /* Chart */
+    buildChart(result.series, inputs.holdYears);
+
+    /* Honest callout */
+    const calloutText = buildCallout(result, inputs);
+    const calloutBox = document.getElementById('callout-box')!;
+    if (calloutText) {
+      document.getElementById('callout-text')!.innerHTML = calloutText;
+      calloutBox.classList.remove('hidden');
+    } else {
+      calloutBox.classList.add('hidden');
+    }
+
+    /* Show results */
+    resultsEl.classList.remove('hidden');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const inputs = getFormValues();
+    const result = calculateBuyVsRent(inputs);
+    if (result) renderResults(result, inputs);
+  });
+
+  /* Copy link button */
+  document.getElementById('copy-link-btn')?.addEventListener('click', () => {
+    const inputs = getFormValues();
+    const params = new URLSearchParams();
+    Object.entries(inputs).forEach(([k, v]) => params.set(k, String(v)));
+    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('copy-link-btn')!;
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+    });
+  });
+
+  document.getElementById('print-btn')?.addEventListener('click', () => window.print());
+
+  hydrateFromUrl();
+</script>

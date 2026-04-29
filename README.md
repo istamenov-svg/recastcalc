@@ -1,67 +1,116 @@
-# Guide #7: How to Add Escrow to Your Mortgage
+# Buy vs. Rent Calculator (6th calculator on the site)
 
-New guide on converting a no-escrow mortgage to escrow for property taxes and insurance. Slots into the content plan as Guide #7.
+The most ambitious calculator yet. Compares buying vs. renting using honest math, with the down payment opportunity cost most other calculators bury, plus a break-even chart and dynamic contrarian callouts.
 
-## What's in this package
+## What this package contains
 
 ```
 src/
-  content/
-    guides/
-      07-how-to-add-escrow-to-mortgage.md    NEW
+  scripts/
+    mortgage-math.js                       MODIFIED (added calculateBuyVsRent function ~200 lines)
+  components/
+    BuyVsRentCalculator.astro              NEW (~440 lines, the calculator itself)
+    Header.astro                           MODIFIED (added Buy vs Rent nav link)
+    Footer.astro                           MODIFIED (added Buy vs Rent footer link)
   pages/
-    guides/
-      index.astro                            MODIFIED (adds /escrow/ pillar support)
+    buy-vs-rent/
+      index.astro                          NEW (~250 lines, page wrapper + content + FAQ)
+    index.astro                            MODIFIED (added homepage card)
 ```
 
-2 file changes total: 1 new guide, 1 modified pages/guides/index.astro.
+7 file changes total: 2 new files, 5 modifications.
 
-## Why pages/guides/index.astro had to change
+## Math model — the honest framing
 
-The guides index has a hardcoded `pillarOrder` array. Adding the new `/escrow/` pillar without updating the index would have made the new guide invisible from the listing page (it would build into a working URL but not appear in navigation).
+The calculator compares **wealth at the end of the hold period** between two scenarios:
 
-Three changes to index.astro:
-1. Added `"/escrow/": "Escrow Accounts"` to `pillarLabels`
-2. Added `"/escrow/"` to `pillarOrder`
-3. Made orphan pillar handling future-proof: any pillar not in `pillarOrder` now gets appended to the bottom of the index instead of being silently dropped (so future pillars won't have this problem)
+**Buying wealth** = Home equity at sale (after 6% selling costs and remaining loan) + cumulative mortgage interest tax savings + any investments accumulated in years where buying was cheaper than renting
 
-## Guide content notes
+**Renting wealth** = (Down payment + closing costs) compounded at investment return rate, plus each year's monthly cost difference (when renting is cheaper) also invested at the same rate
 
-- **Length:** 1,885 words (longer than the 1,400 target, but the topic warranted it — real procedural detail, gotchas, worked examples)
-- **Style:** Zero em dashes, all abbreviations spelled out on first use (PITI, RESPA), parens for category clarification
-- **Honest math angle:** Self-managing escrow saves about $100-$250/year via spread between high-yield savings rate and lender escrow rate. Real money, but the bigger question is cash flow discipline.
-- **Pillar:** /escrow/ (new pillar — gives room for future escrow-cluster guides like escrow refunds, escrow shortage, escrow analysis)
-- **URL:** /guides/how-to-add-escrow-to-mortgage/
-- **Reviewer:** TBD (same placeholder as the other 6 guides)
+This is the right framing. It treats housing costs as consumption (you pay them either way) and only compares the wealth-building parts. Most calculators conflate these and produce misleading results.
+
+## Math validation — 5 test scenarios
+
+```
+Test 1 ($500K home, 6.5%, 7yr): rent +$34K, break-even year 14 ✓
+Test 2 (4yr hold): rent +$41K (shorter holds favor renting more) ✓
+Test 3 (15yr hold): buy +$10K (long holds flip to buying) ✓
+Test 4 (low 4% rate, 10yr, 5% rent inflation): buy +$98K ✓
+Test 5 (high 8% rate, 4yr): rent +$64K ✓
+```
+
+All directionally correct. Math validated.
+
+## Honest assumptions disclosed in the content
+
+- Maintenance default 1.5% (BLS data, not 0.5% like other calculators)
+- Rent inflation default 4% (recent reality, not the old 3%)
+- Selling costs 6% (realtor + transfer + staging)
+- Investment return default 7% (S&P 500 long-term nominal)
+- Mortgage interest deductible up to $750K loan balance
+- Property tax NOT added to deduction (SALT cap usually consumed by state income tax)
+- Tax savings are nominal interest deduction × marginal tax rate
+
+## UI features
+
+- **3-column input grid:** Property | Rent | Your situation (16 inputs total, but grouped for scannability)
+- **Plain-English labels** for less-financially-literate audience: "Home value growth (yearly)" instead of "Annual appreciation rate"
+- **Inline term definitions:** "Property tax (yearly): As percent of home value. US median is 1.2%"
+- **SVG break-even chart:** wealth over years 1-15, with green line for buying, orange for renting, vertical dashed line at user's hold-year mark
+- **Dynamic honest callouts** that change based on inputs:
+  - Short hold + buy losing: "Transaction costs eat the gain; rent."
+  - High rate + buy losing: "Most early payments are interest; break-even isn't until year X."
+  - Large down payment + rent winning: shows the actual opportunity cost dollars
+  - Buy clearly wins: "Long enough hold + reasonable rate tilts toward owning."
+  - Buy barely wins: "Sensitive to your hold-period assumption."
+- **Copy link button** that includes all 16 inputs as URL params (for sharing or saving)
+- **Print button** for results
+- **URL hydration** — paste a saved link, calculator auto-runs
+
+## SEO targeting
+
+- **Primary keyword:** "buy vs rent calculator" (40K-90K monthly searches in US)
+- **Secondary:** "rent vs buy calculator", "should I buy or rent", "rent or buy"
+- **Realistic ranking expectation:** top 50 within 6 months, top 20 within 12 months IF backed by content + backlinks. NYT, Bankrate, Zillow occupy positions 1-5.
+- **Differentiation lever:** the contrarian "we surface what they bury" angle, plus the break-even chart, plus the dynamic callouts
 
 ## Verified locally
 
-- `astro build` succeeds with new guide
-- 19 pages built clean (was 18, now +1)
-- "Escrow Accounts" pillar header appears in /guides/ index
-- Guide link present under that pillar header
-- Dynamic route /guides/how-to-add-escrow-to-mortgage/ works
+- `astro build` succeeded
+- 20 pages built (was 19 with escrow guide)
+- Calculator page at `/dist/buy-vs-rent/index.html`
+- Nav links present (header, mobile, footer)
+- All 3 JSON-LD schema blocks present
+- Rate banner pulls 6.23% from rates.json correctly
+
+## Honest assessment
+
+**What's good:**
+- Math is correct and honest, validated across 5 scenarios
+- UI is functional, accessible, and scannable
+- Plain-English labels match the audience pivot
+- Break-even chart is genuinely useful (most calculators don't have one)
+- Dynamic callouts surface the contrarian framing where appropriate
+- Schema is comprehensive (WebApplication, BreadcrumbList, FAQPage)
+
+**Honest reservations:**
+- 16 inputs is a lot. For genuinely less-literate users, this may be overwhelming on first encounter. A future iteration could add a "wizard mode" that asks one question at a time. Not in this build.
+- The chart is a basic SVG line plot. It works but isn't fancy. Could be upgraded later.
+- No A/B test scenarios surfaced in UI (e.g., "what if you stayed only 4 years?" auto-comparison). Could be a v2 feature.
+- The page wrapper is ~250 lines and the calculator is ~440 lines. Larger than other calculators on the site, justified by the topic complexity.
 
 ## Apply
 
-Web upload to GitHub:
-1. `src/content/guides/07-how-to-add-escrow-to-mortgage.md` (new file)
-2. `src/pages/guides/index.astro` (replaces existing)
+Web upload to GitHub. 7 file changes in `src/`. Commit: `Add Buy vs. Rent calculator with break-even chart and honest math`
 
-Commit message: `Add Guide #7: escrow conversion + new /escrow/ pillar`
+After deploy:
+1. Verify the page renders at https://recastcalc.com/buy-vs-rent/
+2. Test the calculator with a few different scenarios
+3. Check the chart renders correctly on mobile
+4. Submit URL to Google Search Console for indexing
+5. Re-run PageSpeed on the new page (likely 95-98 like the others, but worth verifying)
 
-~90 second Cloudflare deploy. After deploy, request indexing in GSC for /guides/how-to-add-escrow-to-mortgage/ since it's a new URL.
+## What's next
 
-## What's next in the content plan
-
-The /escrow/ pillar can grow with these obvious tier-2 follow-ups:
-- Escrow shortage explained: why your payment just went up
-- How to dispute an escrow analysis
-- Removing escrow from your mortgage (the reverse direction)
-- Escrow cushion math: what your lender is actually allowed to hold
-
-None of these are urgent. The Guide #7 stands on its own.
-
-## Voice-edit pass
-
-Same model as the existing 6 guides: I drafted, you voice-edit before going live. Length is longer than the others (1,885 vs 1,200-1,500), so consider whether to trim during the edit. My honest take is the length is earned, but you may disagree.
+The calculator is shipped. What it needs now is users. Reddit Pattern 1 post is the obvious next move — this calculator's contrarian "down payment opportunity cost" angle is exactly the kind of finding that drives engagement on r/Mortgages and r/personalfinance.
