@@ -48,3 +48,17 @@ jobs:
         env:
           TARGET_SHA: ${{ steps.target.outputs.sha }}
         run: node scripts/indexnow.mjs
+
+  check-404:
+    # Runs once the deploy is confirmed live; unknown URLs must return a real 404, not the homepage.
+    needs: submit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request a missing page
+        run: |
+          status=$(curl -s -o /dev/null -w '%{http_code}' "https://recastcalc.com/this-page-does-not-exist?t=$(date +%s)")
+          echo "GET /this-page-does-not-exist: HTTP $status"
+          if [ "$status" != "404" ]; then
+            echo "::error::Expected HTTP 404 for an unknown URL, got $status"
+            exit 1
+          fi
