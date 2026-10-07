@@ -98,7 +98,7 @@ Modifications are for real hardship, and they can affect your credit. A housing 
 
 ## When refinancing still makes sense
 
-Refinancing isn't always wrong. It can still pay off if your current rate is higher than today's. Some people who bought in late 2023 or 2024 have rates close to or above current levels.
+Refinancing isn't always wrong. It can still pay off if your current rate is higher than today's. Freddie Mac's average 30-year rate peaked at 7.79% in October 2023, so some people who bought in late 2023 or 2024 have rates close to or above current levels.
 
 Before refinancing, compare the monthly savings with the closing costs, which usually run 2% to 5% of the loan amount. If it would take you longer to recover those costs than you plan to stay in the home, refinancing doesn't pay.
 

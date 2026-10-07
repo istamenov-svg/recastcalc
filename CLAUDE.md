@@ -13,6 +13,7 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - `30yr_fixed` and `15yr_fixed` (Freddie Mac PMMS) and `heloc` (prime rate + 1.0, both via FRED) update automatically every Thursday at 20:00 UTC through `.github/workflows/update-rates.yml`, which commits to `main`. The job fails without committing if a value is outside 2 to 15, moves more than 1.0 point in a week, or the data is older than 14 days.
 - `5_1_arm` and `pmi_typical` are manual. Review `5_1_arm` at least every 90 days and set `armReviewedAt`; the weekly job emits a warning (but still updates the other rates) when it is missing or older than 90 days.
 - Never hardcode current market rates in prose. Use example framing ("assume rates are 6.5%") or point to the reference rate banner.
+- Verified historical figures are not current rates and may be stated with their date (e.g. "peaked at 7.79% in October 2023"). Verify them against source data first (see Fact-checking) and keep them in the past tense.
 - Use plain-English labels and inline definitions. The target audience is less financially literate users.
 
 ## Page titles
