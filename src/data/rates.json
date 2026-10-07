@@ -6,7 +6,7 @@
   "rates": {
     "30yr_fixed": 6.23,
     "15yr_fixed": 5.58,
-    "5_1_arm": 6.50,
+    "5_1_arm": 6.43,
     "heloc": 8.50,
     "pmi_typical": 0.75
   },
@@ -17,5 +17,7 @@
   },
   "derived": {
     "heloc": "prime + 1.0"
-  }
+  },
+  "armReviewedAt": "2026-10-07",
+  "armSource": "MBA Weekly Mortgage Applications Survey, week ending 2026-10-02 (contract rate, 80% LTV)"
 }
