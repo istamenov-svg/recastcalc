@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const calculators = [
+  { href: '/recast/', label: 'Mortgage recast calculator' },
+  { href: '/pmi-removal/', label: 'PMI removal calculator' },
+  { href: '/biweekly-payoff/', label: 'Biweekly payoff calculator' },
+  { href: '/arm-reset/', label: 'ARM reset calculator' },
+  { href: '/heloc-vs-refi/', label: 'HELOC vs. cash-out refinance calculator' },
+  { href: '/buy-vs-rent/', label: 'Buy vs. rent calculator' },
+];
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="This page does not exist on RecastCalc. Try one of our free mortgage calculators or browse our plain-English mortgage guides instead."
+  noindex
+>
+  <article class="max-w-prose mx-auto px-4 lg:px-6 py-16 prose-recast">
+    <h1 class="text-display-1 font-display font-semibold mb-8">Page not found</h1>
+
+    <p class="text-lg">
+      We couldn't find that page. It may have moved, or the link may have a typo.
+    </p>
+
+    <h2>Calculators</h2>
+    <ul>
+      {calculators.map((c) => (
+        <li><a href={c.href}>{c.label}</a></li>
+      ))}
+    </ul>
+
+    <p>Or read our <a href="/guides/">mortgage guides</a>.</p>
+  </article>
+</BaseLayout>

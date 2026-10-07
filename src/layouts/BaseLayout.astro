@@ -64,8 +64,8 @@ const orgSchema = {
     <!-- Primary meta -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <link rel="canonical" href={canonicalURL} />}
+    {noindex && <meta name="robots" content="noindex" />}
 
     <!-- OG / Twitter -->
     <meta property="og:type" content="website" />
