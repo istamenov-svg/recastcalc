@@ -72,6 +72,14 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - `.github/workflows/indexnow.yml` submits every sitemap URL to IndexNow after each push to `main` and after each weekly rate commit. It waits until `https://recastcalc.com/version.txt` (built from Cloudflare's `CF_PAGES_COMMIT_SHA`) shows the new commit, then fails on any response other than 200 or 202.
 - The key file is `public/<key>.txt`. Do not rename or delete it.
 
+## Fact-checking
+
+- `.github/workflows/fred-lookup.yml` (manual dispatch: series ID, start date, end date) prints FRED observations and the range's max and min to the job log. Use it to verify historical rate figures before publishing them; this container cannot reach FRED. It is read-only and never commits.
+
+## Known gaps
+
+- `GuideLayout.astro` ignores the frontmatter `schema` list and always emits only `Article` structured data, so no guide emits `FAQPage` even when its frontmatter lists it.
+
 ## Deferred work
 
 - Astro 5 to 7 and Tailwind 3 to 4 migration deferred (Oct 2026). These clear the remaining critical/high `npm audit` findings (astro, @astrojs/tailwind, tailwindcss, sharp, braces/micromatch/chokidar). Revisit if SSR, Pages Functions, or user-generated content is added, or if Astro 5 stops receiving fixes.

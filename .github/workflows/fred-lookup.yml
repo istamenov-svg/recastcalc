@@ -1,0 +1,38 @@
+name: FRED lookup
+
+# Manual fact-check helper: prints FRED observations for one series and date range
+# to the job log, plus the max and min in that range. Read-only; never commits.
+on:
+  workflow_dispatch:
+    inputs:
+      series:
+        description: 'FRED series ID (e.g. MORTGAGE30US)'
+        required: true
+        default: MORTGAGE30US
+      start:
+        description: 'Start date (YYYY-MM-DD)'
+        required: true
+      end:
+        description: 'End date (YYYY-MM-DD)'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch and print observations
+        env:
+          SERIES: ${{ inputs.series }}
+          START: ${{ inputs.start }}
+          END: ${{ inputs.end }}
+        run: |
+          [[ "$SERIES" =~ ^[A-Za-z0-9_]+$ ]] || { echo "::error::Invalid series ID"; exit 1; }
+          [[ "$START" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ && "$END" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "::error::Dates must be YYYY-MM-DD"; exit 1; }
+          curl -sSf "https://fred.stlouisfed.org/graph/fredgraph.csv?id=${SERIES}&cosd=${START}&coed=${END}" -o series.csv
+          echo "Source: https://fred.stlouisfed.org/series/${SERIES} (${START} to ${END})"
+          cat series.csv
+          awk -F, 'NR>1 && $2!="." && $2!="" { n++; if (n==1 || $2+0>max) {max=$2+0; maxd=$1} if (n==1 || $2+0<min) {min=$2+0; mind=$1} }
+            END { if (n) printf "Observations: %d\nMax: %s on %s\nMin: %s on %s\n", n, max, maxd, min, mind; else { print "No observations"; exit 1 } }' series.csv
