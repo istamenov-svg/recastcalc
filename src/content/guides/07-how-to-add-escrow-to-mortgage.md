@@ -1,6 +1,6 @@
 ---
 title: "How to Add Escrow to Your Mortgage (No-Escrow → Escrow Conversion Guide)"
-description: "Step-by-step guide to converting your mortgage from no-escrow to escrow for property taxes and insurance. The honest math on whether escrow is worth it, plus how to actually request the switch."
+description: "How to switch your mortgage from no escrow to an escrow account for property taxes and insurance, whether escrow is worth it, and how to request the change."
 urlSlug: how-to-add-escrow-to-mortgage
 pubDate: 2026-04-29
 updatedDate: 2026-04-29
