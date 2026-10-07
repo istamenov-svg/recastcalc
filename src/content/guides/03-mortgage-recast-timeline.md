@@ -1,5 +1,5 @@
 ---
-title: "How Long Does a Mortgage Recast Take? (Step-by-Step Timeline)"
+title: "How Long Does a Mortgage Recast Take? Full Timeline"
 description: "Step-by-step timeline: from request to new payment. Lender-by-lender processing times for Chase, Wells Fargo, BofA, US Bank."
 urlSlug: mortgage-recast-timeline
 pubDate: 2026-04-28

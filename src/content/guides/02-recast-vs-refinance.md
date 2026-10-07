@@ -1,5 +1,5 @@
 ---
-title: "Mortgage Recast vs. Refinance: Which Saves More in 2026?"
+title: "Mortgage Recast vs. Refinance: Which Saves More?"
 description: "Side-by-side comparison with worked examples. When recasting wins, when refinancing wins, and when neither beats extra payments."
 urlSlug: recast-vs-refinance
 pubDate: 2026-05-01

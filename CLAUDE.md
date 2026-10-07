@@ -15,6 +15,11 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - Never hardcode current market rates in prose. Use example framing ("assume rates are 6.5%") or point to the reference rate banner.
 - Use plain-English labels and inline definitions. The target audience is less financially literate users.
 
+## Page titles
+
+- No years in page titles (they go stale). Every rendered title, including the " | RecastCalc" suffix the layout appends, stays under 70 characters.
+- For guides, `title` is also the H1, breadcrumb, and structured-data headline.
+
 ## Ads
 
 - `src/components/AdSlot.astro` renders nothing unless the build-time env variable `ADS_ENABLED` is `true` (default off). To turn ads on: set `ADS_ENABLED=true` in Cloudflare Pages (Settings, Environment variables, Production), in `AdSlot.astro` uncomment the AdSense `<ins>` block and delete the dashed placeholder `<div>`, uncomment the AdSense script in `src/layouts/BaseLayout.astro` with the real publisher and slot IDs, then redeploy.
