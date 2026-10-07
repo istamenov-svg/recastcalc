@@ -58,7 +58,7 @@ There are no closing costs, appraisals, or third-party fees. That's the whole po
 | PenFed Credit Union | $0 | No fee for members |
 | Local credit unions | $0–$250 | Highly variable |
 
-These fees are typical as of session date. Verify the current fee with your specific servicer before requesting a recast, since fees can change with little notice.
+These fees are typical as of April 2026. Verify the current fee with your specific servicer before requesting a recast, since fees can change with little notice.
 
 ## How the fee changes the math
 
