@@ -240,14 +240,14 @@ const rPmi = rates.rates["pmi_typical"];
 
     highlightWinner(result.bestStrategy);
 
-    /* Honest callout (no forced contrarian — show the real driver) */
+    /* Honest callout (no forced contrarian; show the real driver) */
     let callout = '';
     const rateGap = (params.currentRate - params.refiRate).toFixed(2);
 
     if (result.bestStrategy === 'heloc') {
       callout = `<strong class="text-ink-900">A HELOC keeps your existing ${params.currentRate}% mortgage in place</strong>, and you only pay the higher HELOC rate on the ${formatCurrency(params.cashNeeded)} you actually borrow. Cash-out refinancing would force the entire ${formatCurrency(params.currentBalance + params.cashNeeded)} balance up to ${params.refiRate}%; over ${params.holdYears} years, that costs ${formatCurrency(result.difference)} more. The longer you'll hold the existing mortgage, the more this gap widens.`;
     } else {
-      callout = `<strong class="text-ink-900">Cash-out refinancing wins by ${formatCurrency(result.difference)} over ${params.holdYears} years</strong>, even after closing costs. This happens when the refinance rate (${params.refiRate}%) is close to or below your current rate (${params.currentRate}%) — at that point, refinancing the whole balance is cheaper than carrying a higher-rate HELOC. If your existing rate is below market, this answer flips toward HELOC.`;
+      callout = `<strong class="text-ink-900">Cash-out refinancing wins by ${formatCurrency(result.difference)} over ${params.holdYears} years</strong>, even after closing costs. This happens when the refinance rate (${params.refiRate}%) is close to or below your current rate (${params.currentRate}%); at that point, refinancing the whole balance is cheaper than carrying a higher-rate HELOC. If your existing rate is below market, this answer flips toward HELOC.`;
     }
 
     const calloutEl = document.querySelector('[data-result="strategyCallout"]');

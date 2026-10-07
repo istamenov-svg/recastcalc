@@ -1,6 +1,6 @@
 ---
 /**
- * RateBanner — displays current reference mortgage rate from Freddie Mac PMMS.
+ * RateBanner: displays current reference mortgage rate from Freddie Mac PMMS.
  *
  * Props:
  *   variant: which rate to feature ('30yr_fixed' | '15yr_fixed' | '5_1_arm' | 'heloc' | 'pmi')
@@ -76,6 +76,6 @@ const trendDelta = Math.abs(rateValue - priorWeekRate).toFixed(2);
     <span aria-hidden="true"> · </span>
     <span>Week of {asOfDate}</span>
     <span aria-hidden="true"> · </span>
-    <span class="text-ink-400">For context only — enter your specific rate above</span>
+    <span class="text-ink-400">For context only; enter your specific rate above</span>
   </div>
 </aside>

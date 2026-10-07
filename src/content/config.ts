@@ -5,7 +5,7 @@ const guides = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    /* urlSlug instead of slug — slug is reserved by Astro for filename-derived routing */
+    /* urlSlug instead of slug (slug is reserved by Astro for filename-derived routing) */
     urlSlug: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),

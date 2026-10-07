@@ -1,6 +1,6 @@
 ---
 // Mortgage Recast Calculator
-// Vanilla JS island — full functionality with zero framework JS
+// Vanilla JS island: full functionality with zero framework JS
 
 import rates from '../data/rates.json';
 const r30 = rates.rates["30yr_fixed"];
@@ -312,7 +312,7 @@ const rPmi = rates.rates["pmi_typical"];
     let callout = '';
 
     if (result.bestStrategy === 'extraPayment') {
-      callout = `<strong class="text-ink-900">The math says: keep paying the old payment.</strong> Applying $${params.lumpSum.toLocaleString()} as a one-time principal payment without recasting saves you ${interestDiff} more in interest and pays off the loan ${formatDuration(monthsSaved)} early. Recasting still saves you money — but you're trading total interest savings for monthly cash flow relief. Pick recast if cash flow matters more than total interest paid.`;
+      callout = `<strong class="text-ink-900">The math says: keep paying the old payment.</strong> Applying $${params.lumpSum.toLocaleString()} as a one-time principal payment without recasting saves you ${interestDiff} more in interest and pays off the loan ${formatDuration(monthsSaved)} early. Recasting still saves you money, but you're trading total interest savings for monthly cash flow relief. Pick recast if cash flow matters more than total interest paid.`;
     } else {
       callout = `<strong class="text-ink-900">Recast wins by ${interestDiff} in total interest savings.</strong> This is unusual and typically means your remaining term is short or your lump sum is small relative to the balance.`;
     }

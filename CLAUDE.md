@@ -12,6 +12,10 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - Default rates come from `src/data/rates.json` (Freddie Mac PMMS, updated Thursdays). Never hardcode rates in components.
 - Use plain-English labels and inline definitions. The target audience is less financially literate users.
 
+## Ads
+
+- `src/components/AdSlot.astro` renders nothing unless the build-time env variable `ADS_ENABLED` is `true` (default off). To turn ads on: set `ADS_ENABLED=true` in Cloudflare Pages (Settings, Environment variables, Production), in `AdSlot.astro` uncomment the AdSense `<ins>` block and delete the dashed placeholder `<div>`, uncomment the AdSense script in `src/layouts/BaseLayout.astro` with the real publisher and slot IDs, then redeploy.
+
 ## Guides
 
 - Guides live in `src/content/guides/` as markdown with frontmatter:

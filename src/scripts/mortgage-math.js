@@ -1,5 +1,5 @@
 /**
- * Mortgage math utilities — pure functions, zero dependencies.
+ * Mortgage math utilities: pure functions, zero dependencies.
  *
  * All functions assume:
  *   - rate is annual percentage (e.g., 6.5 for 6.5%)
@@ -9,7 +9,7 @@
 
 /**
  * Standard mortgage payment formula.
- * P&I only — does not include taxes, insurance, escrow.
+ * P&I only; does not include taxes, insurance, escrow.
  *
  * Formula: M = P * (r(1+r)^n) / ((1+r)^n - 1)
  *   where r = monthly rate, n = term in months
@@ -67,8 +67,8 @@ export function amortizationSchedule(balance, annualRate, termMonths) {
  * the monthly payment goes down.
  *
  * Returns a complete comparison object with all 3 scenarios:
- *   1. No recast (baseline) — keep paying current payment
- *   2. Recast — apply lump sum, payment recalculated for remaining term
+ *   1. No recast (baseline): keep paying current payment
+ *   2. Recast: apply lump sum, payment recalculated for remaining term
  *   3. Lump sum + keep paying old payment (extra-payment strategy)
  */
 export function calculateRecast({
@@ -83,19 +83,19 @@ export function calculateRecast({
     return null;
   }
   if (lumpSum >= currentBalance) {
-    return { error: 'Lump sum exceeds current balance — your loan would be paid off.' };
+    return { error: 'Lump sum exceeds current balance; your loan would be paid off.' };
   }
 
   // Scenario 1: No recast (baseline)
   const baselinePayment = monthlyPayment(currentBalance, annualRate, remainingTermMonths);
   const baselineTotalInterest = baselinePayment * remainingTermMonths - currentBalance;
 
-  // Scenario 2: Recast — new balance, same term, same rate, payment recalculates
+  // Scenario 2: Recast: new balance, same term, same rate, payment recalculates
   const newBalance = currentBalance - lumpSum;
   const recastPayment = monthlyPayment(newBalance, annualRate, remainingTermMonths);
   const recastTotalInterest = recastPayment * remainingTermMonths - newBalance;
 
-  // Scenario 3: Extra payment strategy — apply lump sum but keep paying baseline payment
+  // Scenario 3: Extra payment strategy: apply lump sum but keep paying baseline payment
   // (i.e., loan pays off faster, no payment reduction, interest savings come from shorter term)
   const extraPaymentSchedule = simulateExtraPayment(
     newBalance,
@@ -165,7 +165,7 @@ function simulateExtraPayment(balance, annualRate, monthlyPaymentAmount) {
   while (remaining > 0.01 && months < maxMonths) {
     const interest = remaining * r;
     const principal = Math.min(monthlyPaymentAmount - interest, remaining);
-    if (principal <= 0) break; // payment doesn't cover interest — error case
+    if (principal <= 0) break; // payment doesn't cover interest (error case)
     remaining -= principal;
     totalInterest += interest;
     months++;
@@ -181,7 +181,7 @@ function simulateExtraPayment(balance, annualRate, monthlyPaymentAmount) {
  * Format a number as USD currency.
  */
 export function formatCurrency(amount, options = {}) {
-  if (!isFinite(amount)) return '—';
+  if (!isFinite(amount)) return '-';
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -194,7 +194,7 @@ export function formatCurrency(amount, options = {}) {
  * Format months as "X years, Y months".
  */
 export function formatDuration(months) {
-  if (!isFinite(months) || months <= 0) return '—';
+  if (!isFinite(months) || months <= 0) return '-';
   const years = Math.floor(months / 12);
   const remainingMonths = Math.round(months % 12);
   if (years === 0) return `${remainingMonths} month${remainingMonths !== 1 ? 's' : ''}`;
@@ -410,7 +410,7 @@ export function calculateBiweekly({
   // but functionally identical over loan life)
   const oneTwelfthExtra = monthlyPmt / 12;
 
-  // Scenario 2: biweekly via program — same math as monthly + 1/12 in terms of payoff,
+  // Scenario 2: biweekly via program: same math as monthly + 1/12 in terms of payoff,
   // but with program fee added to total cost
   const biweeklyResult = simulateExtraPayment(
     currentBalance,
@@ -481,7 +481,7 @@ export function calculateBiweekly({
  * Three scenarios:
  *   1. Hold the ARM at the expected new rate
  *   2. Refinance to fixed at current market rate
- *   3. Recast with a lump sum (if available) — keeps the ARM but lowers payment
+ *   3. Recast with a lump sum (if available): keeps the ARM but lowers payment
  */
 export function calculateARMReset({
   currentBalance,
@@ -599,7 +599,7 @@ export function calculateHelocVsRefi({
   const helocTotalCost = mortgageInterestOverHold + helocInterestOverHold;
   const helocTotalMonthlyPayment = mortgagePayment + helocMonthlyInterest;
 
-  /* Scenario 2: Cash-out refinance — new loan at refi rate, balance = current + cash needed */
+  /* Scenario 2: Cash-out refinance: new loan at refi rate, balance = current + cash needed */
   const refiBalance = currentBalance + cashNeeded;
   const refiPayment = monthlyPayment(refiBalance, refiRate, remainingTermMonths);
   const refiSchedule = amortizationSchedule(refiBalance, refiRate, remainingTermMonths);
@@ -753,10 +753,10 @@ export function calculateBuyVsRent({
      * buyer can invest the surplus. */
     const cashFlowDiff = totalBuyingCostsThisYear - totalRentingCostsThisYear;
     if (cashFlowDiff > 0) {
-      /* Buying is more expensive — renter invests the difference */
+      /* Buying is more expensive; renter invests the difference */
       renterSideInvestment += cashFlowDiff;
     } else if (cashFlowDiff < 0) {
-      /* Buying is cheaper — buyer can invest the difference */
+      /* Buying is cheaper; buyer can invest the difference */
       buyerSideInvestment += Math.abs(cashFlowDiff);
     }
 

@@ -160,7 +160,7 @@
   }
 }
 
-/* AdSense placeholder spacing — prevent CLS */
+/* AdSense placeholder spacing (prevent CLS) */
 .ad-slot {
   display: block;
   width: 100%;

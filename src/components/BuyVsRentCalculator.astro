@@ -288,7 +288,7 @@ const r30 = rates.rates["30yr_fixed"];
           <span class="inline-block w-4 h-1 rounded-sm" style="background-color:#b45309" aria-hidden="true"></span>
           Wealth from renting &amp; investing
         </span>
-        <span class="text-ink-500">— where they cross is your break-even point.</span>
+        <span class="text-ink-500">(where they cross is your break-even point)</span>
       </div>
       <div id="chart-container" class="overflow-x-auto">
         <svg id="breakeven-chart" viewBox="0 0 600 280" class="w-full h-auto" preserveAspectRatio="xMidYMid meet" aria-label="Break-even chart"></svg>
@@ -445,7 +445,7 @@ const r30 = rates.rates["30yr_fixed"];
     }
 
     if (winner === 'buy' && breakEvenYear && Math.abs(breakEvenYear - holdYears) <= 2) {
-      return `<strong>Close call.</strong> Buying wins, but break-even is at year ${breakEvenYear} — barely before your ${holdYears}-year mark. If you end up moving sooner than expected (which most people do), this flips. The result is more sensitive to your hold-period assumption than to anything else.`;
+      return `<strong>Close call.</strong> Buying wins, but break-even is at year ${breakEvenYear}, barely before your ${holdYears}-year mark. If you end up moving sooner than expected (which most people do), this flips. The result is more sensitive to your hold-period assumption than to anything else.`;
     }
 
     if (winner === 'rent' && !breakEvenYear) {

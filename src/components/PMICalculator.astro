@@ -222,14 +222,14 @@ const rPmi = rates.rates["pmi_typical"];
       /* Clear any stale data from previous successful computations */
       setResult('currentLTV', `${result.currentLTV.toFixed(1)}%`);
       setResult('monthlyPMI', formatCurrency(params.monthlyPMI));
-      setResult('monthsToAuto', '—');
-      setResult('totalPMIWaiting', '—');
-      setResult('waitingMonths', '—');
-      setResult('waitingPMI', '—');
-      setResult('requestingMonths', '—');
-      setResult('requestingPMI', '—');
-      setResult('acceleratedMonths', '—');
-      setResult('acceleratedPMI', '—');
+      setResult('monthsToAuto', '-');
+      setResult('totalPMIWaiting', '-');
+      setResult('waitingMonths', '-');
+      setResult('waitingPMI', '-');
+      setResult('requestingMonths', '-');
+      setResult('requestingPMI', '-');
+      setResult('acceleratedMonths', '-');
+      setResult('acceleratedPMI', '-');
 
       const calloutEl = document.querySelector('[data-result="strategyCallout"]');
       if (calloutEl) calloutEl.innerHTML = `<strong class="text-ink-900">${result.error}</strong>`;
@@ -247,8 +247,8 @@ const rPmi = rates.rates["pmi_typical"];
     setResult('waitingPMI', formatCurrency(result.waiting.pmiPaid));
     setResult('requestingMonths', result.requesting.months);
     setResult('requestingPMI', formatCurrency(result.requesting.pmiPaid));
-    setResult('acceleratedMonths', params.extraMonthlyPrincipal > 0 ? result.accelerated.months : '—');
-    setResult('acceleratedPMI', params.extraMonthlyPrincipal > 0 ? formatCurrency(result.accelerated.pmiPaid) : '—');
+    setResult('acceleratedMonths', params.extraMonthlyPrincipal > 0 ? result.accelerated.months : '-');
+    setResult('acceleratedPMI', params.extraMonthlyPrincipal > 0 ? formatCurrency(result.accelerated.pmiPaid) : '-');
 
     /* Honest callout */
     let callout = '';
