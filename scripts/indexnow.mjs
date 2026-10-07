@@ -29,6 +29,8 @@ if (!keyFile) {
 const key = readFileSync(new URL(`../public/${keyFile}`, import.meta.url), 'utf8').trim();
 
 const sleep = (s) => new Promise((resolve) => setTimeout(resolve, s * 1000));
+// Before a deploy lands, /version.txt can return a whole HTML page; keep logs short.
+const short = (s) => (s.length > 80 ? `${s.slice(0, 80)}... (${s.length} chars)` : s);
 const fetchText = async (path) => {
   const res = await fetch(`${SITE_URL}${path}?t=${Date.now()}`, { headers: { 'Cache-Control': 'no-cache' } });
   if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
@@ -41,10 +43,10 @@ while (true) {
   live = await fetchText('/version.txt').catch((e) => `error (${e.message})`);
   if (live === TARGET_SHA) break;
   if (Date.now() >= deadline) {
-    console.error(`Deploy not live after ${WAIT_SECONDS}s: /version.txt is ${live}, expected ${TARGET_SHA}`);
+    console.error(`Deploy not live after ${WAIT_SECONDS}s: /version.txt is ${short(live)}, expected ${TARGET_SHA}`);
     process.exit(1);
   }
-  console.log(`Waiting for deploy: live ${live}, expected ${TARGET_SHA}`);
+  console.log(`Waiting for deploy: live ${short(live)}, expected ${TARGET_SHA}`);
   await sleep(POLL_SECONDS);
 }
 console.log(`Deploy live: ${live}`);
