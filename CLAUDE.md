@@ -26,6 +26,7 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
   - `reviewer` (string; currently `TBD` on all guides)
   - `secondaryKeywords` (YAML list of strings)
   - `schema` (YAML list of structured-data types: `Article`, `HowTo`, `FAQPage`; every guide includes `Article`)
+  - `tier` (number, `1` or `2`; optional in `src/content/config.ts` but set on every current guide)
 - New pillars must be added to `pillarOrder` and `pillarLabels` in `src/pages/guides/index.astro`.
 
 ## Build and commit workflow
@@ -33,3 +34,7 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - Production deploys from `main` only. Side branches do not go live. After a change is approved, commit it, merge it into `main`, and push `main`.
 - Always run `npx astro build` before committing. Never push a failing build.
 - Show the diff and wait for approval before every commit and push.
+
+## Deferred work
+
+- Astro 5 to 7 and Tailwind 3 to 4 migration deferred (Oct 2026). These clear the remaining critical/high `npm audit` findings (astro, @astrojs/tailwind, tailwindcss, sharp, braces/micromatch/chokidar). Revisit if SSR, Pages Functions, or user-generated content is added, or if Astro 5 stops receiving fixes.
