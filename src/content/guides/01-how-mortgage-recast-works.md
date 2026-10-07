@@ -3,7 +3,7 @@ title: "How a Mortgage Recast Works (and What Most People Get Wrong)"
 description: "Plain-English explanation of mortgage recasting: what it is, how lenders calculate the new payment, and what most articles get wrong."
 urlSlug: how-mortgage-recast-works
 pubDate: 2026-04-29
-updatedDate: 2026-04-29
+updatedDate: 2026-10-07
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -40,7 +40,7 @@ That's it. Same rate. Same term. Same lender. No new disclosures, no closing cos
 
 Two nuances most articles miss:
 
-**The rate stays the same, even if market rates have changed.** That's why recasting exists. If you locked 4.5% in 2021 and rates are 6.5% today, refinancing means giving up your low rate. Recasting keeps it.
+**The rate stays the same, even if market rates have changed.** That's why recasting exists. If you locked 4.5% in 2021 and rates have since risen to 6.5%, refinancing means giving up your low rate. Recasting keeps it.
 
 **The term stays the same, your loan still ends on the original date.** Some homeowners assume recasting also shortens the loan. It doesn't. You spread a smaller balance over the same time.
 

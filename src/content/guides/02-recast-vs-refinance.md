@@ -3,7 +3,7 @@ title: "Mortgage Recast vs. Refinance: Which Saves More in 2026?"
 description: "Side-by-side comparison with worked examples. When recasting wins, when refinancing wins, and when neither beats extra payments."
 urlSlug: recast-vs-refinance
 pubDate: 2026-05-01
-updatedDate: 2026-05-01
+updatedDate: 2026-10-07
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -17,7 +17,7 @@ schema:
 tier: 1
 ---
 
-> **Quick answer:** Recasting wins when your current rate is below market and you have a lump sum to apply: your rate stays the same, fees are $150–$500, and your monthly payment drops. Refinancing wins when current rates are at least 1 percentage point below your existing rate and you'll keep the loan long enough to recoup $5,000–$15,000 in closing costs. In a 2026 environment with rates near 6.5%, most homeowners with sub-5% existing mortgages should recast, not refinance.
+> **Quick answer:** Recasting wins when your current rate is below market and you have a lump sum to apply: your rate stays the same, fees are $150–$500, and your monthly payment drops. Refinancing wins when current rates are at least 1 percentage point below your existing rate and you'll keep the loan long enough to recoup $5,000–$15,000 in closing costs. In a higher-rate environment, most homeowners with sub-5% existing mortgages should recast, not refinance.
 
 [Compare both in the calculator →](/recast/)
 
@@ -35,7 +35,7 @@ If today's rate is below your current rate, refinancing is on the table. If toda
 
 ## Worked example: when refinancing wins
 
-Sarah locked a 7.25% mortgage in late 2023, peak rate environment. $400,000 balance, 28 years remaining. Today, market rates are 6.0%.
+Sarah locked a 7.25% mortgage in late 2023, peak rate environment. $400,000 balance, 28 years remaining. Assume market rates are 6.0%.
 
 **Refinance scenario**: New $400K loan at 6.0%, 30-year term, $8,000 closing costs.
 
@@ -56,7 +56,7 @@ Sarah's better path: refinance to drop the rate, then optionally apply the $50K 
 
 ## Worked example: when recasting wins
 
-Marcus locked a 4.0% mortgage in 2021. $400,000 balance, 27 years remaining. Today, market rates are 6.5%.
+Marcus locked a 4.0% mortgage in 2021. $400,000 balance, 27 years remaining. Assume market rates are 6.5%.
 
 **Refinance scenario**: New $400K loan at 6.5%, 30-year term, $8,000 closing costs.
 

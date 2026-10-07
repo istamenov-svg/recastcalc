@@ -3,7 +3,7 @@ title: "How to Add Escrow to Your Mortgage (No-Escrow → Escrow Conversion Guid
 description: "How to switch your mortgage from no escrow to an escrow account for property taxes and insurance, whether escrow is worth it, and how to request the change."
 urlSlug: how-to-add-escrow-to-mortgage
 pubDate: 2026-04-29
-updatedDate: 2026-04-29
+updatedDate: 2026-10-07
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /escrow/
@@ -46,7 +46,7 @@ The mechanics:
 
 ## The honest financial trade-off
 
-Self-managing means you keep the money in your own account until the bill is due. If that account is a high-yield savings account paying 4 to 5% (current 2026 rates), you earn the spread between that yield and what your lender would have paid you (usually zero).
+Self-managing means you keep the money in your own account until the bill is due. If your high-yield savings account pays 4%, for example, you earn the spread between that yield and what your lender would have paid you (usually zero).
 
 Worked example. Annual property tax $6,000, annual insurance $1,800, total $7,800 per year, average monthly cushion $650. If you self-manage in a high-yield savings account at 4.5%, the average balance over the year is roughly half the annual total ($3,900) since you draw it down as bills come due. That earns you about $175 per year. With escrow at zero interest, that $175 goes to the bank instead of you.
 

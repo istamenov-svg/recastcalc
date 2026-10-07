@@ -3,7 +3,7 @@ title: "Should I Recast My Mortgage After a Bonus or Inheritance?"
 description: "Should you recast your mortgage? A decision chart and three worked examples show when recasting beats refinancing, extra payments, investing, or doing nothing."
 urlSlug: should-i-recast-my-mortgage
 pubDate: 2026-05-11
-updatedDate: 2026-05-11
+updatedDate: 2026-10-07
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -67,7 +67,7 @@ Marcus has a $400,000 mortgage at 3.75%, 27 years remaining. Just inherited $200
 
 **But wait, should he even apply the $200K to the mortgage at all?**
 
-His mortgage rate is 3.75%. Treasury bonds are paying 4.5%. High-yield savings accounts are paying 4.2%. He could put the $200K in a brokerage account earning more than his mortgage rate, keep his low payment, and come out ahead by $1,500 to $3,000 per year, without giving up liquidity.
+His mortgage rate is 3.75%. In this example, Treasuries pay 4.5% and high-yield savings pays 4.2%. He could put the $200K in a brokerage account earning more than his mortgage rate, keep his low payment, and come out ahead by $1,500 to $3,000 per year, without giving up liquidity.
 
 **Decision**: Maybe don't recast. The arbitrage opportunity (3.75% mortgage vs. 4.5% safe yields) is more valuable than the monthly payment reduction. Marcus should consult a financial advisor before deploying the $200K.
 
@@ -148,7 +148,7 @@ Probably not. The monthly payment drop on a $5K lump sum is usually $30 to $50, 
 No. Each recast costs a fee, and most lenders limit recasts to one per 12 months. Better to accumulate larger lump sums and recast once a year (or just make extra principal payments on the existing schedule).
 
 **What if my rate is below 4%?**
-Strong consideration to *not* recast. Sub-4% mortgages are valuable financial assets in 2026. Investing the lump sum at safe yields above 4% generates more wealth than recasting. Run the specific numbers before deciding.
+Strong consideration to *not* recast. Sub-4% mortgages are valuable financial assets. When safe yields exceed your mortgage rate, investing the lump sum generates more wealth than recasting. Run the specific numbers before deciding.
 
 ---
 
