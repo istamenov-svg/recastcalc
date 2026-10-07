@@ -24,6 +24,10 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 
 - `src/components/AdSlot.astro` renders nothing unless the build-time env variable `ADS_ENABLED` is `true` (default off). To turn ads on: set `ADS_ENABLED=true` in Cloudflare Pages (Settings, Environment variables, Production), in `AdSlot.astro` uncomment the AdSense `<ins>` block and delete the dashed placeholder `<div>`, uncomment the AdSense script in `src/layouts/BaseLayout.astro` with the real publisher and slot IDs, then redeploy.
 
+## Analytics
+
+- Analytics are Cloudflare Web Analytics, enabled through Cloudflare's automatic setup: Cloudflare injects the script at the edge, so it is not in this repo. It is cookieless. Do not add another analytics script without updating the privacy policy.
+
 ## Guides
 
 - Guides live in `src/content/guides/` as markdown with frontmatter:
