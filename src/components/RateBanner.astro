@@ -1,12 +1,12 @@
 ---
 /**
- * RateBanner: displays current reference mortgage rate from Freddie Mac PMMS.
+ * RateBanner: displays the current reference rate for a calculator.
  *
  * Props:
  *   variant: which rate to feature ('30yr_fixed' | '15yr_fixed' | '5_1_arm' | 'heloc' | 'pmi')
  *
- * Updates weekly via src/data/rates.json. See scripts/update-rates.md for the
- * Thursday update procedure.
+ * Values come from src/data/rates.json, updated weekly by
+ * .github/workflows/update-rates.yml (see CLAUDE.md).
  */
 import rates from '../data/rates.json';
 
@@ -41,9 +41,33 @@ const asOfDate = new Date(rates.asOf + 'T12:00:00Z').toLocaleDateString('en-US',
 
 // Trend indicator (only for 30yr_fixed since that's the headline rate)
 const showTrend = variant === '30yr_fixed';
-const trendUp = rates.trend.direction_weekly === 'up';
 const priorWeekRate = rates.trend['30yr_fixed_prior_week'];
 const trendDelta = Math.abs(rateValue - priorWeekRate).toFixed(2);
+const trend = trendDelta === '0.00' ? 'unchanged' : rateValue > priorWeekRate ? 'up' : 'down';
+const trendText = trend === 'unchanged'
+  ? 'unchanged from prior week'
+  : `${trend === 'up' ? '↑' : '↓'} ${trendDelta}pp from prior week`;
+const trendAria = trend === 'unchanged'
+  ? 'Unchanged from prior week'
+  : `${trend === 'up' ? 'Up' : 'Down'} ${trendDelta} percentage points from prior week`;
+
+// Source attribution differs by variant: only 30yr and 15yr come from PMMS.
+const armReviewedAt = (rates as { armReviewedAt?: string }).armReviewedAt;
+const formatDate = (iso: string) => new Date(iso + 'T12:00:00Z').toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+const source: { text: string; href?: string; date?: string } = {
+  '30yr_fixed': { text: 'Freddie Mac PMMS', href: rates.sourceUrl, date: `Week of ${asOfDate}` },
+  '15yr_fixed': { text: 'Freddie Mac PMMS', href: rates.sourceUrl, date: `Week of ${asOfDate}` },
+  'heloc': { text: 'Estimate: prime rate + 1.0 (Federal Reserve data via FRED)', href: 'https://fred.stlouisfed.org/series/DPRIME' },
+  'pmi': { text: 'Industry estimate' },
+  '5_1_arm': armReviewedAt
+    ? { text: `MBA weekly survey, reviewed ${formatDate(armReviewedAt)}` }
+    : { text: 'Estimate' },
+}[variant];
 ---
 
 <aside
@@ -59,22 +83,30 @@ const trendDelta = Math.abs(rateValue - priorWeekRate).toFixed(2);
       <span class="text-ink-600 ml-1">{label}</span>
     </span>
     {showTrend && (
-      <span class="text-xs text-ink-500" aria-label={`Down ${trendDelta} percentage points from prior week`}>
-        {trendUp ? '↑' : '↓'} {trendDelta}pp from prior week
+      <span class="text-xs text-ink-500" aria-label={trendAria}>
+        {trendText}
       </span>
     )}
   </div>
   <div class="text-xs text-ink-500">
-    <a
-      href={rates.sourceUrl}
-      target="_blank"
-      rel="noopener"
-      class="underline decoration-ink-300 hover:decoration-accent hover:text-accent"
-    >
-      Freddie Mac PMMS
-    </a>
-    <span aria-hidden="true"> · </span>
-    <span>Week of {asOfDate}</span>
+    {source.href ? (
+      <a
+        href={source.href}
+        target="_blank"
+        rel="noopener"
+        class="underline decoration-ink-300 hover:decoration-accent hover:text-accent"
+      >
+        {source.text}
+      </a>
+    ) : (
+      <span>{source.text}</span>
+    )}
+    {source.date && (
+      <>
+        <span aria-hidden="true"> · </span>
+        <span>{source.date}</span>
+      </>
+    )}
     <span aria-hidden="true"> · </span>
     <span class="text-ink-400">For context only; enter your specific rate above</span>
   </div>
