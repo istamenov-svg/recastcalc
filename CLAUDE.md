@@ -22,7 +22,10 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 
 ## Ads
 
-- `src/components/AdSlot.astro` renders nothing unless the build-time env variable `ADS_ENABLED` is `true` (default off). To turn ads on: set `ADS_ENABLED=true` in Cloudflare Pages (Settings, Environment variables, Production), in `AdSlot.astro` uncomment the AdSense `<ins>` block and delete the dashed placeholder `<div>`, uncomment the AdSense script in `src/layouts/BaseLayout.astro` with the real publisher and slot IDs, then redeploy.
+- AdSense publisher ID: `ca-pub-1634869400564839`. `public/ads.txt` holds the matching line (`google.com, pub-1634869400564839, DIRECT, f08c47fec0942fa0`), served at `https://recastcalc.com/ads.txt`.
+- The AdSense script loads in `<head>` on every page (`src/layouts/BaseLayout.astro`), independent of `ADS_ENABLED`, so Google can review the site.
+- Ad units stay off until approval: `src/components/AdSlot.astro` renders nothing unless the build-time env variable `ADS_ENABLED` is `true` (default off). After approval: replace `TODO_SLOT_ID` with real slot IDs, uncomment the `<ins>` block and delete the dashed placeholder `<div>` in `AdSlot.astro`, set `ADS_ENABLED=true` in Cloudflare Pages (Settings, Environment variables, Production), then redeploy.
+- Keep Auto ads off in the AdSense dashboard unless intended: with the script on every page, Auto ads would place ads without `AdSlot`.
 
 ## Analytics
 

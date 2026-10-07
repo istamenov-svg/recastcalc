@@ -98,10 +98,9 @@ const orgSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema).replace(/</g, '\\u003c')} />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />}
 
-    <!-- AdSense (replace ca-pub-XXXXXXXXX with real publisher ID after approval) -->
-    <!--
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-    -->
+    <!-- AdSense: loads on every page so Google can review the site. Ad units stay off until
+         ADS_ENABLED=true (see AdSlot.astro). -->
+    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1634869400564839" crossorigin="anonymous"></script>
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-ink-900 focus:text-cream-50 focus:px-4 focus:py-2 focus:z-50">Skip to content</a>
