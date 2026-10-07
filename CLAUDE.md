@@ -53,6 +53,11 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - Update a page's date by hand only when its content meaningfully changes. Meta descriptions, punctuation fixes, and the automated weekly rate updates do not count.
 - When adding a page, add its path to `src/data/page-dates.json`.
 
+## IndexNow
+
+- `.github/workflows/indexnow.yml` submits every sitemap URL to IndexNow after each push to `main` and after each weekly rate commit. It waits until `https://recastcalc.com/version.txt` (built from Cloudflare's `CF_PAGES_COMMIT_SHA`) shows the new commit, then fails on any response other than 200 or 202.
+- The key file is `public/<key>.txt`. Do not rename or delete it.
+
 ## Deferred work
 
 - Astro 5 to 7 and Tailwind 3 to 4 migration deferred (Oct 2026). These clear the remaining critical/high `npm audit` findings (astro, @astrojs/tailwind, tailwindcss, sharp, braces/micromatch/chokidar). Revisit if SSR, Pages Functions, or user-generated content is added, or if Astro 5 stops receiving fixes.

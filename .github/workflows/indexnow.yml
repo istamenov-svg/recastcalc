@@ -1,0 +1,50 @@
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: ['Update PMMS rates']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: true
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    # After a rate update, run only if it succeeded and actually pushed a new commit to main.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Pick the commit to wait for
+        id: target
+        run: |
+          head=$(git rev-parse HEAD)
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "sha=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "workflow_run" ] && [ "$head" = "${{ github.event.workflow_run.head_sha }}" ]; then
+            echo "Rate update made no commit; nothing to submit."
+            echo "sha=" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=$head" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v7
+        if: steps.target.outputs.sha != ''
+        with:
+          node-version: 22
+
+      - name: Wait for deploy and submit to IndexNow
+        if: steps.target.outputs.sha != ''
+        env:
+          TARGET_SHA: ${{ steps.target.outputs.sha }}
+        run: node scripts/indexnow.mjs
