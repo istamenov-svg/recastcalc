@@ -42,6 +42,12 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - Always run `npx astro build` before committing. Never push a failing build.
 - Show the diff and wait for approval before every commit and push.
 
+## Modified dates
+
+- Modified dates are hardcoded, never the build date (`new Date()`). Guides use `updatedDate` in frontmatter; every other page uses its entry in `src/data/page-dates.json`. These drive `article:modified_time`, the visible "Last updated" text, and the sitemap `lastmod`.
+- Update a page's date by hand only when its content meaningfully changes. Meta descriptions, punctuation fixes, and the automated weekly rate updates do not count.
+- When adding a page, add its path to `src/data/page-dates.json`.
+
 ## Deferred work
 
 - Astro 5 to 7 and Tailwind 3 to 4 migration deferred (Oct 2026). These clear the remaining critical/high `npm audit` findings (astro, @astrojs/tailwind, tailwindcss, sharp, braces/micromatch/chokidar). Revisit if SSR, Pages Functions, or user-generated content is added, or if Astro 5 stops receiving fixes.

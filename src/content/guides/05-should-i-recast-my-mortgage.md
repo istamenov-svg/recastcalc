@@ -152,6 +152,6 @@ Strong consideration to *not* recast. Sub-4% mortgages are valuable financial as
 
 ---
 
-*Last updated: April 2026. This guide provides general information and is not financial advice. Consult a fee-only financial planner for guidance specific to your situation. RecastCalc is not a lender or financial advisor.*
+*This guide provides general information and is not financial advice. Consult a fee-only financial planner for guidance specific to your situation. RecastCalc is not a lender or financial advisor.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*

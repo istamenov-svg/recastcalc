@@ -140,6 +140,6 @@ Most lenders require 6 months between refinances ("seasoning"). Some allow short
 
 ---
 
-*Last updated: April 2026. RecastCalc provides independent mortgage utility tools and educational content. We are not a lender and do not originate loans. This guide may contain affiliate links to lender comparison services; clicking through may result in compensation to RecastCalc. This does not influence the analysis above.*
+*RecastCalc provides independent mortgage utility tools and educational content. We are not a lender and do not originate loans. This guide may contain affiliate links to lender comparison services; clicking through may result in compensation to RecastCalc. This does not influence the analysis above.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*

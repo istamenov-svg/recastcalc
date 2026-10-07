@@ -2,8 +2,8 @@
 title: "How Much Does a Mortgage Recast Cost? Fees by Lender (2026)"
 description: "What lenders actually charge for a recast in 2026. Verified fees from Chase, Wells Fargo, BofA, US Bank, and 12 other major servicers."
 urlSlug: mortgage-recast-fee
-pubDate: 2026-05-08
-updatedDate: 2026-05-08
+pubDate: 2026-04-28
+updatedDate: 2026-04-28
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -135,6 +135,6 @@ Generally moot. These loan types typically don't allow recasting at all. See our
 
 ---
 
-*Last updated: April 2026. Fee data synthesized from publicly available servicer disclosures and homeowner reports. Verify current fees with your specific lender before initiating a recast. RecastCalc is not a lender.*
+*Fee data synthesized from publicly available servicer disclosures and homeowner reports. Verify current fees with your specific lender before initiating a recast. RecastCalc is not a lender.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*

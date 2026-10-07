@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import pageDates from '../../data/page-dates.json';
 import RecastCalculator from '../../components/RecastCalculator.astro';
 import RateBanner from '../../components/RateBanner.astro';
 import AdSlot from '../../components/AdSlot.astro';
@@ -9,8 +10,8 @@ const title = 'Mortgage Recast Calculator: See Your New Payment + Savings (2026)
 const description =
   'Free mortgage recast calculator. See your new monthly payment and interest saved after a lump sum, and how recasting compares to refinancing or extra payments.';
 
+const lastUpdated = new Date(pageDates['/recast/'] + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const publishDate = '2026-04-28T00:00:00Z';
-const modifiedDate = new Date().toISOString();
 
 // Schema: WebApplication + FAQ + BreadcrumbList
 const schema = [
@@ -138,7 +139,6 @@ const lenders = [
   canonical="https://recastcalc.com/recast/"
   schema={schema}
   publishDate={publishDate}
-  modifiedDate={modifiedDate}
 >
   <!-- Breadcrumb -->
   <nav aria-label="Breadcrumb" class="max-w-content mx-auto px-4 lg:px-6 pt-6 text-sm text-ink-500">
@@ -292,7 +292,7 @@ const lenders = [
     </table>
 
     <p class="text-sm text-ink-500 italic">
-      Last verified: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}.
+      Last verified: April 2026.
       Lender policies change; this table is updated quarterly.
     </p>
   </article>
@@ -375,7 +375,7 @@ const lenders = [
           <span class="text-ink-500"> · 25+ years in marketing, finance, and PE-backed services</span>
         </p>
         <p class="text-xs text-ink-500 mt-1">
-          Last updated {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.
+          Last updated {lastUpdated}.
           Methodology: <a href="/methodology/" class="text-accent underline underline-offset-2">how we calculate</a>.
         </p>
       </div>

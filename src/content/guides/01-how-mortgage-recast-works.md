@@ -132,6 +132,6 @@ Most major lenders allow jumbo recasts but require higher minimum lump sums, typ
 
 ---
 
-*Last updated: April 2026. RecastCalc provides independent mortgage utility tools and educational content. We are not a lender and do not originate loans. This guide may contain affiliate links to lender comparison services; clicking through may result in compensation to RecastCalc. This does not influence the analysis above.*
+*RecastCalc provides independent mortgage utility tools and educational content. We are not a lender and do not originate loans. This guide may contain affiliate links to lender comparison services; clicking through may result in compensation to RecastCalc. This does not influence the analysis above.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC. He has 25+ years of marketing leadership experience including roles at McKinsey & Company, Cancer Treatment Centers of America, and as Operating Partner at Varsity Healthcare Partners.*

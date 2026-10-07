@@ -2,8 +2,8 @@
 title: "How Long Does a Mortgage Recast Take? (Step-by-Step Timeline)"
 description: "Step-by-step timeline: from request to new payment. Lender-by-lender processing times for Chase, Wells Fargo, BofA, US Bank."
 urlSlug: mortgage-recast-timeline
-pubDate: 2026-05-04
-updatedDate: 2026-05-04
+pubDate: 2026-04-28
+updatedDate: 2026-04-28
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -140,6 +140,6 @@ Conservative estimate. The 8–12 week answer is the worst case. Most recasts co
 
 ---
 
-*Last updated: April 2026. Lender timing data based on publicly disclosed servicing standards and homeowner reports as of session date. Verify current timing with your specific servicer before relying on these estimates. RecastCalc is not a lender.*
+*Lender timing data based on publicly disclosed servicing standards and homeowner reports as of April 2026. Verify current timing with your specific servicer before relying on these estimates. RecastCalc is not a lender.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*

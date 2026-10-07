@@ -138,4 +138,4 @@ Yes, but it's harder than adding escrow in the first place. Most lenders require
 - [Mortgage Recast vs. Refinance: Which Saves More?](/guides/recast-vs-refinance/) (a refinance can be the trigger that forces escrow back on)
 - [How a Mortgage Recast Works](/guides/how-mortgage-recast-works/) (recasting doesn't change escrow status, but interacts with the math)
 
-*Last updated: April 29, 2026. Information here is general guidance, not specific financial advice. Lender policies vary. Verify with your specific servicer before initiating any changes to your escrow setup.*
+*Information here is general guidance, not specific financial advice. Lender policies vary. Verify with your specific servicer before initiating any changes to your escrow setup.*

@@ -2,8 +2,8 @@
 title: "Recasting a Chase Mortgage: Complete Walkthrough"
 description: "Step-by-step Chase recast process: forms, fees, timeline, contact numbers. Plus the math: will it actually save you money?"
 urlSlug: chase-mortgage-recast
-pubDate: 2026-05-15
-updatedDate: 2026-05-15
+pubDate: 2026-04-28
+updatedDate: 2026-04-28
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -194,6 +194,6 @@ Chase generally allows one recast per 12-month period. There's no specified life
 
 ---
 
-*Last updated: April 2026. Information based on publicly available Chase servicing policies as of session date. Verify all details with Chase directly before initiating a recast, since their specific terms can change. RecastCalc is not affiliated with Chase or JPMorgan Chase & Co.*
+*Information based on publicly available Chase servicing policies as of April 2026. Verify all details with Chase directly before initiating a recast, since their specific terms can change. RecastCalc is not affiliated with Chase or JPMorgan Chase & Co.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*
