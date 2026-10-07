@@ -26,7 +26,7 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 
 ## Analytics
 
-- Analytics are Cloudflare Web Analytics, enabled through Cloudflare's automatic setup: Cloudflare injects the script at the edge, so it is not in this repo. It is cookieless. Do not add another analytics script without updating the privacy policy.
+- Analytics are Cloudflare Web Analytics, enabled through Cloudflare's automatic setup: Cloudflare injects the script at the edge, so it is not in this repo. Confirmed active in the Cloudflare dashboard (October 2026). It is cookieless. Do not add another analytics script without updating the privacy policy.
 
 ## Guides
 
