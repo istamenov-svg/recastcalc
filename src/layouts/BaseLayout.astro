@@ -90,8 +90,8 @@ const orgSchema = {
     <!-- Other fonts loaded by global.css @font-face declarations on demand -->
 
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
-    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema).replace(/</g, '\\u003c')} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />}
 
     <!-- AdSense (replace ca-pub-XXXXXXXXX with real publisher ID after approval) -->
     <!--
