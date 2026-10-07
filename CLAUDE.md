@@ -28,6 +28,13 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 
 - Analytics are Cloudflare Web Analytics, enabled through Cloudflare's automatic setup: Cloudflare injects the script at the edge, so it is not in this repo. Confirmed active in the Cloudflare dashboard (October 2026). It is cookieless. Do not add another analytics script without updating the privacy policy.
 
+## Affiliate links
+
+- The site is not enrolled in any affiliate program yet. Calculator CTAs link to plain partner URLs (currently `https://www.lendingtree.com/`) through `src/components/AffiliateCTA.astro`, which sets `rel="sponsored noopener"`.
+- Swap in affiliate tracking links only after enrollment is approved; CJ tracking links will replace the plain LendingTree URLs. Name partners in the privacy policy only after enrollment.
+- Revenue and affiliate copy (footer, homepage, /about/, /terms/, /privacy/) uses "may" framing ("we may earn a commission", "may be affiliate links") so it stays accurate whether or not ads and affiliates are active. Keep that framing in new copy.
+- When the CJ tracking links go in, restore the partner label by passing `partner="LendingTree"` to `AffiliateCTA` (it renders "Sponsored · LendingTree").
+
 ## Guides
 
 - Guides live in `src/content/guides/` as markdown with frontmatter:
