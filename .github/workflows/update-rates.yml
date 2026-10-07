@@ -1,0 +1,46 @@
+name: Update PMMS rates
+
+on:
+  schedule:
+    # Thursdays 20:00 UTC, after Freddie Mac publishes PMMS at 12:00 ET
+    - cron: '0 20 * * 4'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-rates
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Fetch FRED data and update rates.json
+        id: rates
+        run: node scripts/update-rates.mjs
+
+      - name: Build site
+        if: steps.rates.outputs.changed == 'true'
+        run: |
+          npm ci
+          npx astro build
+
+      - name: Commit and push to main
+        if: steps.rates.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/rates.json
+          git commit -m "Update PMMS rates: week of ${{ steps.rates.outputs.week }}"
+          git push origin HEAD:main
