@@ -21,6 +21,8 @@ tier: 1
 
 [Compare both in the calculator →](/recast/)
 
+If refinancing would raise your payment, see [how to lower your mortgage payment without refinancing](/guides/lower-mortgage-payment-without-refinancing/).
+
 ## The fundamental difference
 
 Recasting and refinancing both lower your monthly payment, but they work through completely different mechanisms.
