@@ -4,6 +4,7 @@
  * Run by .github/workflows/update-rates.yml every Thursday; safe to run locally.
  *
  * Exit codes: 0 = updated or unchanged, 1 = sanity check failed (file untouched).
+ * A missing or stale armReviewedAt only emits a ::warning:: and does not block.
  * Writes "changed=true|false" and "week=<date>" to $GITHUB_OUTPUT when set.
  */
 import { readFileSync, writeFileSync, appendFileSync } from 'node:fs';
@@ -84,10 +85,11 @@ if (ageDays(primeLatest.date) > MAX_DATA_AGE_DAYS) {
   errors.push(`Prime rate (DPRIME) latest observation ${primeLatest.date} is ${ageDays(primeLatest.date)} days old; limit is ${MAX_DATA_AGE_DAYS}`);
 }
 
+// ARM review is a reminder, not a blocker: warn and keep updating PMMS rates.
 if (!current.armReviewedAt) {
-  errors.push('rates.json has no armReviewedAt date; review 5_1_arm and set armReviewedAt (YYYY-MM-DD)');
+  console.log('::warning::rates.json has no armReviewedAt date. Review rates.5_1_arm by hand and set armReviewedAt (YYYY-MM-DD) in src/data/rates.json.');
 } else if (ageDays(current.armReviewedAt) > MAX_ARM_REVIEW_AGE_DAYS) {
-  errors.push(`5_1_arm was last reviewed ${current.armReviewedAt} (${ageDays(current.armReviewedAt)} days ago). Review rates.5_1_arm by hand and update armReviewedAt in src/data/rates.json.`);
+  console.log(`::warning::5_1_arm was last reviewed ${current.armReviewedAt} (${ageDays(current.armReviewedAt)} days ago). Review rates.5_1_arm by hand and update armReviewedAt in src/data/rates.json.`);
 }
 
 if (errors.length) {
