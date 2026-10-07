@@ -2,18 +2,18 @@
   "$schema_note": "30yr_fixed, 15yr_fixed, and heloc update automatically every Thursday via .github/workflows/update-rates.yml. 5_1_arm and pmi_typical are manual; review 5_1_arm at least every 90 days and update armReviewedAt.",
   "source": "Freddie Mac Primary Mortgage Market Survey (PMMS)",
   "sourceUrl": "https://www.freddiemac.com/pmms",
-  "asOf": "2026-04-23",
+  "asOf": "2026-10-01",
   "rates": {
-    "30yr_fixed": 6.23,
-    "15yr_fixed": 5.58,
+    "30yr_fixed": 7.28,
+    "15yr_fixed": 6.6,
     "5_1_arm": 6.43,
-    "heloc": 8.50,
+    "heloc": 8,
     "pmi_typical": 0.75
   },
   "trend": {
-    "30yr_fixed_prior_week": 6.30,
-    "30yr_fixed_year_ago": 6.81,
-    "direction_weekly": "down"
+    "30yr_fixed_prior_week": 7.03,
+    "30yr_fixed_year_ago": 6.34,
+    "direction_weekly": "up"
   },
   "derived": {
     "heloc": "prime + 1.0"
