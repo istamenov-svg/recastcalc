@@ -3,7 +3,7 @@ title: "How to Add Escrow to Your Mortgage: Conversion Guide"
 description: "How to switch your mortgage from no escrow to an escrow account for property taxes and insurance, whether escrow is worth it, and how to request the change."
 urlSlug: how-to-add-escrow-to-mortgage
 pubDate: 2026-04-29
-updatedDate: 2026-10-07
+updatedDate: 2026-10-08
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /escrow/
@@ -40,8 +40,8 @@ Once escrow is in place, your monthly mortgage payment changes from "principal a
 
 The mechanics:
 
-1. **Cushion requirement.** Federal law (RESPA, the Real Estate Settlement Procedures Act) lets the lender hold up to 2 months of cushion on each escrowed item. So if your annual property tax is $6,000 and your annual insurance is $1,800, the lender can hold up to $1,000 in tax cushion ($6,000 ÷ 12 × 2) and $300 in insurance cushion ($1,800 ÷ 12 × 2). That money sits in your escrow account, not yours.
-2. **Annual escrow analysis.** Once a year, your servicer reconciles what was paid out (taxes, insurance) against what was collected. If you over-collected, you get a refund. If you under-collected (because your tax bill went up), your monthly payment increases to make up the shortage plus build the cushion back.
+1. **Cushion requirement.** Federal law (RESPA, the Real Estate Settlement Procedures Act) lets the lender hold up to one-sixth (about two months) of your total annual escrow bills. So if your annual property tax is $6,000 and your annual insurance is $1,800, your escrow bills total $7,800 a year, and the lender can hold a cushion of up to $1,300 ($7,800 ÷ 6). That money sits in your escrow account, not yours.
+2. **Annual escrow analysis.** Once a year, your servicer reconciles what was paid out (taxes, insurance) against what was collected. If you over-collected, you get a refund. If you under-collected (because your tax bill went up), your monthly payment increases to make up the shortage plus build the cushion back. See [why an escrow shortage raises your payment](/guides/escrow-shortage-mortgage-payment-went-up/).
 3. **No interest paid to you.** Most lenders pay zero interest on escrow balances. Some states (currently 14 of them, including New York, California, and Massachusetts) require lenders to pay interest, but the rate is capped low (typically 0.5% to 2%).
 
 ## The honest financial trade-off
@@ -134,7 +134,7 @@ Yes, but it's harder than adding escrow in the first place. Most lenders require
 
 ## Related guides
 
-- [PMI Removal: When You Can Drop Private Mortgage Insurance](/guides/pmi-removal-ltv/) (escrow accounts often hold the PMI premium until removal)
+- [PMI Removal Calculator: When You Can Drop Private Mortgage Insurance](/pmi-removal/) (escrow accounts often hold the PMI premium until removal)
 - [Mortgage Recast vs. Refinance: Which Saves More?](/guides/recast-vs-refinance/) (a refinance can be the trigger that forces escrow back on)
 - [How a Mortgage Recast Works](/guides/how-mortgage-recast-works/) (recasting doesn't change escrow status, but interacts with the math)
 

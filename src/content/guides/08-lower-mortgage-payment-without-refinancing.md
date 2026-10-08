@@ -66,7 +66,7 @@ Find out when you qualify with the [PMI removal calculator](/pmi-removal/).
 
 If your lender collects for taxes and insurance through an escrow account (money added to your monthly payment to cover those bills), then a cheaper insurance policy means a lower monthly payment.
 
-This matters more than ever. Insurance premiums have climbed sharply in recent years, and many homeowners have been hit with escrow shortages: their lender didn't collect enough the year before, so the payment jumps to catch up. Get quotes from at least three insurers. Ask about raising your deductible and about discounts for bundling, new roofs, or security systems.
+This matters more than ever. Insurance premiums have climbed sharply in recent years, and many homeowners have been hit with escrow shortages: their lender didn't collect enough the year before, so the payment jumps to catch up (see [how an escrow shortage works](/guides/escrow-shortage-mortgage-payment-went-up/)). Get quotes from at least three insurers. Ask about raising your deductible and about discounts for bundling, new roofs, or security systems.
 
 If you switch to a cheaper policy, send the new policy to your loan servicer (the company you make payments to) and ask whether they'll run a new escrow analysis. That's what actually lowers your monthly payment; without it, the savings may not show up until your next annual review.
 
