@@ -17,7 +17,7 @@ schema:
 tier: 2
 ---
 
-> **Quick answer:** Recast your mortgage if you have a lump sum of at least $10,000, your current rate is at or below today's market rate, and you value lower monthly payments more than fastest payoff. Don't recast if you have higher-interest debt elsewhere, you don't have an emergency fund, or your lump sum is too small for the monthly payment drop to justify the recast fee. Most homeowners with sub-5% mortgages and a meaningful lump sum should recast, but most should also run the comparison with "just make extra payment without recasting" first.
+> **Quick answer:** Recast your mortgage if you have a lump sum of at least $10,000 (our rule of thumb), your current rate is at or below today's market rate, and you value lower monthly payments more than fastest payoff. Don't recast if you have higher-interest debt elsewhere, you don't have an emergency fund, or your lump sum is too small for the monthly payment drop to justify the recast fee. Most homeowners with sub-5% mortgages and a meaningful lump sum should recast, but most should also run the comparison with "just make extra payment without recasting" first.
 
 [Run your numbers →](/recast/)
 
@@ -27,7 +27,7 @@ Before you decide, run through this checklist. If you can answer "yes" to all fi
 
 1. **Is your current mortgage rate at or below today's market rate?** If yes → recast is on the table. If no → look at refinancing first.
 
-2. **Do you have a lump sum of at least $10,000?** Smaller lump sums (under $10K) often don't move the monthly payment enough to justify the recast fee.
+2. **Do you have a lump sum of at least $10,000?** This is our rule of thumb, not a lender requirement. Smaller lump sums (under $10K) often don't move the monthly payment enough to justify the recast fee.
 
 3. **Have you paid off all higher-interest debt?** Credit cards at 22% or student loans at 8% should be paid off before recasting a 5% mortgage.
 

@@ -17,7 +17,7 @@ schema:
 tier: 1
 ---
 
-> **Quick answer:** Recasting wins when your current rate is below market and you have a lump sum to apply: your rate stays the same, fees are $150–$500, and your monthly payment drops. Refinancing wins when current rates are at least 1 percentage point below your existing rate and you'll keep the loan long enough to recoup $5,000–$15,000 in closing costs. In a higher-rate environment, most homeowners with sub-5% existing mortgages should recast, not refinance.
+> **Quick answer:** Recasting wins when your current rate is below market and you have a lump sum to apply: your rate stays the same, fees are $150–$500, and your monthly payment drops. Refinancing wins when current rates are at least 1 percentage point below your existing rate and you'll keep the loan long enough to recoup closing costs, which [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast) says usually run 2% to 6% of the refinanced amount. In a higher-rate environment, most homeowners with sub-5% existing mortgages should recast, not refinance.
 
 [Compare both in the calculator →](/recast/)
 
@@ -29,7 +29,7 @@ Recasting and refinancing both lower your monthly payment, but they work through
 
 **Recasting**: Your lender re-amortizes your existing loan after a lump-sum principal payment. Same rate, same term, same lender. You write a check, pay a $150–$500 fee, and your monthly payment drops.
 
-**Refinancing**: You replace your existing loan with a brand new one, potentially at a different rate, different term, and different lender. Full closing costs apply ($5,000–$15,000 typical). Your old loan is paid off; the new loan starts fresh.
+**Refinancing**: You replace your existing loan with a brand new one, potentially at a different rate, different term, and different lender. Full closing costs apply (usually 2% to 6% of the refinanced amount, per NerdWallet). Your old loan is paid off; the new loan starts fresh.
 
 The single most important variable: **what's the relationship between your current rate and today's market rate?**
 
@@ -83,12 +83,12 @@ Use this hierarchy in 2026:
 **Refinance if all four are true:**
 1. Today's rate is at least 1 percentage point below your current rate
 2. You'll keep the home at least 24 months
-3. You can afford $5K–$15K in closing costs (or willing to roll into the loan)
+3. You can afford closing costs of 2% to 6% of the loan (or are willing to roll them into the loan)
 4. You don't need the cash flow relief immediately
 
 **Recast if all three are true:**
 1. Your current rate is at or below today's market rate
-2. You have a lump sum (minimums are often $5,000 or $10,000; $80K+ for a meaningful payment drop)
+2. You have a lump sum (minimums are often $5,000 or $10,000). For scale: putting $50,000 toward a $350,000 balance at 3.5% with 25 years left lowers the payment by about $250 a month. The drop scales with the size of the lump sum and your rate.
 3. You want lower monthly payment without giving up your rate
 
 **Do neither if:**
@@ -106,7 +106,7 @@ Refinance closing costs typically include:
 - Recording fees ($100–$300)
 - Various third-party fees ($500–$1,500)
 
-For a $400K loan, expect $5,000–$15,000 total. "No-closing-cost refinances" exist but build the costs into a higher rate; they're not actually free.
+[NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast) says closing costs usually run 2% to 6% of the refinanced amount; on a $400,000 refinance, that's $8,000 to $24,000. "No-closing-cost refinances" exist but build the costs into a higher rate; they're not actually free.
 
 Recast costs by comparison: $150–$500 flat, no third parties, no appraisal, no underwriting.
 
@@ -116,7 +116,7 @@ This is why refinance break-even math matters. If you'll be in the home 18 month
 
 **"Refinancing always lowers your payment."** Only true if rates have dropped since you originated. Refinancing into a higher rate means a higher payment, and you paid closing costs for the privilege.
 
-**"You can't recast a refinanced loan."** False. Most lenders allow recasting on conventional refinances. The exceptions are mostly government-backed loans (FHA, VA, USDA) and certain portfolio loans.
+**"You can't recast a refinanced loan."** It depends on the new loan. Ask your servicer whether your new loan can be recast later.
 
 **"Recasting is just for rich people."** [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) says minimum lump sums are often $5,000 or $10,000, and [Chase](https://www.chase.com/personal/mortgage/recast) says it has no minimum. That's accessible to most homeowners with any meaningful savings.
 

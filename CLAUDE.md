@@ -88,7 +88,7 @@ Claims on published pages that depend on laws, program rules, or third-party fig
 | Guide 10 | FHA Streamline Refinance can be done without an appraisal | [Archived HUD reference guide](https://archives.hud.gov/offices/hsg/sfh/ref/sfhp2-19.cfm) (current HUD Handbook 4000.1 is PDF-only) | Oct 2026 | Annually |
 | `/home-equity-calculator/` | ATTOM: 3.2% of mortgaged homes seriously underwater in Q1 2026 | [ATTOM Q1 2026 Home Equity & Underwater Report](https://www.attomdata.com/news/market-trends/home-sales-prices/q1-2026-home-equity-and-underwater-report/) | Oct 2026 | When ATTOM publishes a newer quarter that states the number |
 | Guide 09 (`/guides/escrow-shortage-mortgage-payment-went-up/`) | Cotality: payments up about $175/month in 2026 from taxes and insurance; Neighbors Bank: taxes and insurance 21% of the average payment | [WTOP, July 2026](https://wtop.com/news/2026/07/what-is-an-escrow-shortage-why-your-mortgage-payment-just-went-up/) (both figures) | Oct 2026 | Mid-2027 |
-| `/recast/` lender table | Recast terms for Chase, Citizens Bank, and Mr. Cooper (Rocket Mortgage servicing) ("Last verified: October 2026"); the same three are named in the /recast/ FAQ (visible and structured data), guide 01, and `/methodology/`; /recast/ FAQ and guides 01, 02, and 05 also cite Bankrate's fee and minimum ranges and Chase's no-minimum statement | [Chase](https://www.chase.com/personal/mortgage/recast), [Citizens Bank](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx), [Mr. Cooper](https://www.mrcooper.com/help-center/payments/mortgage-recast) | Oct 2026 | Quarterly |
+| `/recast/` lender table | Recast terms for Chase, Citizens Bank, and Mr. Cooper (Rocket Mortgage servicing) ("Last verified: October 2026"); the same three are named in the /recast/ FAQ (visible and structured data), guide 01, and `/methodology/`; /recast/ FAQ and guides 01, 02, and 05 also cite Bankrate's fee and minimum ranges and Chase's no-minimum statement; /recast/ and guide 02 cite NerdWallet's refinance closing costs (usually 2% to 6% of the refinanced amount) | [Chase](https://www.chase.com/personal/mortgage/recast), [Citizens Bank](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx), [Mr. Cooper](https://www.mrcooper.com/help-center/payments/mortgage-recast), [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast) | Oct 2026 | Quarterly |
 | Guide 04 (`/guides/mortgage-recast-fee/`) | The same three servicers' terms; NerdWallet: fees generally $150 to $250; Bankrate: fees typically $150 to $500, minimums often $5,000 or $10,000 | [Chase](https://www.chase.com/personal/mortgage/recast), [Citizens Bank](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx), [Mr. Cooper](https://www.mrcooper.com/help-center/payments/mortgage-recast), [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast), [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) | Oct 2026 | Quarterly |
 | Guide 06 (`/guides/chase-mortgage-recast/`) | Chase: conventional loans only; no minimum lump sum; fee not published; FHA, VA, and USDA not eligible; loan must be in good standing; may recast again after further principal reduction; phone 1-800-848-9136 | [Chase](https://www.chase.com/personal/mortgage/recast) | Oct 2026 | Quarterly |
 | Guide 03 (`/guides/mortgage-recast-timeline/`) | No timing figures (ask-your-servicer framing); Bankrate fee and minimum ranges | [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) | Oct 2026 | Quarterly |
@@ -113,6 +113,16 @@ Guides from the original content plan that were linked but never written. Links 
 | `heloc-vs-refinance` | guide 02; /heloc-vs-refi/ related guides | Guide 02 redirected to /heloc-vs-refi/; self-link on /heloc-vs-refi/ removed |
 | `recast-minimum-lump-sum` | guide 01 | Redirected to the /recast/ lender table (`#lenders`) |
 | `recast-fha-va-usda` | guide 04 | Redirected to guide 01's "What most articles get wrong" section |
+
+### Sourcing sweep for non-recast figures
+
+Unsourced figures found in the October 2026 recast sweep, outside its scope. Source or soften each.
+
+- Guide 03: forbearance lasts 3 to 12 months
+- Guide 02: refinance seasoning of 6 months; refinancing with 5 to 10% equity
+- Guide 07: escrow requests processed in 30 to 60 days
+- /heloc-vs-refi/: HELOCs close in 2 to 4 weeks; cash-out refinances take 30 to 60 days
+- /biweekly-payoff/: biweekly service setup fees of $200 to $400 and $2 to $10 per payment
 
 ## Known gaps
 

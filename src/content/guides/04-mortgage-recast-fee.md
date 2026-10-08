@@ -57,7 +57,7 @@ These terms were last verified in October 2026. Your servicer (the company you s
 
 ## How the fee changes the math
 
-Use this rule of thumb: **the recast fee should pay for itself in less than 12 months of monthly savings.**
+Our rule of thumb: **the recast fee should pay for itself in less than 12 months of monthly savings.**
 
 Example: $400K balance, 6.5%, 25 years remaining, $80K lump sum, $250 fee.
 
