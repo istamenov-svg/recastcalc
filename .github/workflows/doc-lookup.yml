@@ -1,0 +1,66 @@
+name: Document lookup
+
+# Manual fact-check helper: fetches a page from an allowlisted government or data source,
+# converts it to plain text, and prints it (or only paragraphs matching a pattern) to the job log.
+# Only https URLs on the allowlisted hosts are fetched. Read-only; never commits.
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'https URL on an allowlisted host (see ALLOWED in the step below)'
+        required: true
+      pattern:
+        description: 'Optional case-insensitive regex; print only paragraphs that match'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch and print text
+        env:
+          URL: ${{ inputs.url }}
+          PATTERN: ${{ inputs.pattern }}
+        shell: python
+        run: |
+          import html, os, re, sys, urllib.parse, urllib.request
+
+          ALLOWED = (
+              'ecfr.gov', 'consumerfinance.gov', 'federalreserve.gov',
+              'hud.gov', 'va.gov', 'irs.gov', 'fanniemae.com', 'attomdata.com',
+              'leg.state.fl.us', 'flsenate.gov',
+              'statutes.capitol.texas.gov', 'comptroller.texas.gov',
+          )
+          url, pattern = os.environ['URL'].strip(), os.environ['PATTERN'].strip()
+          parts = urllib.parse.urlsplit(url)
+          host = (parts.hostname or '').lower()
+          if parts.scheme != 'https' or not any(host == d or host.endswith('.' + d) for d in ALLOWED):
+              print(f'::error::URL must be https on one of: {", ".join(ALLOWED)}')
+              sys.exit(1)
+
+          req = urllib.request.Request(url, headers={'User-Agent': 'recastcalc-doc-lookup (GitHub Actions)'})
+          with urllib.request.urlopen(req, timeout=60) as res:
+              raw = res.read().decode('utf-8', 'replace')
+
+          # HTML/XML to plain text: drop scripts/styles, break paragraphs at block tags, strip tags.
+          raw = re.sub(r'(?is)<(script|style)\b.*?</\1>', ' ', raw)
+          raw = re.sub(r'(?i)<(br|/p|/div|/li|/h[1-6]|/tr|/section|/P|/HD)[^>]*>', '\n', raw)
+          text = html.unescape(re.sub(r'<[^>]+>', ' ', raw))
+          paragraphs = [re.sub(r'\s+', ' ', p).strip() for p in text.split('\n')]
+          paragraphs = [p for p in paragraphs if p]
+
+          print(f'Source: {url}')
+          if pattern:
+              rx = re.compile(pattern, re.I)
+              paragraphs = [p for p in paragraphs if rx.search(p)]
+              print(f'Paragraphs matching /{pattern}/i: {len(paragraphs)}')
+          print('-' * 60)
+          for p in paragraphs:
+              print(p)
+              print()
+          if not paragraphs:
+              sys.exit(1)
