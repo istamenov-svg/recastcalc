@@ -17,7 +17,7 @@ schema:
 tier: 1
 ---
 
-> **Quick answer:** Recasting wins when your current rate is below market and you have a lump sum to apply: your rate stays the same, fees are $150–$500, and your monthly payment drops. Refinancing wins when current rates are at least 1 percentage point below your existing rate and you'll keep the loan long enough to recoup closing costs, which [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast) says usually run 2% to 6% of the refinanced amount. In a higher-rate environment, most homeowners with sub-5% existing mortgages should recast, not refinance.
+> **Quick answer:** Recasting wins when your current rate is below market and you have a lump sum to apply: your rate stays the same, fees are $150–$500, and your monthly payment drops. Refinancing makes sense when the monthly savings repay closing costs (which [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast) says usually run 2% to 6% of the refinanced amount) before you expect to sell or refinance again. If your current rate is well below today's rates, refinancing would raise your rate; a recast lowers your payment while keeping it.
 
 [Compare both in the calculator →](/recast/)
 
@@ -80,11 +80,10 @@ Marcus' answer is obvious: recast. Refinancing isn't even on the table while his
 
 Use this hierarchy in 2026:
 
-**Refinance if all four are true:**
-1. Today's rate is at least 1 percentage point below your current rate
-2. You'll keep the home at least 24 months
-3. You can afford closing costs of 2% to 6% of the loan (or are willing to roll them into the loan)
-4. You don't need the cash flow relief immediately
+**Refinance if all three are true:**
+1. The monthly savings repay closing costs before you expect to sell or refinance again
+2. You can afford closing costs of 2% to 6% of the loan (or are willing to roll them into the loan)
+3. You don't need the cash flow relief immediately
 
 **Recast if all three are true:**
 1. Your current rate is at or below today's market rate
@@ -100,11 +99,11 @@ Use this hierarchy in 2026:
 
 Refinance closing costs typically include:
 
-- Loan origination fee (0.5%–1% of loan amount)
-- Appraisal ($500–$800)
-- Title insurance ($1,000–$2,500)
-- Recording fees ($100–$300)
-- Various third-party fees ($500–$1,500)
+- Loan origination fee
+- Appraisal
+- Title insurance
+- Recording fees
+- Other third-party fees
 
 [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast) says closing costs usually run 2% to 6% of the refinanced amount; on a $400,000 refinance, that's $8,000 to $24,000. "No-closing-cost refinances" exist but build the costs into a higher rate; they're not actually free.
 
