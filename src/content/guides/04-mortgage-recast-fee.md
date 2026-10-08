@@ -52,12 +52,13 @@ Most servicers don't publish their recast fees. These do publish recast terms, e
 | Newrez | $250, subject to state rules | $5,000 | [newrezcorrespondent.com](https://corr.newrezcorrespondent.com/documents/web/contenteditordocs/Exhibits/Mortgage%20Recasting%206%201%2023.pdf) (partner-lender document, June 2023, PDF) |
 | Onity (formerly PHH) | $250, based on state rules | $5,000 (some investors require more) | [onitymortgage.com](https://correspondent.onitymortgage.com/getmedia/f4e45e8f-512a-4ad9-a805-4f23ea016285/Onity-Recast-Policy-03232026.pdf?ext=.pdf) (partner-lender document, March 2026, PDF) |
 | PennyMac | $250 processing fee, sent with the lump sum | $10,000 | [pennymac.com](https://www.pennymac.com/faqs/billing-20-recast-fee) (borrower FAQ) |
-| Rocket Mortgage (formerly Mr. Cooper) | Not published; call (800) 4-ROCKET to confirm | Not published | [mrcooper.com](https://www.mrcooper.com/) (Mr. Cooper retirement notice) |
 | Trustmark | $700 (subject to change) | $10,000 | [trustmark.com](https://www.trustmark.com/content/dam/trustmark/pdf/mortgage/mortgage_loan_recast_flyer_and_application.pdf) (borrower flyer and application, PDF) |
 | U.S. Bank | $250 recast modification fee | Not stated | [usbank.com](https://www.usbank.com/content/dam/usbank/en/documents/pdfs/home-loans/mortgage-fee-schedule.pdf) (servicing fee schedule, PDF) |
 | Wells Fargo | Not stated (recasts offered on new jumbo loans) | Not stated | [wellsfargo.com](https://www.wellsfargo.com/mortgage/loan-programs/jumbo-loan/) (jumbo loan page) |
 
 Chase, Colonial Savings, Freedom Mortgage, Gateway Mortgage, New American Funding, Onity, and Trustmark don't recast Federal Housing Administration (FHA), Department of Veterans Affairs (VA), or U.S. Department of Agriculture (USDA) loans. Newrez's document limits recasts to conventional Fannie Mae and Freddie Mac loans.
+
+Had a Mr. Cooper loan? [Mr. Cooper is now part of Rocket Mortgage](https://www.mrcooper.com/), which services those loans under the same loan numbers. We couldn't find Rocket's recast terms published online; call (800) 4-ROCKET to ask.
 
 For everyone else, the best guides are industry ranges:
 

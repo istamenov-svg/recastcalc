@@ -110,7 +110,7 @@ const schema = [
         name: 'Which lenders allow mortgage recasting?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Few servicers publish their recast terms. Bank of America, Chase, Citizens Bank, Colonial Savings, Freedom Mortgage, Gateway Mortgage, New American Funding, PennyMac, Trustmark, U.S. Bank, and Wells Fargo publish at least some terms on their own sites, and Newrez and Onity publish them in documents for partner lenders. Rocket Mortgage, which now services former Mr. Cooper loans, doesn’t publish its terms; call (800) 4-ROCKET. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from.',
+          text: 'Few servicers publish their recast terms. Bank of America, Chase, Citizens Bank, Colonial Savings, Freedom Mortgage, Gateway Mortgage, New American Funding, PennyMac, Trustmark, U.S. Bank, and Wells Fargo publish at least some terms on their own sites, and Newrez and Onity publish them in documents for partner lenders. Mr. Cooper is now part of Rocket Mortgage, which services those loans under the same loan numbers; we couldn’t find Rocket’s recast terms published online, so call (800) 4-ROCKET to ask. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from.',
         },
       },
     ],
@@ -219,16 +219,6 @@ const lenders = [
     source: 'https://www.pennymac.com/faqs/billing-22-recast-minimum',
     sourceLabel: 'pennymac.com',
     docType: 'Borrower FAQ',
-  },
-  {
-    name: 'Rocket Mortgage (formerly Mr. Cooper)',
-    offers: 'Recast terms not published; call (800) 4-ROCKET to confirm',
-    minLump: 'Not published',
-    fee: 'Not published',
-    notEligible: 'Not published',
-    source: 'https://www.mrcooper.com/',
-    sourceLabel: 'mrcooper.com (now Rocket Mortgage)',
-    docType: 'Mr. Cooper retirement notice',
   },
   {
     name: 'Trustmark',
@@ -428,6 +418,12 @@ const lenders = [
     </p>
 
     <p>
+      Had a Mr. Cooper loan? <a href="https://www.mrcooper.com/" rel="noopener">Mr. Cooper is now part of Rocket Mortgage</a>,
+      which services those loans under the same loan numbers. We couldn't find Rocket's recast terms
+      published online; call (800) 4-ROCKET to ask.
+    </p>
+
+    <p>
       Most lenders don't publish recast terms. The company that services your loan sets them, and
       that may not be the lender you borrowed from. Call your servicer to confirm.
     </p>
@@ -478,7 +474,7 @@ const lenders = [
     <p>No. A recast does not require a credit check or hard inquiry. Your loan, term, and rate all remain the same, so it has no direct effect on your credit score.</p>
 
     <h3>Which lenders allow mortgage recasting?</h3>
-    <p>Few servicers publish their recast terms. Bank of America, Chase, Citizens Bank, Colonial Savings, Freedom Mortgage, Gateway Mortgage, New American Funding, PennyMac, Trustmark, U.S. Bank, and Wells Fargo publish at least some terms on their own sites, and Newrez and Onity publish them in documents for partner lenders. Rocket Mortgage, which now services former Mr. Cooper loans, doesn't publish its terms; call (800) 4-ROCKET. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from. See the <a href="#lenders">table of servicers that publish recast terms</a>.</p>
+    <p>Few servicers publish their recast terms. Bank of America, Chase, Citizens Bank, Colonial Savings, Freedom Mortgage, Gateway Mortgage, New American Funding, PennyMac, Trustmark, U.S. Bank, and Wells Fargo publish at least some terms on their own sites, and Newrez and Onity publish them in documents for partner lenders. Mr. Cooper is now part of Rocket Mortgage, which services those loans under the same loan numbers; we couldn't find Rocket's recast terms published online, so call (800) 4-ROCKET to ask. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from. See the <a href="#lenders">table of servicers that publish recast terms</a>.</p>
 
     <h3>How long does a recast take?</h3>
     <p>It varies by servicer, and few publish a timeline, so ask yours. The lump sum is applied first, then the lender processes the re-amortization, sends paperwork, and the new payment takes effect on the following monthly cycle.</p>
