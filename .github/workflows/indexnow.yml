@@ -67,7 +67,7 @@ jobs:
         # Cloudflare Redirect Rule "www to root" (not in this repo): 301 to the apex, path and query string kept.
         run: |
           t=$(date +%s)
-          read -r status location < <(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' "https://www.recastcalc.com/recast/?t=$t")
+          read -r status location < <(curl -s -o /dev/null -w '%{http_code} %{redirect_url}\n' "https://www.recastcalc.com/recast/?t=$t")
           echo "GET https://www.recastcalc.com/recast/?t=$t: HTTP $status, Location: $location"
           if [ "$status" != "301" ] || [ "$location" != "https://recastcalc.com/recast/?t=$t" ]; then
             echo "::error::Expected 301 to https://recastcalc.com/recast/?t=$t, got HTTP $status to '$location'"
