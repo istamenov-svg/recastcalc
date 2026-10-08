@@ -64,6 +64,7 @@ jobs:
           req = urllib.request.Request(url, headers={'User-Agent': 'recastcalc-doc-lookup (GitHub Actions)'})
           with urllib.request.urlopen(req, timeout=60) as res:
               body = res.read()
+              final_url = res.geturl()
 
           if os.environ.get('RAW') == 'true':
               # Raw mode: one paragraph per source line, e.g. to find the data URL a JavaScript page loads.
@@ -84,6 +85,8 @@ jobs:
           paragraphs = [p for p in paragraphs if p]
 
           print(f'Source: {url}')
+          if final_url != url:
+              print(f'Redirected to: {final_url}')
           if pattern:
               rx = re.compile(pattern, re.I)
               paragraphs = [p for p in paragraphs if rx.search(p)]
