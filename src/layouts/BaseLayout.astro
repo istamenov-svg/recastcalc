@@ -102,7 +102,7 @@ const orgSchema = {
          denied in the EEA, UK, and Switzerland until the Google Privacy & messaging consent
          message (loaded by the AdSense script below) updates them; granted elsewhere.
          Query strings are dropped from page_location and same-site page_referrer because
-         shared calculator links carry entered values (?b=400000...); only utm_* and click IDs are kept. -->
+         shared calculator links carry entered values (?b=400000...); only utm_source, utm_medium, utm_campaign, utm_term, and utm_content are kept. -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
@@ -126,7 +126,7 @@ const orgSchema = {
       });
       gtag('js', new Date());
       (function () {
-        var keep = /^(utm_[a-z_]+|gclid|gbraid|wbraid|dclid)$/;
+        var keep = /^utm_(source|medium|campaign|term|content)$/;
         function clean(href) {
           var u = new URL(href);
           var q = new URLSearchParams();

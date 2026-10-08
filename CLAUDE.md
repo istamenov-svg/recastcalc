@@ -34,7 +34,7 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - **Google Analytics 4:** Measurement ID `G-ED8HGD08LN`. The gtag.js tag is in `<head>` of `src/layouts/BaseLayout.astro`, so it runs once on every page, including 404.
   - **Consent mode v2:** defaults are set before the tag config and before the AdSense script. `ad_storage`, `ad_user_data`, `ad_personalization`, and `analytics_storage` are `denied` in the EEA (EU 27 plus IS, LI, NO), GB, and CH (with `wait_for_update: 500`) and `granted` elsewhere. The Google Privacy & messaging consent message (configured in AdSense, loaded by the AdSense script) updates consent for those visitors.
   - **Google signals:** not enabled in code.
-  - **Query strings:** the tag sets `page_location` and same-site `page_referrer` without query strings, because shared calculator links carry entered values. Only `utm_*`, `gclid`, `gbraid`, `wbraid`, and `dclid` are kept.
+  - **Query strings:** the tag sets `page_location` and same-site `page_referrer` without query strings, because shared calculator links carry entered values. Only `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, and `utm_content` are kept; every other parameter, including all calculator parameters and click IDs, is dropped.
   - **Events** (helpers in `src/scripts/analytics.js`):
     - `calculator_used` (`calculator_name`): once per page view, the first time results appear from the visitor's own input or submit. Default results on load and shared-link loads don't count.
     - `result_link_copied` and `result_printed` (`calculator_name`): the copy-link and print buttons.
