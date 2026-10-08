@@ -156,3 +156,4 @@ Unsourced figures found in the October 2026 recast sweep, outside its scope. Sou
 ## Deferred work
 
 - Astro 5 to 7 and Tailwind 3 to 4 migration deferred (Oct 2026). These clear the remaining critical/high `npm audit` findings (astro, @astrojs/tailwind, tailwindcss, sharp, braces/micromatch/chokidar). Revisit if SSR, Pages Functions, or user-generated content is added, or if Astro 5 stops receiving fixes.
+- Move to Node 24 (active LTS) before Node 22 reaches end of life in April 2027 (Node 22 is in maintenance LTS; Cloudflare Pages builds on Node 22.22.0 as of Oct 2026). Ideally do it together with the Astro 5 to 7 and Tailwind 3 to 4 migration. Change `.nvmrc`, `package.json` engines, the workflows' `node-version`, and Cloudflare Pages' `NODE_VERSION` together.
