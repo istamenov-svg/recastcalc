@@ -61,6 +61,7 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 - Production deploys from `main` only. Side branches do not go live.
 - Always run `npm run build` before committing (it runs `astro build`, then `scripts/check-links.mjs`, which fails on any broken internal link or `#anchor`). Never push a failing build.
 - Cloudflare Pages must use `npm run build` as its build command so a broken link fails the deploy and the previous version stays live.
+- The project uses Node 22: `.nvmrc` holds `22`, `package.json` requires `"node": ">=22"`, and the workflows that run Node (`update-rates.yml`, `indexnow.yml`) use `node-version: 22`. Cloudflare Pages' `NODE_VERSION` environment variable must match (22); change all of these together.
 - Committing and pushing to the working branch is allowed at any time, including when the stop hook asks. Merging into `main` (which deploys) requires approval of the diff; after approval, merge into `main` and push `main`.
 
 ## Modified dates
