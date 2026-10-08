@@ -32,6 +32,16 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 
 - Analytics are Cloudflare Web Analytics, enabled through Cloudflare's automatic setup: Cloudflare injects the script at the edge, so it is not in this repo. Confirmed active in the Cloudflare dashboard (October 2026). It is cookieless. Do not add another analytics script without updating the privacy policy.
 
+## Cloudflare configuration (not in repo)
+
+These settings live in the Cloudflare dashboard, not in this repository.
+
+- Redirect Rule "www to root": `https://www.recastcalc.com/*` to `https://recastcalc.com/${1}`, 301, query string preserved. Verified Oct 2026. The `check-404` job in `indexnow.yml` checks it after each deploy.
+- HTTP to HTTPS: handled by Cloudflare (verified Oct 2026).
+- Pages build: command `npm run build`, output `dist`, production branch `main`, `NODE_VERSION` 22.
+- AI Crawl Control: all crawlers allowed; Bot Preference Sync on. WebMCP tool packs off.
+- Web Analytics: automatic setup (edge-injected).
+
 ## Affiliate links
 
 - The site is not enrolled in any affiliate program yet. Calculator CTAs link to plain partner URLs (currently `https://www.lendingtree.com/`) through `src/components/AffiliateCTA.astro`, which sets `rel="sponsored noopener"`.
