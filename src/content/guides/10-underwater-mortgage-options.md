@@ -48,6 +48,8 @@ Most refinances require equity, so being underwater usually rules them out. Two 
 
 These only help if today's rates are lower than your current rate. Programs for underwater conventional loans have come and gone over the years; ask your servicer whether any are available now.
 
+In Texas, borrowing against your home, including a cash-out refinance, generally can't take your total loans above 80% of its value. See [Texas home equity rules](/guides/texas-home-equity-rules/).
+
 ## Option 3: Rent the home out
 
 If you need to move but don't want to sell at a loss, renting the home can cover some or all of your payment while you wait for prices to recover.
