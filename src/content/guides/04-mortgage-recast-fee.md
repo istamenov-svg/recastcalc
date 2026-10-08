@@ -1,6 +1,6 @@
 ---
 title: "How Much Does a Mortgage Recast Cost? Fees Explained"
-description: "What a mortgage recast costs, what the fee covers, and the published terms from Chase, Citizens Bank, and Mr. Cooper. Plus when the fee is worth paying."
+description: "What a mortgage recast costs, what the fee covers, and the published fees and minimums from 14 servicers. Plus when the fee is worth paying."
 urlSlug: mortgage-recast-fee
 pubDate: 2026-04-28
 updatedDate: 2026-10-08
@@ -18,7 +18,7 @@ schema:
 tier: 1
 ---
 
-> **Quick answer:** Recast fees are a flat charge, paid once. NerdWallet reports fees generally run $150 to $250; Bankrate reports $150 to $500. Few servicers publish their terms: Citizens Bank lists a $150 fee; Mr. Cooper's fee is usually up to $250, non-refundable, and charged if required in your state; and Chase says only that fees may apply. Ask your servicer for the exact fee. The fee is rarely the deciding factor; the bigger question is whether to recast at all (vs. refinance or extra payments).
+> **Quick answer:** Recast fees are a flat charge, paid once. NerdWallet reports fees generally run $150 to $250; Bankrate reports $150 to $500. Published servicer fees run from none (Bank of America) to $700 (Trustmark): Citizens Bank lists $150; PennyMac, U.S. Bank, and the partner-lender documents from Newrez, Onity, and Truist list $250; Mr. Cooper's fee is usually up to $250; New American Funding lists $300; and Colonial Savings lists $500 or $650. Chase says only that fees may apply. Ask your servicer for the exact fee. The fee is rarely the deciding factor; the bigger question is whether to recast at all (vs. refinance or extra payments).
 
 [Calculate your recast →](/recast/)
 
@@ -38,15 +38,26 @@ There are no closing costs, appraisals, or third-party fees. That's the whole po
 
 ## Published fees and typical ranges
 
-Most servicers don't publish their recast fees. These three do publish recast terms:
+Most servicers don't publish their recast fees. These do publish recast terms, either on their own sites or in documents for partner lenders (lenders that sell loans to the servicer). A partner-lender document isn't written for borrowers, so confirm its terms with the servicer.
 
 | Servicer | Fee | Minimum lump sum | Source |
 |---|---|---|---|
-| Chase | Not published ("Fees may apply") | None ("there is no minimum amount required") | [chase.com](https://www.chase.com/personal/mortgage/recast) |
-| Citizens Bank | $150 processing fee | $5,000 | [citizensbank.com](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx) |
-| Mr. Cooper (Rocket Mortgage servicing) | Usually up to $250, non-refundable; charged if required in your state | Not stated | [mrcooper.com](https://www.mrcooper.com/help-center/payments/mortgage-recast) |
+| Bank of America | None ("There is no fee for a recast") | $5,000 in principal paid in the last 6 months (or within 30 days after the request) | [bankofamerica.com](https://www.bankofamerica.com/mortgage/faqs/) (borrower FAQ) |
+| Chase | Not published ("Fees may apply") | None ("there is no minimum amount required") | [chase.com](https://www.chase.com/personal/mortgage/recast) (borrower page) |
+| Citizens Bank | $150 processing fee | $5,000 | [citizensbank.com](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx) (servicing fee page) |
+| Colonial Savings | $500 (fixed rate) or $650 (adjustable rate) | $10,000 or 10% of the unpaid principal balance, whichever is greater | [gocolonial.com](https://www.gocolonial.com/wp-content/uploads/2024/11/Loan-Recast-Request-Terms-and-Conditions_Final.pdf) (borrower terms and conditions, PDF) |
+| Freedom Mortgage | Not stated | Not stated | [freedommortgage.com](https://www.freedommortgage.com/learn/mortgages/mortgage-recast) (borrower education page) |
+| Mr. Cooper (Rocket Mortgage servicing) | Usually up to $250, non-refundable; charged if required in your state | Not stated | [mrcooper.com](https://www.mrcooper.com/help-center/payments/mortgage-recast) (borrower help page) |
+| New American Funding | $300 | $5,000 | [newamericanfunding.com](https://assets.newamericanfunding.com/media/5090/guide-to-recast.pdf) (borrower guide, PDF) |
+| Newrez | $250, subject to state rules | $5,000 | [newrezcorrespondent.com](https://corr.newrezcorrespondent.com/documents/web/contenteditordocs/Exhibits/Mortgage%20Recasting%206%201%2023.pdf) (partner-lender document, June 2023, PDF) |
+| Onity (formerly PHH) | $250, based on state rules | $5,000 (some investors require more) | [onitymortgage.com](https://correspondent.onitymortgage.com/getmedia/f4e45e8f-512a-4ad9-a805-4f23ea016285/Onity-Recast-Policy-03232026.pdf?ext=.pdf) (partner-lender document, March 2026, PDF) |
+| PennyMac | $250 processing fee, sent with the lump sum | $10,000 | [pennymac.com](https://www.pennymac.com/faqs/billing-20-recast-fee) (borrower FAQ) |
+| Trustmark | $700 (subject to change) | $10,000 | [trustmark.com](https://www.trustmark.com/content/dam/trustmark/pdf/mortgage/mortgage_loan_recast_flyer_and_application.pdf) (borrower flyer and application, PDF) |
+| Truist | $250; not charged in some states, including New York | 10% of the unpaid principal balance (may be paid over the last 12 months) | [truistsellerguide.com](https://www.truistsellerguide.com/Manual/cor/communications/TAT193.pdf) (partner-lender document, January 2026, PDF) |
+| U.S. Bank | $250 recast modification fee | Not stated | [usbank.com](https://www.usbank.com/content/dam/usbank/en/documents/pdfs/home-loans/mortgage-fee-schedule.pdf) (servicing fee schedule, PDF) |
+| Wells Fargo | Not stated (recasts offered on new jumbo loans) | Not stated | [wellsfargo.com](https://www.wellsfargo.com/mortgage/loan-programs/jumbo-loan/) (jumbo loan page) |
 
-Chase doesn't recast Federal Housing Administration (FHA), Department of Veterans Affairs (VA), or U.S. Department of Agriculture (USDA) loans. Mr. Cooper excludes government-backed, interest-only, option adjustable-rate (option ARM), and commercial loans.
+Chase, Colonial Savings, Freedom Mortgage, New American Funding, Onity, Trustmark, and Truist don't recast Federal Housing Administration (FHA), Department of Veterans Affairs (VA), or U.S. Department of Agriculture (USDA) loans. Mr. Cooper excludes government-backed, interest-only, option adjustable-rate (option ARM), and commercial loans. Newrez's document limits recasts to conventional Fannie Mae and Freddie Mac loans.
 
 For everyone else, the best guides are industry ranges:
 
@@ -74,7 +85,7 @@ When the fee math gets meaningful: small lump sum recasts. If you only have a $5
 
 ## What if there's no fee?
 
-Not every servicer charges one; Bankrate's range applies "if your lender charges a recasting fee." If yours doesn't, check for any conditions, such as which loan types qualify, before you send the lump sum.
+Not every servicer charges one. Bank of America says "There is no fee for a recast," and Bankrate's range applies "if your lender charges a recasting fee." If yours doesn't, check for any conditions, such as which loan types qualify, before you send the lump sum.
 
 A free recast doesn't change the underlying decision. Recasting still has to make sense compared to alternatives (extra payment, refinance). Free just removes one variable.
 
@@ -125,6 +136,6 @@ Generally moot. These loan types typically don't allow recasting at all. See [wh
 
 ---
 
-*Sources: [Chase](https://www.chase.com/personal/mortgage/recast), [Citizens Bank](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx), [Mr. Cooper](https://www.mrcooper.com/help-center/payments/mortgage-recast), [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast), [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it). Last verified October 2026. Verify current fees with your servicer before initiating a recast. RecastCalc is not a lender.*
+*Sources: servicer documents linked in the table above, [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast), [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it). Last verified October 2026. Verify current fees with your servicer before initiating a recast. RecastCalc is not a lender.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*
