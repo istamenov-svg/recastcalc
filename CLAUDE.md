@@ -59,7 +59,8 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 ## Build and commit workflow
 
 - Production deploys from `main` only. Side branches do not go live. After a change is approved, commit it, merge it into `main`, and push `main`.
-- Always run `npx astro build` before committing. Never push a failing build.
+- Always run `npm run build` before committing (it runs `astro build`, then `scripts/check-links.mjs`, which fails on any broken internal link or `#anchor`). Never push a failing build.
+- Cloudflare Pages must use `npm run build` as its build command so a broken link fails the deploy and the previous version stays live.
 - Show the diff and wait for approval before every commit and push.
 
 ## Modified dates

@@ -34,7 +34,7 @@ jobs:
         if: steps.rates.outputs.changed == 'true'
         run: |
           npm ci
-          npx astro build
+          npm run build
 
       - name: Commit and push to main
         if: steps.rates.outputs.changed == 'true'
