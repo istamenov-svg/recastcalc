@@ -45,6 +45,7 @@ jobs:
               'statutes.capitol.texas.gov', 'comptroller.texas.gov',
               'capitol.texas.gov', 'fc.texas.gov',
               'tcss.legis.texas.gov',  # statute text behind statutes.capitol.texas.gov
+              'contentsignals.org',
           )
           url, pattern = os.environ['URL'].strip(), os.environ['PATTERN'].strip()
           parts = urllib.parse.urlsplit(url)
