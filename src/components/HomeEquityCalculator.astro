@@ -1,0 +1,363 @@
+---
+/* Home Equity ("Am I underwater?") Calculator
+ * Vanilla JS island, mirrors PMICalculator.astro structure */
+---
+
+<section
+  id="home-equity-calculator"
+  class="bg-cream-50 border border-ink-200 rounded-lg p-6 md:p-8 shadow-sm"
+  aria-labelledby="calculator-heading"
+>
+  <h2 id="calculator-heading" class="font-display text-2xl font-semibold text-ink-900 mb-2">
+    Check your equity, on paper and after selling costs
+  </h2>
+  <p class="text-sm text-ink-600 mb-6">
+    Enter what your home is worth and what you owe. Results update as you type.
+  </p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- INPUTS -->
+    <form id="equity-form" novalidate>
+      <div class="space-y-5">
+        <div>
+          <label for="homeValue" class="calc-label">What your home is worth today</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="homeValue" name="homeValue" class="calc-input pl-7"
+              placeholder="400,000" min="0" max="50000000" step="1000" value="400000" required inputmode="numeric" />
+          </div>
+          <p class="text-xs text-ink-500 mt-1">Online estimates can be off, especially for unusual homes. Try a lower number too, to see your worst case.</p>
+        </div>
+
+        <div>
+          <label for="mortgageBalance" class="calc-label">What you owe on your mortgage</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="mortgageBalance" name="mortgageBalance" class="calc-input pl-7"
+              placeholder="330,000" min="0" max="50000000" step="1000" value="330000" required inputmode="numeric" />
+          </div>
+          <p class="text-xs text-ink-500 mt-1">The principal balance on your latest statement.</p>
+        </div>
+
+        <div>
+          <label for="otherLoans" class="calc-label">Other loans on the home</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="otherLoans" name="otherLoans" class="calc-input pl-7"
+              placeholder="0" min="0" max="50000000" step="1000" value="0" inputmode="numeric" />
+          </div>
+          <p class="text-xs text-ink-500 mt-1">Home equity line of credit (HELOC) or home equity loan balance.</p>
+        </div>
+
+        <div>
+          <label for="dueAtSale" class="calc-label">Amounts due when you sell</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="dueAtSale" name="dueAtSale" class="calc-input pl-7"
+              placeholder="0" min="0" max="10000000" step="500" value="0" inputmode="numeric" />
+          </div>
+          <p class="text-xs text-ink-500 mt-1">Unpaid special assessments, HOA balances, or liens. Condo owners: include any approved assessment.</p>
+        </div>
+
+        <div>
+          <label for="sellingCostPct" class="calc-label">Cost to sell</label>
+          <div class="relative">
+            <input type="number" id="sellingCostPct" name="sellingCostPct" class="calc-input pr-8"
+              placeholder="6" min="0" max="20" step="0.5" value="6" inputmode="decimal" />
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">%</span>
+          </div>
+          <p class="text-xs text-ink-500 mt-1">Agent commissions, closing costs, and transfer taxes. Often 5% to 8%.</p>
+        </div>
+
+        <div>
+          <label for="originalPrice" class="calc-label">
+            What you originally paid
+            <span class="text-ink-400 font-normal">(optional)</span>
+          </label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 font-mono">$</span>
+            <input type="number" id="originalPrice" name="originalPrice" class="calc-input pl-7"
+              placeholder="Optional" min="0" max="50000000" step="1000" value="" inputmode="numeric" />
+          </div>
+          <p class="text-xs text-ink-500 mt-1">Needed to check whether you can drop private mortgage insurance (PMI).</p>
+        </div>
+      </div>
+    </form>
+
+    <!-- RESULTS -->
+    <div id="equity-results" aria-live="polite" aria-atomic="true">
+      <p id="equity-error" class="hidden bg-cream-200 rounded-lg p-5 text-sm font-medium text-ink-900"></p>
+
+      <div id="equity-output">
+        <div class="bg-cream-200 rounded-lg p-5 mb-4">
+          <p class="text-xs uppercase tracking-widest text-ink-500 mb-1">Your result</p>
+          <p class="font-display text-xl font-semibold text-ink-900" data-result="headline">Loading...</p>
+
+          <dl class="grid grid-cols-2 gap-4 mt-4">
+            <div>
+              <dt class="text-xs text-ink-500 mb-1">Equity on paper</dt>
+              <dd class="calc-result text-2xl" data-result="paperEquity">-</dd>
+            </div>
+            <div>
+              <dt class="text-xs text-ink-500 mb-1">Cash if you sold today</dt>
+              <dd class="calc-result text-2xl" data-result="saleCash">-</dd>
+            </div>
+            <div>
+              <dt class="text-xs text-ink-500 mb-1">Loan-to-value (LTV)</dt>
+              <dd class="calc-result text-lg" data-result="ltv">-</dd>
+            </div>
+            <div>
+              <dt class="text-xs text-ink-500 mb-1">Combined loan-to-value (CLTV)</dt>
+              <dd class="calc-result text-lg" data-result="cltv">-</dd>
+            </div>
+            <div>
+              <dt class="text-xs text-ink-500 mb-1">Cushion before you're underwater</dt>
+              <dd class="calc-result text-lg" data-result="cushionUnderwater">-</dd>
+            </div>
+            <div>
+              <dt class="text-xs text-ink-500 mb-1">Cushion before selling costs you money</dt>
+              <dd class="calc-result text-lg" data-result="cushionSale">-</dd>
+            </div>
+          </dl>
+          <p class="text-xs text-ink-500 mt-3">
+            Loan-to-value is your mortgage divided by your home's value. Combined loan-to-value adds any home equity loan or line. A cushion is how much your home's value could fall before you hit that point.
+          </p>
+        </div>
+
+        <!-- Bar comparison -->
+        <div class="border border-ink-200 rounded-lg p-4 mb-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-ink-700 mb-3">At a glance</p>
+          <div class="space-y-3 text-sm">
+            <div>
+              <div class="flex justify-between text-ink-700"><span>Home value</span><span class="font-mono tabular" data-result="barValueLabel">-</span></div>
+              <div class="h-3 bg-ink-100 rounded mt-1"><div class="h-3 rounded bg-ink-700" data-bar="value" style="width:0%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-ink-700"><span>Everything you owe</span><span class="font-mono tabular" data-result="barDebtLabel">-</span></div>
+              <div class="h-3 bg-ink-100 rounded mt-1"><div class="h-3 rounded bg-accent" data-bar="debt" style="width:0%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-ink-700"><span data-result="barSaleTitle">Cash if you sold</span><span class="font-mono tabular" data-result="barSaleLabel">-</span></div>
+              <div class="h-3 bg-ink-100 rounded mt-1"><div class="h-3 rounded" data-bar="sale" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stress scenario -->
+        <div class="border border-ink-200 rounded-lg overflow-hidden text-sm mb-4">
+          <div class="bg-cream-200 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-ink-700 border-b border-ink-200">
+            If your home is worth 10% less
+          </div>
+          <dl class="grid grid-cols-3 gap-2 px-4 py-3">
+            <div><dt class="text-xs text-ink-500">Status</dt><dd class="text-ink-900 font-medium" data-result="stressStatus">-</dd></div>
+            <div><dt class="text-xs text-ink-500">Equity on paper</dt><dd class="font-mono tabular" data-result="stressPaperEquity">-</dd></div>
+            <div><dt class="text-xs text-ink-500">Cash if sold</dt><dd class="font-mono tabular" data-result="stressSaleCash">-</dd></div>
+          </dl>
+        </div>
+
+        <!-- Checklist -->
+        <div class="border border-ink-200 rounded-lg overflow-hidden text-sm">
+          <div class="bg-cream-200 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-ink-700 border-b border-ink-200">
+            What this means for you
+          </div>
+          <ul class="divide-y divide-ink-100">
+            <li class="px-4 py-3">
+              <p><span class="font-medium text-ink-900">Drop PMI:</span> <span class="font-semibold" data-result="pmiAnswer">-</span></p>
+              <p class="text-ink-600 mt-1"><span data-result="pmiText"></span> <a href="/pmi-removal/" class="text-accent underline underline-offset-2">PMI removal calculator</a></p>
+            </li>
+            <li class="px-4 py-3">
+              <p><span class="font-medium text-ink-900">Open a HELOC:</span> <span class="font-semibold" data-result="helocAnswer">-</span></p>
+              <p class="text-ink-600 mt-1"><span data-result="helocText"></span> <a href="/heloc-vs-refi/" class="text-accent underline underline-offset-2">HELOC vs. refinance calculator</a></p>
+            </li>
+            <li class="px-4 py-3">
+              <p><span class="font-medium text-ink-900">Cash-out refinance:</span> <span class="font-semibold" data-result="cashOutAnswer">-</span></p>
+              <p class="text-ink-600 mt-1" data-result="cashOutText"></p>
+            </li>
+            <li class="px-4 py-3">
+              <p><span class="font-medium text-ink-900">Sell without bringing cash:</span> <span class="font-semibold" data-result="sellAnswer">-</span></p>
+              <p class="text-ink-600 mt-1" data-result="sellText"></p>
+            </li>
+            <li class="px-4 py-3">
+              <p><span class="font-medium text-ink-900">Recast:</span> <span class="font-semibold">Possible with a lump sum, at any equity level</span></p>
+              <p class="text-ink-600 mt-1">A recast lowers your monthly payment after you pay down a lump sum, and it doesn't depend on your home's value. <a href="/recast/" class="text-accent underline underline-offset-2">Recast calculator</a></p>
+            </li>
+          </ul>
+        </div>
+
+        <p id="underwater-callout" class="hidden mt-4 text-sm text-ink-700 leading-relaxed bg-accent-50/40 border border-accent/30 rounded-lg p-4">
+          <strong class="text-ink-900">Being underwater mostly matters when you sell or refinance.</strong> If you plan to stay and can afford the payment, it isn't an emergency. If you're struggling with payments, a housing counselor approved by the U.S. Department of Housing and Urban Development (HUD) can help for free.
+        </p>
+        <p id="due-at-sale-note" class="hidden mt-4 text-sm text-ink-700 leading-relaxed">
+          <strong class="text-ink-900">Note:</strong> unpaid special assessments, HOA balances, and liens are paid out of your sale proceeds at closing, so they reduce the cash you'd walk away with.
+        </p>
+      </div>
+
+      <div class="mt-4 flex flex-wrap gap-3">
+        <button type="button" id="copy-link-btn"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent">
+          Copy link to these results
+        </button>
+        <button type="button" id="print-btn" onclick="window.print()"
+          class="text-xs text-ink-600 hover:text-accent underline underline-offset-2 decoration-ink-300 hover:decoration-accent">
+          Print / save as PDF
+        </button>
+      </div>
+
+      <p class="text-xs text-ink-400 mt-4 leading-relaxed">
+        Estimates only. Your result is only as good as the home value you enter; an appraisal or recent nearby sales give a better number than a single online estimate. Lender limits for home equity lines and cash-out refinances vary.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { calculateHomeEquity, formatCurrency } from '../scripts/mortgage-math.js';
+
+  const HEADLINES = {
+    'healthy': 'You have solid equity.',
+    'thin': 'You have equity, but not much cushion.',
+    'sale-underwater': "You're above water on paper, but selling would cost you money.",
+    'underwater': 'You owe more than your home is worth.',
+    'seriously-underwater': 'You owe more than your home is worth.',
+  };
+  const STATUS_LABELS = {
+    'healthy': 'Solid equity',
+    'thin': 'Thin cushion',
+    'sale-underwater': 'Selling would cost you money',
+    'underwater': 'Underwater',
+    'seriously-underwater': 'Seriously underwater (25% or more)',
+  };
+
+  const form = document.getElementById('equity-form');
+  const num = (id) => parseFloat(document.getElementById(id).value);
+  const pct = (x) => `${(x * 100).toFixed(1)}%`;
+
+  function getInputs() {
+    const original = num('originalPrice');
+    return {
+      homeValue: num('homeValue'),
+      mortgageBalance: num('mortgageBalance'),
+      otherLoans: num('otherLoans') || 0,
+      dueAtSale: num('dueAtSale') || 0,
+      sellingCostPct: Number.isFinite(num('sellingCostPct')) ? num('sellingCostPct') : 6,
+      originalPrice: Number.isFinite(original) && original > 0 ? original : null,
+    };
+  }
+
+  function setResult(key, value) {
+    const el = document.querySelector(`[data-result="${key}"]`);
+    if (el) el.textContent = value;
+  }
+
+  function setBar(key, value, max, colorClass) {
+    const el = document.querySelector(`[data-bar="${key}"]`);
+    if (!el) return;
+    el.style.width = `${max > 0 ? Math.min(100, (Math.abs(value) / max) * 100) : 0}%`;
+    if (colorClass) el.className = `h-3 rounded ${colorClass}`;
+  }
+
+  function update() {
+    const params = getInputs();
+    const r = calculateHomeEquity(params);
+    const errorEl = document.getElementById('equity-error');
+    const outputEl = document.getElementById('equity-output');
+
+    if (r.error) {
+      errorEl.textContent = r.error;
+      errorEl.classList.remove('hidden');
+      outputEl.classList.add('hidden');
+      return;
+    }
+    errorEl.classList.add('hidden');
+    outputEl.classList.remove('hidden');
+
+    setResult('headline', HEADLINES[r.status]);
+    setResult('paperEquity', formatCurrency(r.paperEquity));
+    setResult('saleCash', formatCurrency(r.saleCash));
+    setResult('ltv', pct(r.ltv));
+    setResult('cltv', pct(r.cltv));
+    setResult('cushionUnderwater', pct(r.cushionUnderwater));
+    setResult('cushionSale', pct(r.cushionSale));
+
+    /* Bars: scaled to the largest of home value, debt, and the size of the sale result */
+    const max = Math.max(r.homeValue, r.totalDebt, Math.abs(r.saleCash));
+    setBar('value', r.homeValue, max);
+    setBar('debt', r.totalDebt, max);
+    setBar('sale', r.saleCash, max, r.saleCash >= 0 ? 'bg-positive' : 'bg-negative');
+    setResult('barValueLabel', formatCurrency(r.homeValue));
+    setResult('barDebtLabel', formatCurrency(r.totalDebt));
+    setResult('barSaleTitle', r.saleCash >= 0 ? 'Cash if you sold' : 'Cash you would need to bring to closing');
+    setResult('barSaleLabel', formatCurrency(Math.abs(r.saleCash)));
+
+    /* Stress scenario */
+    setResult('stressStatus', STATUS_LABELS[r.stress.status]);
+    setResult('stressPaperEquity', formatCurrency(r.stress.paperEquity));
+    setResult('stressSaleCash', formatCurrency(r.stress.saleCash));
+
+    /* Checklist */
+    const c = r.checklist;
+    if (c.dropPmi === null) {
+      setResult('pmiAnswer', 'Enter what you paid to check');
+      setResult('pmiText', 'You can usually ask to cancel private mortgage insurance (PMI) once your balance reaches 80% of what you paid.');
+    } else if (c.dropPmi) {
+      setResult('pmiAnswer', 'Yes');
+      setResult('pmiText', 'Your balance is at or below 80% of what you paid, so you can ask your lender to cancel PMI if you are current on payments.');
+    } else {
+      setResult('pmiAnswer', 'Not yet');
+      setResult('pmiText', 'Your balance is above 80% of what you paid. See when you get there:');
+    }
+
+    const helocAnswers = { likely: 'Likely', possible: 'Possible with some lenders', unlikely: 'Unlikely' };
+    const helocTexts = {
+      likely: 'You owe 80% or less of your home\'s value across all home loans, which most lenders look for before opening a home equity line of credit (HELOC).',
+      possible: 'Some lenders allow a home equity line of credit (HELOC) up to 85% combined loan-to-value; many stop at 80%.',
+      unlikely: 'Most lenders won\'t open a home equity line of credit (HELOC) when your home loans add up to more than 85% of its value.',
+    };
+    setResult('helocAnswer', helocAnswers[c.heloc]);
+    setResult('helocText', helocTexts[c.heloc]);
+
+    setResult('cashOutAnswer', c.cashOutRefi === 'likely' ? 'Likely' : 'Unlikely');
+    setResult('cashOutText', c.cashOutRefi === 'likely'
+      ? 'A cash-out refinance usually lets you borrow up to 80% of your home\'s value, and you are at or below that.'
+      : 'A cash-out refinance usually caps your new loan at 80% of your home\'s value, and you owe more than that.');
+
+    setResult('sellAnswer', c.sellWithoutCash ? 'Yes' : 'No');
+    setResult('sellText', c.sellWithoutCash
+      ? `After selling costs, the sale would cover everything you owe and leave about ${formatCurrency(r.saleCash)}.`
+      : `After selling costs, you would need to bring about ${formatCurrency(-r.saleCash)} to closing.`);
+
+    document.getElementById('underwater-callout').classList.toggle('hidden', !(r.status === 'underwater' || r.status === 'seriously-underwater'));
+    document.getElementById('due-at-sale-note').classList.toggle('hidden', !r.hasDueAtSale);
+  }
+
+  form.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  /* Shareable URL */
+  document.getElementById('copy-link-btn')?.addEventListener('click', () => {
+    const p = getInputs();
+    const url = new URL(window.location.href);
+    const q = { v: p.homeValue, b: p.mortgageBalance, o: p.otherLoans, d: p.dueAtSale, s: p.sellingCostPct };
+    if (p.originalPrice) q.p = p.originalPrice;
+    url.search = new URLSearchParams(q).toString();
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      const btn = document.getElementById('copy-link-btn');
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => (btn.textContent = original), 2000);
+    });
+  });
+
+  /* Hydrate from URL */
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('v') || urlParams.has('b')) {
+    const map = { v: 'homeValue', b: 'mortgageBalance', o: 'otherLoans', d: 'dueAtSale', s: 'sellingCostPct', p: 'originalPrice' };
+    for (const [key, id] of Object.entries(map)) {
+      if (urlParams.has(key)) document.getElementById(id).value = urlParams.get(key);
+    }
+  }
+
+  update();
+</script>

@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeEquityCalculator from '../../components/HomeEquityCalculator.astro';
+import AdSlot from '../../components/AdSlot.astro';
+
+const title = 'Home Equity Calculator: Am I Underwater on My Mortgage?';
+const description =
+  'See how much equity you have, what you would walk away with after selling costs, and whether you are underwater on your mortgage. Free, no signup.';
+
+const publishDate = '2026-10-08T00:00:00Z';
+
+const faqs = [
+  {
+    q: 'What does it mean to be underwater on a mortgage?',
+    a: 'You are underwater when you owe more on your home than it is worth today. Lenders measure this with loan-to-value: your loan balance divided by your home\'s value. Over 100% means underwater.',
+  },
+  {
+    q: 'Is being underwater a problem if I am not selling?',
+    a: 'Not on its own. If you can afford your payment and plan to stay, your balance keeps shrinking as you pay, and home values can recover. It mainly matters when you sell, refinance, or try to borrow against your home.',
+  },
+  {
+    q: 'Why does the calculator show two different equity numbers?',
+    a: 'Equity on paper is your home\'s value minus everything you owe. Cash if you sold today also subtracts the cost to sell, such as agent commissions and closing costs. You can have equity on paper and still need to bring cash to closing.',
+  },
+  {
+    q: 'How accurate is my result?',
+    a: 'It is only as accurate as the home value you enter. Use recent sales of similar homes nearby and more than one online estimate, or get an appraisal. Try a lower value too; the calculator also shows what happens if your home is worth 10% less.',
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Home Equity Calculator',
+    description: 'Calculate home equity on paper and after selling costs, loan-to-value and combined loan-to-value, and whether a homeowner is underwater on their mortgage.',
+    url: 'https://recastcalc.com/home-equity-calculator/',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Ivan Stamenov', url: 'https://recastcalc.com/about/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://recastcalc.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Home Equity Calculator', item: 'https://recastcalc.com/home-equity-calculator/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://recastcalc.com/home-equity-calculator/"
+  schema={schema}
+  publishDate={publishDate}
+>
+  <nav aria-label="Breadcrumb" class="max-w-content mx-auto px-4 lg:px-6 pt-6 text-sm text-ink-500">
+    <ol class="flex gap-2 flex-wrap">
+      <li><a href="/" class="hover:text-accent">Home</a></li>
+      <li class="text-ink-400">/</li>
+      <li class="text-ink-700">Home Equity Calculator</li>
+    </ol>
+  </nav>
+
+  <header class="max-w-content mx-auto px-4 lg:px-6 pt-6 pb-10">
+    <h1 class="text-display-1 font-display font-semibold text-ink-900 mb-4">
+      Am I underwater on my mortgage?
+    </h1>
+    <p class="text-lg text-ink-700 max-w-narrow leading-relaxed">
+      See how much of your home you really own, both on paper and after the cost of selling, and what that means for refinancing, borrowing, or selling. No signup, no email wall.
+    </p>
+  </header>
+
+  <section class="max-w-content mx-auto px-4 lg:px-6 mb-12">
+    <HomeEquityCalculator />
+  </section>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6">
+    <AdSlot variant="inline" />
+  </div>
+
+  <article class="max-w-prose mx-auto px-4 lg:px-6 prose-recast">
+    <h2 id="what-underwater-means">What "underwater" means</h2>
+    <p>
+      Your <strong>equity</strong> is the part of your home you own outright: what the home is worth minus what you owe on it. If you owe more than the home is worth, your equity is negative, and you are <strong>underwater</strong> (also called being upside down).
+    </p>
+    <p>
+      Lenders describe this with <strong>loan-to-value (LTV)</strong>: your mortgage balance divided by your home's value. A $300,000 balance on a $400,000 home is 75% LTV. If you also have a home equity line of credit (HELOC) or home equity loan, lenders add it in and call the result <strong>combined loan-to-value (CLTV)</strong>. Above 100%, you're underwater. At 125% or more, you're what researchers call seriously underwater.
+    </p>
+    <p>
+      It's not common, but it's not rare either. ATTOM, a property data company, reported that 3.2% of mortgaged homes in the U.S. were seriously underwater in the first quarter of 2026.
+    </p>
+
+    <h2 id="paper-vs-sale">Equity on paper vs. cash if you sold</h2>
+    <p>
+      Equity on paper ignores what it costs to sell. In real life, agent commissions, closing costs, and transfer taxes often take 5% to 8% of the price. Anything you owe that must be paid at closing, like an unpaid special assessment or a homeowners association (HOA) balance, comes out too.
+    </p>
+    <p>
+      That's why the calculator shows both numbers. You can have equity on paper and still need to bring cash to closing if you sell. That middle zone is easy to miss, and it matters most if you might move soon.
+    </p>
+
+    <h2 id="estimate-your-value">How to estimate your home's value</h2>
+    <p>
+      Your result is only as good as the value you enter. A few ways to get a realistic number:
+    </p>
+    <ul>
+      <li><strong>Recent nearby sales.</strong> Look at homes similar to yours (size, age, condition) that sold in the last few months in your neighborhood. Sold prices matter more than asking prices.</li>
+      <li><strong>Several online estimates.</strong> Check more than one website and look at the range, not just one number. Estimates are least reliable for unusual homes, rural areas, and homes that have been remodeled.</li>
+      <li><strong>An appraisal.</strong> A licensed appraiser gives the most reliable number, for a fee. Lenders order their own appraisal for most refinances and home equity loans.</li>
+    </ul>
+    <p>
+      If you're unsure, enter a lower value too. The calculator also shows what happens if your home is worth 10% less than you think.
+    </p>
+
+    <h2 id="why-it-matters">Why it matters mainly when you sell or refinance</h2>
+    <p>
+      Being underwater doesn't change your monthly payment, and it doesn't hurt your credit. If you can afford your payment and plan to stay, every payment lowers your balance, and your equity can rebuild as you pay and as values recover.
+    </p>
+    <p>
+      It matters at three moments: when you <strong>sell</strong>, because the sale has to pay off everything you owe; when you <strong>refinance</strong>, because most refinances need equity; and when you want to <strong>borrow against your home</strong> with a HELOC or cash-out refinance. A recast is different: it lowers your payment after a lump-sum payment and doesn't depend on your home's value.
+    </p>
+    <p>
+      If you're struggling to make payments, contact your loan servicer (the company you send payments to) before you miss one, and consider talking to a housing counselor approved by the U.S. Department of Housing and Urban Development (HUD). Their help is free.
+    </p>
+
+    <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+    {faqs.map((f) => (
+      <>
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </>
+    ))}
+
+    <h2 id="related-calculators">Related calculators</h2>
+    <ul>
+      <li><a href="/pmi-removal/">PMI Removal Calculator</a></li>
+      <li><a href="/heloc-vs-refi/">HELOC vs. Cash-Out Refinance Calculator</a></li>
+      <li><a href="/recast/">Mortgage Recast Calculator</a></li>
+    </ul>
+  </article>
+
+  <div class="max-w-content mx-auto px-4 lg:px-6 mt-12">
+    <AdSlot variant="inline" />
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-recast h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+  }
+  .prose-recast h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+  }
+  .prose-recast p {
+    color: #2A2A2A;
+    line-height: 1.7;
+    margin-bottom: 1.25em;
+  }
+  .prose-recast a {
+    color: #B45309;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-recast ul {
+    padding-left: 1.5em;
+    margin-bottom: 1.25em;
+  }
+  .prose-recast li {
+    margin-bottom: 0.5em;
+    list-style-type: disc;
+  }
+</style>

@@ -851,3 +851,72 @@ export function calculateBuyVsRent({
     },
   };
 }
+
+/* ============================================================================
+ * Home equity ("Am I underwater?") math
+ * ============================================================================
+ *
+ * totalDebt   = mortgage + other loans on the home + amounts due at sale
+ * ltv / cltv  = mortgage / value, (mortgage + other loans) / value
+ * paperEquity = value - totalDebt
+ * saleCash    = value * (1 - sellingCost%) - totalDebt
+ * Status precedence: seriously-underwater (cltv >= 1.25) > underwater (cltv > 1.00,
+ * or paper equity below zero because of amounts due at sale) > sale-underwater
+ * (paper equity >= 0, sale cash < 0) > thin (cltv > 0.80) > healthy.
+ */
+function equitySnapshot(homeValue, mortgageBalance, otherLoans, dueAtSale, sellingCostPct) {
+  const totalDebt = mortgageBalance + otherLoans + dueAtSale;
+  const netSaleValue = homeValue * (1 - sellingCostPct / 100);
+  const ltv = mortgageBalance / homeValue;
+  const cltv = (mortgageBalance + otherLoans) / homeValue;
+  const paperEquity = homeValue - totalDebt;
+  const saleCash = netSaleValue - totalDebt;
+
+  let status;
+  if (cltv >= 1.25) status = 'seriously-underwater';
+  else if (cltv > 1 || paperEquity < 0) status = 'underwater';
+  else if (saleCash < 0) status = 'sale-underwater';
+  else if (cltv > 0.8) status = 'thin';
+  else status = 'healthy';
+
+  return {
+    homeValue,
+    totalDebt,
+    ltv,
+    cltv,
+    paperEquity,
+    saleCash,
+    cushionUnderwater: 1 - totalDebt / homeValue,
+    cushionSale: 1 - totalDebt / netSaleValue,
+    status,
+  };
+}
+
+export function calculateHomeEquity({
+  homeValue,
+  mortgageBalance,
+  otherLoans = 0,
+  dueAtSale = 0,
+  sellingCostPct = 6,
+  originalPrice = null,
+}) {
+  const nums = [homeValue, mortgageBalance, otherLoans, dueAtSale, sellingCostPct];
+  if (!nums.every(Number.isFinite)) return { error: 'Enter numbers in every required field.' };
+  if (homeValue <= 0) return { error: 'Enter what your home is worth today (more than $0).' };
+  if (mortgageBalance < 0 || otherLoans < 0 || dueAtSale < 0) return { error: 'Amounts owed cannot be negative.' };
+  if (sellingCostPct < 0 || sellingCostPct >= 100) return { error: 'Cost to sell must be at least 0% and less than 100%.' };
+
+  const now = equitySnapshot(homeValue, mortgageBalance, otherLoans, dueAtSale, sellingCostPct);
+  const stress = equitySnapshot(homeValue * 0.9, mortgageBalance, otherLoans, dueAtSale, sellingCostPct);
+
+  const hasOriginalPrice = Number.isFinite(originalPrice) && originalPrice > 0;
+  const checklist = {
+    // null means "enter what you paid to check"
+    dropPmi: hasOriginalPrice ? mortgageBalance <= 0.8 * originalPrice : null,
+    heloc: now.cltv <= 0.8 ? 'likely' : now.cltv <= 0.85 ? 'possible' : 'unlikely',
+    cashOutRefi: now.cltv <= 0.8 ? 'likely' : 'unlikely',
+    sellWithoutCash: now.saleCash >= 0,
+  };
+
+  return { ...now, stress, checklist, hasDueAtSale: dueAtSale > 0 };
+}
