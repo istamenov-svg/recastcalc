@@ -97,7 +97,7 @@ If a lender forgives part of what you owe, through a short sale, deed in lieu, o
 
 ### How do I know if I'm underwater?
 
-Compare what you owe, including any home equity line, with what your home would sell for today. Use recent sales of similar homes nearby, not just one online estimate, and remember that selling costs often run 5% to 8% of the price. The [home equity calculator](/home-equity-calculator/) does the math, including a scenario where your home is worth 10% less.
+Compare what you owe, including any home equity line and any unpaid special assessment, with what your home would sell for today. (Florida condo owners facing a large assessment: see [Florida condo special assessments](/guides/florida-condo-special-assessments/).) Use recent sales of similar homes nearby, not just one online estimate, and remember that selling costs often run 5% to 8% of the price. The [home equity calculator](/home-equity-calculator/) does the math, including a scenario where your home is worth 10% less.
 
 ### Can I sell my house if I'm underwater?
 
