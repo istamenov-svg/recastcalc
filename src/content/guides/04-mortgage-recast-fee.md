@@ -113,7 +113,7 @@ A polite, direct call to the loan servicing team works better than email. Ask: "
 
 The fee itself is rarely the most important number in the recast decision. What matters more:
 
-1. **Is recasting better than just making the lump sum payment without recasting?** (See our [recast vs. extra payment guide](/guides/recast-vs-extra-payment/), usually no.)
+1. **Is recasting better than just making the lump sum payment without recasting?** (See our [recast vs. extra payment comparison](/guides/how-mortgage-recast-works/#recast-vs-extra-principal-payment-the-math-no-one-shows-you); usually no.)
 2. **Is recasting better than refinancing?** (Depends on rate environment, see our [recast vs. refinance guide](/guides/recast-vs-refinance/).)
 3. **What's your actual goal: lower monthly payment, or faster payoff?** They're different goals with different right answers.
 
@@ -131,7 +131,7 @@ No. The recast fee is paid out-of-pocket, separate from the loan balance. This i
 Each recast typically charges a separate fee. Some lenders limit recasts to one per 12 months or one per loan lifetime. Confirm with your servicer before paying for the first recast if you might want to recast again later.
 
 **Do FHA, VA, or USDA loans charge recast fees?**
-Generally moot. These loan types typically don't allow recasting at all. See our [FHA, VA, USDA recast guide](/guides/recast-fha-va-usda/).
+Generally moot. These loan types typically don't allow recasting at all. See [which loans can be recast](/guides/how-mortgage-recast-works/#what-most-articles-get-wrong).
 
 ---
 

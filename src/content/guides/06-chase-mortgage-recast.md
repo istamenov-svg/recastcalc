@@ -161,7 +161,7 @@ For Megan: if she values monthly cash flow ($380/month), recast. If she values f
 
 Before paying the $150 fee:
 
-1. **Run the math vs. just making the $X extra principal payment without recasting.** See our [recast vs. extra payment guide](/guides/recast-vs-extra-payment/).
+1. **Run the math vs. just making the $X extra principal payment without recasting.** See our [recast vs. extra payment comparison](/guides/how-mortgage-recast-works/#recast-vs-extra-principal-payment-the-math-no-one-shows-you).
 
 2. **Run the math vs. refinancing** (if rates are below your current rate). See our [recast vs. refinance guide](/guides/recast-vs-refinance/).
 

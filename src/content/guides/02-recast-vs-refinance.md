@@ -94,7 +94,7 @@ Use this hierarchy in 2026:
 **Do neither if:**
 1. You have higher-interest debt elsewhere (pay that first)
 2. You don't have an emergency fund
-3. Your goal is fastest payoff (just make the lump sum payment, keep paying the old amount, the math is in our [recast vs. extra payment guide](/guides/recast-vs-extra-payment/))
+3. Your goal is fastest payoff (just make the lump sum payment, keep paying the old amount, the math is in our [recast vs. extra payment comparison](/guides/how-mortgage-recast-works/#recast-vs-extra-principal-payment-the-math-no-one-shows-you))
 
 ## Closing costs: the hidden refinance killer
 
@@ -124,7 +124,7 @@ This is why refinance break-even math matters. If you'll be in the home 18 month
 
 A third option some homeowners consider: take a home equity line of credit (HELOC) against your equity, use it for whatever you'd refinance to fund (renovations, debt consolidation), and keep the original mortgage at its low rate.
 
-When this beats both recasting and refinancing depends on the HELOC interest rate compared to your mortgage rate, plus your personal cash flow situation. Full breakdown in our [HELOC vs. refinance guide](/guides/heloc-vs-refinance/).
+When this beats both recasting and refinancing depends on the HELOC interest rate compared to your mortgage rate, plus your personal cash flow situation. Full breakdown in our [HELOC vs. refinance calculator](/heloc-vs-refi/).
 
 ## FAQ
 

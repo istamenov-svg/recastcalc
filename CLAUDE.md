@@ -77,6 +77,27 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 
 - `.github/workflows/fred-lookup.yml` (manual dispatch: series ID, start date, end date) prints FRED observations and the range's max and min to the job log. Use it to verify historical rate figures before publishing them; this container cannot reach FRED. It is read-only and never commits.
 
+## Content backlog
+
+Guides from the original content plan that were linked but never written. Links to them were removed or redirected (October 2026); restore them when each guide is written.
+
+| Missing slug | Originally linked from | Current state |
+|---|---|---|
+| `arm-rate-reset` | /arm-reset/ related guides | Link removed |
+| `5-1-arm-vs-7-1-arm` | /arm-reset/ related guides | Link removed |
+| `arm-cap-rules` | /arm-reset/ related guides | Link removed |
+| `biweekly-mortgage-payments` | /biweekly-payoff/ related guides | Link removed |
+| `biweekly-calculator-comparison` | /biweekly-payoff/ related guides | Link removed |
+| `heloc-vs-recast` | /heloc-vs-refi/ related guides | Link removed |
+| `refinance-break-even` | /heloc-vs-refi/ related guides | Link removed |
+| `how-to-remove-pmi` | /pmi-removal/ related guides | Link removed |
+| `drop-pmi-without-refinancing` | /pmi-removal/ related guides | Link removed |
+| `pmi-removal-ltv` | /pmi-removal/ related guides; guide 07 related guides | Removed from /pmi-removal/; guide 07 now links /pmi-removal/ |
+| `recast-vs-extra-payment` | guides 02, 04, 06; /biweekly-payoff/ related guides | Redirected to guide 01's "Recast vs. extra principal payment" section |
+| `heloc-vs-refinance` | guide 02; /heloc-vs-refi/ related guides | Guide 02 redirected to /heloc-vs-refi/; self-link on /heloc-vs-refi/ removed |
+| `recast-minimum-lump-sum` | guide 01 | Redirected to the /recast/ lender table (`#lenders`) |
+| `recast-fha-va-usda` | guide 04 | Redirected to guide 01's "What most articles get wrong" section |
+
 ## Known gaps
 
 - `GuideLayout.astro` ignores the frontmatter `schema` list and always emits only `Article` structured data, so no guide emits `FAQPage` even when its frontmatter lists it.

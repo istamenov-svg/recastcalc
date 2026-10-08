@@ -99,7 +99,7 @@ The mechanics vary by lender, but the general process:
 
 6. **Verify the new payment in writing** before you stop paying the old amount. Don't trust phone confirmations.
 
-For lender-specific walkthroughs, see our [Chase mortgage recast guide](/guides/chase-mortgage-recast/) and the [recast minimum lump sum comparison](/guides/recast-minimum-lump-sum/).
+For lender-specific walkthroughs, see our [Chase mortgage recast guide](/guides/chase-mortgage-recast/) and the [lender minimum lump sum table](/recast/#lenders).
 
 ## What most articles get wrong
 
