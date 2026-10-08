@@ -3,7 +3,7 @@ title: "Should I Recast My Mortgage After a Bonus or Inheritance"
 description: "Should you recast your mortgage? A decision chart and three worked examples show when recasting beats refinancing, extra payments, investing, or doing nothing."
 urlSlug: should-i-recast-my-mortgage
 pubDate: 2026-05-11
-updatedDate: 2026-10-07
+updatedDate: 2026-10-08
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -107,7 +107,7 @@ Beyond the math, there are legitimate non-financial reasons:
 
 **You'll move within 3 years.** The recast fee + the time spent processing isn't worth it if you'll sell or refinance soon.
 
-**Your lump sum is below the lender's minimum.** Most lenders require $5K–$10K minimum. Below that, just make an extra principal payment.
+**Your lump sum is below the servicer's minimum.** [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) says minimums are often $5,000 or $10,000. Below your servicer's minimum, just make an extra principal payment.
 
 **Your rate is significantly above current market rates.** Refinance first. Recast can come later (or not at all if the refi gives you a much lower starting payment).
 
@@ -145,7 +145,7 @@ If you can afford to pay off the entire mortgage, the question is more nuanced. 
 Probably not. The monthly payment drop on a $5K lump sum is usually $30 to $50, and a $250 fee takes 5–8 months just to recoup. Just make the $5K extra principal payment without recasting.
 
 **Should I recast every time I have extra money?**
-No. Each recast costs a fee, and most lenders limit recasts to one per 12 months. Better to accumulate larger lump sums and recast once a year (or just make extra principal payments on the existing schedule).
+No. Each recast may cost a fee, and some servicers limit how often you can recast; ask yours. Better to accumulate larger lump sums and recast once a year (or just make extra principal payments on the existing schedule).
 
 **What if my rate is below 4%?**
 Strong consideration to *not* recast. Sub-4% mortgages are valuable financial assets. When safe yields exceed your mortgage rate, investing the lump sum generates more wealth than recasting. Run the specific numbers before deciding.

@@ -89,11 +89,11 @@ The mechanics vary by lender, but the general process:
 
 1. **Verify your servicer allows recasting.** Chase and Citizens Bank publish their recast terms, and Mr. Cooper (Rocket Mortgage servicing) describes its recast process; most other servicers require a call. Government-backed loans (FHA, VA, USDA) generally don't qualify.
 
-2. **Confirm the minimum lump sum.** Typically $5,000–$10,000, but jumbo loans may require $50,000+.
+2. **Confirm the minimum lump sum.** [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) says minimums are often $5,000 or $10,000; [Chase](https://www.chase.com/personal/mortgage/recast) says it has no minimum.
 
 3. **Confirm the fee.** Usually $150–$500. Get it in writing.
 
-4. **Make sure you're current on payments.** Most lenders require zero late payments in the last 12 months.
+4. **Make sure you're current on payments.** Servicers generally require your loan to be in good standing; ask yours what that means for your loan.
 
 5. **Submit the request and lump sum.** Wire transfer or certified check, bundled with the recast request form.
 
@@ -119,16 +119,16 @@ For the comparison most articles skip, run your numbers in our [recast calculato
 No. A recast isn't a new loan, doesn't require a credit pull, and doesn't appear as a new tradeline. Your score is unaffected.
 
 **Can I recast more than once?**
-Most lenders allow multiple recasts, though some limit to one per 12-month period. Confirm with your servicer.
+It depends on your servicer. Chase, for example, says you may be eligible to recast again after you reduce your principal further. Ask your servicer whether there's a limit.
 
 **How long does a recast take?**
-Typically 30–60 days from when the lender receives both the lump sum and the request form. See our [recast timeline guide](/guides/mortgage-recast-timeline/).
+It varies by servicer, and few publish a timeline, so ask yours. See our [recast timeline guide](/guides/mortgage-recast-timeline/).
 
 **Do I need to pay closing costs?**
 No. The fee is a flat servicing charge ($150–$500), not closing costs. There's no appraisal, title work, or underwriting.
 
 **Can I recast a jumbo loan?**
-Most major lenders allow jumbo recasts but require higher minimum lump sums, typically $50,000–$100,000.
+Ask your servicer. Eligibility and minimum lump sums for jumbo loans vary, and few servicers publish them.
 
 ---
 

@@ -3,7 +3,7 @@ title: "Mortgage Recast vs. Refinance: Which Saves More?"
 description: "Side-by-side comparison with worked examples. When recasting wins, when refinancing wins, and when neither beats extra payments."
 urlSlug: recast-vs-refinance
 pubDate: 2026-05-01
-updatedDate: 2026-10-07
+updatedDate: 2026-10-08
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -88,7 +88,7 @@ Use this hierarchy in 2026:
 
 **Recast if all three are true:**
 1. Your current rate is at or below today's market rate
-2. You have a lump sum (typically $5K minimum, $80K+ for meaningful payment drop)
+2. You have a lump sum (minimums are often $5,000 or $10,000; $80K+ for a meaningful payment drop)
 3. You want lower monthly payment without giving up your rate
 
 **Do neither if:**
@@ -118,7 +118,7 @@ This is why refinance break-even math matters. If you'll be in the home 18 month
 
 **"You can't recast a refinanced loan."** False. Most lenders allow recasting on conventional refinances. The exceptions are mostly government-backed loans (FHA, VA, USDA) and certain portfolio loans.
 
-**"Recasting is just for rich people."** The minimum lump sum at most major lenders is $5,000–$10,000. That's accessible to most homeowners with any meaningful savings.
+**"Recasting is just for rich people."** [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) says minimum lump sums are often $5,000 or $10,000, and [Chase](https://www.chase.com/personal/mortgage/recast) says it has no minimum. That's accessible to most homeowners with any meaningful savings.
 
 ## What about a home equity line of credit?
 

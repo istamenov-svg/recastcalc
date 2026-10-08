@@ -18,64 +18,65 @@ schema:
 tier: 1
 ---
 
-> **Quick answer:** Most mortgage recasts take 30–60 days from when the lender receives both the lump sum and the recast request form. Timing varies by servicer, and few publish it, so ask yours how long it takes. Faster than refinancing (45–90 days) but slower than most homeowners expect; start the process at least one full payment cycle before you need the lower payment to take effect.
+> **Quick answer:** There's no standard recast timeline. It starts when your servicer has both the lump sum and the recast request, and it varies by servicer; few publish it, so ask yours how long it takes. Start the process at least one full payment cycle before you need the lower payment to take effect.
 
 [Calculate your recast →](/recast/)
 
 ## The 7-stage timeline
 
-A recast goes through seven distinct stages. Where you'll lose time is rarely Stage 1 (your end). It's Stages 4–6 (the lender's processing).
+A recast goes through seven stages. Most of the waiting happens in Stages 4 to 6, the servicer's processing. Ask your servicer for its timeline before you start.
 
-### Stage 1: Pre-flight check (Day 0)
+### Stage 1: Pre-flight check
 
 Before anything else, confirm your loan is eligible. Call your servicer and verify:
 
-- Your loan type allows recasting (most conventional yes, FHA/VA/USDA generally no)
-- The minimum lump sum requirement (usually $5,000–$10,000)
+- Your loan type allows recasting (Federal Housing Administration (FHA), Department of Veterans Affairs (VA), and U.S. Department of Agriculture (USDA) loans generally don't qualify)
+- The minimum lump sum requirement ([Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) says minimums are often $5,000 or $10,000)
 - The current recast fee
-- That you have zero late payments in the last 12 months
+- Whether your loan is in good standing
+- How long the recast usually takes
 
-This is a 15-minute phone call. Don't skip it. ~30% of recast requests get denied at later stages because the homeowner didn't pre-confirm eligibility.
+Don't skip this call. Confirming eligibility first avoids sending a lump sum for a recast your servicer won't approve.
 
-### Stage 2: Submit the request (Day 1)
+### Stage 2: Submit the request
 
-Most major lenders require:
+Servicers typically ask for:
 
 - A signed recast request form (lender-specific)
 - The lump sum payment, designated as "principal only" with a note that it should be applied before recasting
-- The recast fee (usually $150–$500)
+- The recast fee, if your servicer charges one ([Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) says fees typically run $150 to $500)
 
 Some lenders accept this electronically; some require physical mail or wire transfer + mailed form. Call ahead to confirm submission method.
 
-### Stage 3: Lender receipt and acknowledgment (Day 1–7)
+### Stage 3: Receipt and acknowledgment
 
-The lender's mortgage operations team logs receipt of your lump sum and request. You should get an acknowledgment letter or email within 7 days.
+The servicer logs receipt of your lump sum and request. Ask when you should expect an acknowledgment letter or email.
 
-If you don't receive acknowledgment by Day 10, call. Lost paperwork at this stage is the #1 cause of recast delays.
+If it doesn't arrive when expected, call. Lost paperwork at this stage can delay the whole recast.
 
-### Stage 4: Application of lump sum (Day 7–14)
+### Stage 4: Application of the lump sum
 
 The lender applies your lump sum to principal. Critically, they apply it but **do not yet recast**. The loan continues to amortize at the old payment until the recast is approved and processed.
 
 Verify in your online account that the lump sum was applied to principal. If it shows up as "extra payment" or "future payment," call immediately to fix.
 
-### Stage 5: Recast review and approval (Day 14–30)
+### Stage 5: Recast review and approval
 
 The lender's loan operations team reviews the recast request: confirms eligibility, verifies the lump sum was applied correctly, and approves the re-amortization.
 
-This is usually the longest stage, and timing varies by servicer. Ask yours how long review typically takes.
+Timing for this stage varies by servicer. Ask yours how long review typically takes.
 
-### Stage 6: New amortization schedule generation (Day 30–45)
+### Stage 6: New amortization schedule
 
 Once approved, the lender generates a new amortization schedule based on your remaining balance, your existing rate, and your remaining term. They send you a new payment notice (paper letter or PDF in your online account).
 
 This is when you find out your exact new monthly payment. Verify it matches what you calculated. If it doesn't, call before making the next payment.
 
-### Stage 7: First reduced payment (Day 45–60)
+### Stage 7: First reduced payment
 
 Your new lower payment takes effect on the first payment due date after recast finalization. **Your old payment continues to be due until that date.** Don't reduce your payment based on phone confirmations or partial communications.
 
-If you have autopay set up, you may need to update the amount manually. Some lenders auto-adjust autopay; many don't.
+If you have autopay set up, ask whether it adjusts automatically, and check the amount yourself.
 
 ## Timing varies by servicer
 
@@ -87,31 +88,31 @@ Few servicers publish how long a recast takes. The company that services your lo
 
 ## What can slow you down
 
-**Payment timing mistake.** If your lump sum arrives within 3–5 days of your regular monthly payment, the lender may apply it to the regular payment instead of as principal-only. Send the lump sum mid-billing-cycle if possible.
+**Payment timing mistake.** If your lump sum arrives close to your regular payment date, it may be applied to the regular payment instead of to principal. Ask your servicer how to make sure it's applied to principal.
 
-**Wrong form version.** Lenders update their recast request forms periodically. Using a form found on a third-party blog from 2 years ago is a guaranteed delay. Always get the form directly from your servicer.
+**Wrong form version.** Servicers update their recast request forms. Always get the form directly from your servicer, not from a third-party website.
 
-**Incomplete documentation.** Missing signature, missing loan number, missing source-of-funds disclosure (some lenders require this for lump sums >$10K). Lender will hold the request until complete.
+**Incomplete documentation.** Missing signature, missing loan number, or a missing explanation of where the lump sum came from, if your servicer asks for one. The servicer may hold the request until it's complete.
 
-**Late-payment trigger.** If you miss any payment during the recast process (Stages 1–7), some lenders will reset the eligibility clock and require 12 months of on-time payments before processing.
+**Late-payment trigger.** If you miss a payment during the recast process, your loan may no longer be in good standing, which can delay or stop the recast. Keep paying your current amount until the new payment starts.
 
 ## How to speed it up
 
-Three things actually move the needle:
+Three things help:
 
-1. **Submit electronically when possible.** Mail adds 3–5 business days at minimum.
-2. **Call to confirm receipt at Stage 3 (Day 7).** Don't wait for the acknowledgment letter. Proactive verification catches lost paperwork before it costs you 2 weeks.
-3. **Send the lump sum and request together, not separately.** Some homeowners send the lump sum first and the request later. Lenders treat the request date as the start of processing. Sending separately can cost you 2–3 weeks.
+1. **Submit electronically when possible.** Mail adds time.
+2. **Call to confirm receipt at Stage 3.** Don't wait for the acknowledgment letter. Checking early catches lost paperwork before it delays you.
+3. **Send the lump sum and request together, not separately.** If you send the lump sum first and the request later, processing may not start until the request arrives.
 
 ## What if you need the lower payment urgently?
 
-Recasting isn't fast enough for short-term cash flow problems. If you need the lower payment within 30 days for a job change, medical emergency, or similar, consider:
+Recasting may not be fast enough for short-term cash flow problems. If you need a lower payment soon because of a job change, medical emergency, or similar, consider:
 
 - **Forbearance**: Lender pauses payments temporarily. Doesn't lower the long-term payment, but stops it for 3–12 months.
-- **Loan modification**: Permanent change to terms. Slower than recasting but doesn't require a lump sum.
-- **Refinance**: Faster than expected: many lenders close in 30 days. But you'll pay closing costs and potentially give up your rate.
+- **Loan modification**: Permanent change to terms. Doesn't require a lump sum.
+- **Refinance**: Replaces your loan with a new one. You'll pay closing costs and potentially give up your rate.
 
-For most planned recasts (paying down with a bonus, inheritance, or sale proceeds), the 30–60 day timeline is fine. Just plan for it.
+For most planned recasts (paying down with a bonus, inheritance, or sale proceeds), the wait is usually fine. Just ask your servicer for its timeline and plan for it.
 
 ## FAQ
 
@@ -122,13 +123,13 @@ Yes, and you should. Continuing to pay the old amount during processing applies 
 The lump sum has already been applied to principal, so it counts toward your payoff balance regardless. The recast itself is just bookkeeping; you haven't lost the money.
 
 **Can I cancel a recast in progress?**
-Up until Stage 5 (approval), yes. After approval, no. The new amortization is set and would require a separate request to reverse.
+Ask your servicer. Its process decides whether, and until when, a recast request can be withdrawn.
 
-**Why does my lender say "8–12 weeks"?**
-Conservative estimate. The 8–12 week answer is the worst case. Most recasts complete in 30–60 days. But plan for the worst case if your cash flow timing matters.
+**Why is my servicer's estimate longer than I expected?**
+Servicers set their own timelines. Plan around the estimate yours gives you, especially if your cash flow timing matters.
 
 ---
 
-*Timing varies by servicer. Verify current timing with your specific servicer before relying on these estimates. RecastCalc is not a lender.*
+*Timing varies by servicer. Ask your servicer for its current timeline before relying on it. RecastCalc is not a lender.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*

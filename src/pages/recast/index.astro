@@ -70,7 +70,7 @@ const schema = [
         name: 'How much does a mortgage recast cost?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Most lenders charge a recast fee between $150 and $500. There are no closing costs, no appraisal, no credit check, and no new loan documents, unlike a refinance, which typically costs 2–6% of the loan balance.',
+          text: 'Bankrate reports recast fees typically run $150 to $500, if your servicer charges one. There are no closing costs, no appraisal, no credit check, and no new loan documents, unlike a refinance, which typically costs 2–6% of the loan balance.',
         },
       },
       {
@@ -78,7 +78,7 @@ const schema = [
         name: 'What is the minimum lump sum for a mortgage recast?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Most lenders require a minimum lump sum of $5,000 to $10,000, with some requiring 10% of the original loan balance. The minimum varies by lender; check your servicer’s recast policy before applying.',
+          text: 'Bankrate reports minimums are often $5,000 or $10,000, and Chase says it has no minimum. The minimum varies by servicer; check your servicer’s recast policy before applying.',
         },
       },
       {
@@ -141,7 +141,7 @@ const lenders = [
     name: 'Mr. Cooper (Rocket Mortgage servicing)',
     offers: 'Offered',
     minLump: 'Not stated',
-    fee: 'Up to $250, non-refundable, where required by state',
+    fee: 'Usually up to $250, non-refundable; charged if required in your state',
     notEligible: 'Government-backed, interest-only, option ARM, and commercial loans',
     source: 'https://www.mrcooper.com/help-center/payments/mortgage-recast',
     sourceLabel: 'mrcooper.com',
@@ -336,7 +336,7 @@ const lenders = [
     <h2 id="step-by-step">How to request a mortgage recast</h2>
     <ol class="list-decimal pl-6 mb-4 space-y-2 text-ink-800">
       <li><strong>Confirm eligibility.</strong> Call your loan servicer (the entity you make payments to, not necessarily the original lender) and ask: "Do you offer mortgage recasting on this loan?"</li>
-      <li><strong>Get the specifics.</strong> Confirm the recast fee, minimum lump sum, processing time (typically 30–60 days), and whether there's a frequency limit (most lenders cap at once per 12 months).</li>
+      <li><strong>Get the specifics.</strong> Confirm the recast fee, minimum lump sum, processing time (it varies by servicer; ask yours), and whether there's a limit on how often you can recast.</li>
       <li><strong>Use the calculator above</strong> to confirm the recast actually delivers what you want before you commit the lump sum.</li>
       <li><strong>Submit the lump sum.</strong> Most lenders require the lump sum to be applied to principal first, then a separate recast request. Do not just send extra money and assume it will recast; it won't.</li>
       <li><strong>Sign the recast agreement.</strong> The lender sends a one-page document confirming the new payment amount and effective date.</li>
@@ -349,10 +349,10 @@ const lenders = [
     <p>A mortgage recast (also called re-amortization) is when you apply a lump sum to your principal and your lender recalculates your monthly payment over the remaining loan term at the same interest rate. The term length stays the same; only the monthly payment goes down.</p>
 
     <h3>How much does a mortgage recast cost?</h3>
-    <p>Most lenders charge a recast fee between $150 and $500. There are no closing costs, no appraisal, no credit check, and no new loan documents, unlike a refinance, which typically costs 2–6% of the loan balance.</p>
+    <p><a href="https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it" rel="noopener">Bankrate</a> reports recast fees typically run $150 to $500, if your servicer charges one. There are no closing costs, no appraisal, no credit check, and no new loan documents, unlike a refinance, which typically costs 2–6% of the loan balance.</p>
 
     <h3>What is the minimum lump sum?</h3>
-    <p>Most lenders require a minimum lump sum of $5,000 to $10,000, with some requiring 10% of the original loan balance. The minimum varies by lender; check your servicer's recast policy before applying.</p>
+    <p><a href="https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it" rel="noopener">Bankrate</a> reports minimums are often $5,000 or $10,000, and <a href="https://www.chase.com/personal/mortgage/recast" rel="noopener">Chase</a> says it has no minimum. The minimum varies by servicer; check your servicer's recast policy before applying.</p>
 
     <h3>Is a recast better than a refinance?</h3>
     <p>It depends. Recast is better when your current rate is lower than today's rates, you want to avoid closing costs, and you have a lump sum. Refinance is better when current rates are meaningfully (typically 0.75%+) lower than your existing rate.</p>
@@ -363,8 +363,11 @@ const lenders = [
     <h3>Does recasting affect my credit score?</h3>
     <p>No. A recast does not require a credit check or hard inquiry. Your loan, term, and rate all remain the same, so it has no direct effect on your credit score.</p>
 
+    <h3>Which lenders allow mortgage recasting?</h3>
+    <p>Few servicers publish their recast terms. Chase and Citizens Bank publish theirs, and Mr. Cooper (Rocket Mortgage servicing) describes its recast process. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from. See the <a href="#lenders">table of servicers that publish recast terms</a>.</p>
+
     <h3>How long does a recast take?</h3>
-    <p>30 to 60 days typically. The lump sum is applied first, then the lender processes the re-amortization, sends paperwork, and the new payment takes effect on the following monthly cycle.</p>
+    <p>It varies by servicer, and few publish a timeline, so ask yours. The lump sum is applied first, then the lender processes the re-amortization, sends paperwork, and the new payment takes effect on the following monthly cycle.</p>
   </article>
 
   <!-- Footer ad -->

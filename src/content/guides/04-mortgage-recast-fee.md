@@ -18,7 +18,7 @@ schema:
 tier: 1
 ---
 
-> **Quick answer:** Recast fees are a flat charge, paid once. NerdWallet reports fees generally run $150 to $250; Bankrate reports $150 to $500. Few servicers publish their terms: Citizens Bank lists a $150 fee, Mr. Cooper charges up to $250 where required by state, and Chase says only that fees may apply. Ask your servicer for the exact fee. The fee is rarely the deciding factor; the bigger question is whether to recast at all (vs. refinance or extra payments).
+> **Quick answer:** Recast fees are a flat charge, paid once. NerdWallet reports fees generally run $150 to $250; Bankrate reports $150 to $500. Few servicers publish their terms: Citizens Bank lists a $150 fee; Mr. Cooper's fee is usually up to $250, non-refundable, and charged if required in your state; and Chase says only that fees may apply. Ask your servicer for the exact fee. The fee is rarely the deciding factor; the bigger question is whether to recast at all (vs. refinance or extra payments).
 
 [Calculate your recast →](/recast/)
 
@@ -44,7 +44,7 @@ Most servicers don't publish their recast fees. These three do publish recast te
 |---|---|---|---|
 | Chase | Not published ("Fees may apply") | None ("there is no minimum amount required") | [chase.com](https://www.chase.com/personal/mortgage/recast) |
 | Citizens Bank | $150 processing fee | $5,000 | [citizensbank.com](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx) |
-| Mr. Cooper (Rocket Mortgage servicing) | Up to $250, non-refundable, where required by state | Not stated | [mrcooper.com](https://www.mrcooper.com/help-center/payments/mortgage-recast) |
+| Mr. Cooper (Rocket Mortgage servicing) | Usually up to $250, non-refundable; charged if required in your state | Not stated | [mrcooper.com](https://www.mrcooper.com/help-center/payments/mortgage-recast) |
 
 Chase doesn't recast Federal Housing Administration (FHA), Department of Veterans Affairs (VA), or U.S. Department of Agriculture (USDA) loans. Mr. Cooper excludes government-backed, interest-only, option adjustable-rate (option ARM), and commercial loans.
 
@@ -82,11 +82,11 @@ A free recast doesn't change the underlying decision. Recasting still has to mak
 
 Beyond the explicit fee, three hidden costs can show up:
 
-**Lender-required wire fees.** Some lenders require lump sums above $10K to be wired (not check or electronic bank transfer). Wire fees are $15–$30, paid to your bank.
+**Wire fees.** Your servicer may ask you to send a large lump sum by wire transfer. Your bank may charge a fee to send it; ask your bank what it charges.
 
-**Tax escrow recalculation.** If the new monthly payment changes your escrow setup (because the principal/interest portion changed), some lenders recalculate the escrow and may require a one-time escrow adjustment. Usually small ($50–$200) and not really a "fee", it's just settling up.
+**Tax escrow recalculation.** If the new monthly payment changes your escrow setup (because the principal/interest portion changed), some lenders recalculate the escrow and may require a one-time escrow adjustment. It's not really a "fee"; it's just settling up.
 
-**Late fees during processing.** If you accidentally underpay during the 30–60 day processing window because you assumed the new payment was already in effect, late fees compound. Don't change your payment amount until you have the new amortization schedule in writing.
+**Late fees during processing.** If you accidentally underpay while the recast is processing because you assumed the new payment was already in effect, late fees compound. Don't change your payment amount until you have the new amortization schedule in writing.
 
 ## Negotiating the fee
 
@@ -118,7 +118,7 @@ Generally no. Recast fees are considered loan administration costs, not interest
 No. The recast fee is paid out-of-pocket, separate from the loan balance. This is different from refinancing where closing costs can sometimes be rolled in.
 
 **What if I recast multiple times?**
-Each recast typically charges a separate fee. Some lenders limit recasts to one per 12 months or one per loan lifetime. Confirm with your servicer before paying for the first recast if you might want to recast again later.
+Each recast may carry its own fee. Ask your servicer whether there's a limit on how often you can recast before paying for the first one, if you might want to recast again later.
 
 **Do FHA, VA, or USDA loans charge recast fees?**
 Generally moot. These loan types typically don't allow recasting at all. See [which loans can be recast](/guides/how-mortgage-recast-works/#what-most-articles-get-wrong).

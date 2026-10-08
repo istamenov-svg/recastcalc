@@ -98,7 +98,7 @@ Megan has a $375,000 Chase mortgage at 5.875%, 26 years remaining. She received 
 - Balance: $315,000 ($375K − $60K)
 - Monthly principal and interest: $1,994
 - Monthly savings: $380
-- Fee: Chase doesn't publish one; even a $250 fee pays back in under a month here
+- Fee: Chase doesn't publish one; even a fee of a few hundred dollars pays back in under a month here
 
 **vs. Just make the $60K extra payment without recasting**:
 - Balance: $315,000
