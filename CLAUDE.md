@@ -89,6 +89,7 @@ Claims on published pages that depend on laws, program rules, or third-party fig
 | `/home-equity-calculator/` | ATTOM: 3.2% of mortgaged homes seriously underwater in Q1 2026 | [ATTOM Q1 2026 Home Equity & Underwater Report](https://www.attomdata.com/news/market-trends/home-sales-prices/q1-2026-home-equity-and-underwater-report/) | Oct 2026 | When ATTOM publishes a newer quarter that states the number |
 | Guide 09 (`/guides/escrow-shortage-mortgage-payment-went-up/`) | Cotality: payments up about $175/month in 2026 from taxes and insurance; Neighbors Bank: taxes and insurance 21% of the average payment | [WTOP, July 2026](https://wtop.com/news/2026/07/what-is-an-escrow-shortage-why-your-mortgage-payment-just-went-up/) (both figures) | Oct 2026 | Mid-2027 |
 | `/recast/` lender table | Lender recast fees and minimum lump sums ("Last verified: April 2026") | Not recorded | Apr 2026 | Overdue: re-verify now, then quarterly |
+| Guide 04 (`/guides/mortgage-recast-fee/`) | Recast fees for 16 named lenders plus local credit unions ("typical as of April 2026") | Not recorded (page footer cites "publicly available servicer disclosures and homeowner reports") | Apr 2026 | Overdue: re-verify now, then quarterly |
 
 ## Content backlog
 
