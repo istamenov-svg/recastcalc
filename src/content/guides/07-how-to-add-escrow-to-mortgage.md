@@ -80,7 +80,7 @@ The process is genuinely simple at most major lenders. Five steps:
 
 **Step 1: Find the right contact.** Call your loan servicer (the company you make mortgage payments to, which may not be your original lender). Ask for the "escrow setup" or "escrow conversion" department. Don't try to do this through a chatbot or online form unless your servicer's portal explicitly has an "add escrow" option (most don't).
 
-**Step 2: Confirm eligibility.** Verify your loan type allows it. Conventional loans almost always do. Government-backed loans usually require escrow already, so this conversation rarely applies. Ask about any setup fee. Major banks (Chase, Wells Fargo, Bank of America, US Bank) typically charge nothing or up to $250.
+**Step 2: Confirm eligibility.** Verify your loan type allows it. Conventional loans almost always do. Government-backed loans usually require escrow already, so this conversation rarely applies. Ask about any setup fee; many servicers don't charge to add escrow.
 
 **Step 3: Submit a written request.** Most servicers require this in writing (email, letter, or secure message through their portal). The request should state your loan number, your name, the property address, and a sentence like "I am requesting that you establish an escrow account for property tax and homeowner's insurance payments effective with my next monthly mortgage payment."
 
@@ -90,13 +90,7 @@ The process is genuinely simple at most major lenders. Five steps:
 
 ## What it costs
 
-Most lenders set up escrow for free. A few charge a small one-time setup fee:
-
-- Chase: free for most loans
-- Wells Fargo: free
-- Bank of America: free
-- US Bank: free (sometimes a small administrative fee on jumbo loans)
-- Smaller credit unions and regional banks: occasionally $50 to $250
+Ask your servicer; many don't charge to add escrow.
 
 The bigger cost, by far, is the initial deposit (above) and the ongoing escrow cushion that the lender holds at zero interest. The setup fee, if any, is a rounding error.
 
@@ -114,7 +108,7 @@ The bigger cost, by far, is the initial deposit (above) and the ongoing escrow c
 
 ### Is adding escrow free?
 
-Usually yes. Most major lenders charge no setup fee. A few smaller lenders charge $50 to $250. The bigger cost is the initial deposit to fund the escrow cushion (typically $1,500 to $4,000 depending on your tax and insurance amounts and the timing).
+Ask your servicer; many don't charge to add escrow. The bigger cost is the initial deposit to fund the escrow cushion (typically $1,500 to $4,000 depending on your tax and insurance amounts and the timing).
 
 ### How long does it take to set up escrow?
 

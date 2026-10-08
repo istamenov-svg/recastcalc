@@ -3,7 +3,7 @@ title: "How a Mortgage Recast Works (and What People Get Wrong)"
 description: "Plain-English explanation of mortgage recasting: what it is, how lenders calculate the new payment, and what most articles get wrong."
 urlSlug: how-mortgage-recast-works
 pubDate: 2026-04-29
-updatedDate: 2026-10-07
+updatedDate: 2026-10-08
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -87,7 +87,7 @@ When recasting is the **wrong** move:
 
 The mechanics vary by lender, but the general process:
 
-1. **Verify your lender allows recasting.** Most major banks do: Chase, Wells Fargo, BofA, US Bank. Government-backed loans (FHA, VA, USDA) generally don't.
+1. **Verify your servicer allows recasting.** Chase and Citizens Bank publish their recast terms, and Mr. Cooper (Rocket Mortgage servicing) describes its recast process; most other servicers require a call. Government-backed loans (FHA, VA, USDA) generally don't qualify.
 
 2. **Confirm the minimum lump sum.** Typically $5,000–$10,000, but jumbo loans may require $50,000+.
 
@@ -99,7 +99,7 @@ The mechanics vary by lender, but the general process:
 
 6. **Verify the new payment in writing** before you stop paying the old amount. Don't trust phone confirmations.
 
-For lender-specific walkthroughs, see our [Chase mortgage recast guide](/guides/chase-mortgage-recast/) and the [lender minimum lump sum table](/recast/#lenders).
+For lender-specific walkthroughs, see our [Chase mortgage recast guide](/guides/chase-mortgage-recast/) and the [table of servicers that publish recast terms](/recast/#lenders).
 
 ## What most articles get wrong
 

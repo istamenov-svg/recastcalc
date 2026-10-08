@@ -1,9 +1,9 @@
 ---
-title: "How Much Does a Mortgage Recast Cost? Fees by Lender"
-description: "What lenders actually charge for a recast in 2026. Verified fees from Chase, Wells Fargo, BofA, US Bank, and 12 other major servicers."
+title: "How Much Does a Mortgage Recast Cost? Fees Explained"
+description: "What a mortgage recast costs, what the fee covers, and the published terms from Chase, Citizens Bank, and Mr. Cooper. Plus when the fee is worth paying."
 urlSlug: mortgage-recast-fee
 pubDate: 2026-04-28
-updatedDate: 2026-04-28
+updatedDate: 2026-10-08
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -18,7 +18,7 @@ schema:
 tier: 1
 ---
 
-> **Quick answer:** Most major US lenders charge $150–$500 for a mortgage recast as of 2026. Chase: $150. Wells Fargo: $250. Bank of America: $250. US Bank: $250. Rocket Mortgage: $250. The fee is paid once, regardless of lump sum size. Some smaller lenders and credit unions charge nothing; some charge up to $500. The recast fee is rarely the deciding factor; the bigger question is whether to recast at all (vs. refinance or extra payments).
+> **Quick answer:** Recast fees are a flat charge, paid once. NerdWallet reports fees generally run $150 to $250; Bankrate reports $150 to $500. Few servicers publish their terms: Citizens Bank lists a $150 fee, Mr. Cooper charges up to $250 where required by state, and Chase says only that fees may apply. Ask your servicer for the exact fee. The fee is rarely the deciding factor; the bigger question is whether to recast at all (vs. refinance or extra payments).
 
 [Calculate your recast →](/recast/)
 
@@ -36,29 +36,24 @@ It's a flat fee, not a percentage. A $5,000 lump sum recast costs the same as an
 
 There are no closing costs, appraisals, or third-party fees. That's the whole point of recasting vs. refinancing.
 
-## Fees at the major US lenders (2026)
+## Published fees and typical ranges
 
-| Lender | Recast Fee | Notes |
-|---|---|---|
-| Chase | $150 | Lowest among big four |
-| Wells Fargo | $250 | Standard |
-| Bank of America | $250 | Standard |
-| US Bank | $250 | Standard |
-| Citi | $250–$500 | Varies by loan vintage |
-| Rocket Mortgage | $250 | Conventional loans only |
-| PNC | $250 | Standard |
-| Truist | $250 | Standard |
-| Fifth Third Bank | $300 | Slightly above market |
-| Regions Bank | $250 | Standard |
-| Flagstar | $300 | Slightly above market |
-| Mr. Cooper | $250 | Servicer for many third-party loans |
-| LoanDepot | $250 | Conventional only |
-| Caliber Home Loans (Newrez) | $250 | Standard |
-| Navy Federal Credit Union | $0 | No fee for members |
-| PenFed Credit Union | $0 | No fee for members |
-| Local credit unions | $0–$250 | Highly variable |
+Most servicers don't publish their recast fees. These three do publish recast terms:
 
-These fees are typical as of April 2026. Verify the current fee with your specific servicer before requesting a recast, since fees can change with little notice.
+| Servicer | Fee | Minimum lump sum | Source |
+|---|---|---|---|
+| Chase | Not published ("Fees may apply") | None ("there is no minimum amount required") | [chase.com](https://www.chase.com/personal/mortgage/recast) |
+| Citizens Bank | $150 processing fee | $5,000 | [citizensbank.com](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx) |
+| Mr. Cooper (Rocket Mortgage servicing) | Up to $250, non-refundable, where required by state | Not stated | [mrcooper.com](https://www.mrcooper.com/help-center/payments/mortgage-recast) |
+
+Chase doesn't recast Federal Housing Administration (FHA), Department of Veterans Affairs (VA), or U.S. Department of Agriculture (USDA) loans. Mr. Cooper excludes government-backed, interest-only, option adjustable-rate (option ARM), and commercial loans.
+
+For everyone else, the best guides are industry ranges:
+
+- **[NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast):** recast fees generally run $150 to $250.
+- **[Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it):** fees typically run $150 to $500, and minimum lump sums are often $5,000 or $10,000.
+
+These terms were last verified in October 2026. Your servicer (the company you send payments to, which may not be the lender you borrowed from) sets the actual fee, so confirm it before requesting a recast.
 
 ## How the fee changes the math
 
@@ -77,14 +72,9 @@ When the fee math gets meaningful: small lump sum recasts. If you only have a $5
 
 **Quick test before you pay any recast fee:** divide the fee by your projected monthly savings. If the answer is less than 12, recasting is fine. If more than 12, just make the lump sum payment without recasting.
 
-## "Free recast" lenders: too good to be true?
+## What if there's no fee?
 
-A few lenders advertise free recasts:
-
-- **Navy Federal Credit Union**: Truly free for members. Quality lender, broad eligibility.
-- **PenFed Credit Union**: Free for members.
-- **Some local credit unions**: Free, though quality varies.
-- **"Free recast" promotional offers from major banks**: Usually time-limited or tied to specific loan products. Read the fine print.
+Not every servicer charges one; Bankrate's range applies "if your lender charges a recasting fee." If yours doesn't, check for any conditions, such as which loan types qualify, before you send the lump sum.
 
 A free recast doesn't change the underlying decision. Recasting still has to make sense compared to alternatives (extra payment, refinance). Free just removes one variable.
 
@@ -135,6 +125,6 @@ Generally moot. These loan types typically don't allow recasting at all. See [wh
 
 ---
 
-*Fee data synthesized from publicly available servicer disclosures and homeowner reports. Verify current fees with your specific lender before initiating a recast. RecastCalc is not a lender.*
+*Sources: [Chase](https://www.chase.com/personal/mortgage/recast), [Citizens Bank](https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx), [Mr. Cooper](https://www.mrcooper.com/help-center/payments/mortgage-recast), [NerdWallet](https://www.nerdwallet.com/mortgages/learn/what-is-mortgage-recast), [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it). Last verified October 2026. Verify current fees with your servicer before initiating a recast. RecastCalc is not a lender.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*

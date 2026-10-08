@@ -1,9 +1,9 @@
 ---
 title: "How Long Does a Mortgage Recast Take? Full Timeline"
-description: "Step-by-step timeline: from request to new payment. Lender-by-lender processing times for Chase, Wells Fargo, BofA, US Bank."
+description: "Step-by-step timeline of a mortgage recast, from request to new payment: what happens at each stage, what slows it down, and what to ask your servicer."
 urlSlug: mortgage-recast-timeline
 pubDate: 2026-04-28
-updatedDate: 2026-04-28
+updatedDate: 2026-10-08
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /recast/
@@ -18,7 +18,7 @@ schema:
 tier: 1
 ---
 
-> **Quick answer:** Most mortgage recasts take 30–60 days from when the lender receives both the lump sum and the recast request form. Chase typically processes in 30–45 days; Wells Fargo in 30–60; Bank of America in 45–60; smaller portfolio lenders can take 60–90 days. Faster than refinancing (45–90 days) but slower than most homeowners expect; start the process at least one full payment cycle before you need the lower payment to take effect.
+> **Quick answer:** Most mortgage recasts take 30–60 days from when the lender receives both the lump sum and the recast request form. Timing varies by servicer, and few publish it, so ask yours how long it takes. Faster than refinancing (45–90 days) but slower than most homeowners expect; start the process at least one full payment cycle before you need the lower payment to take effect.
 
 [Calculate your recast →](/recast/)
 
@@ -63,13 +63,7 @@ Verify in your online account that the lump sum was applied to principal. If it 
 
 The lender's loan operations team reviews the recast request: confirms eligibility, verifies the lump sum was applied correctly, and approves the re-amortization.
 
-This is the longest stage. Timing varies dramatically by lender:
-
-- **Chase**: 7–14 days at this stage
-- **Wells Fargo**: 14–21 days
-- **Bank of America**: 14–28 days
-- **US Bank**: 14–21 days
-- **Smaller servicers / credit unions**: 21–45 days
+This is usually the longest stage, and timing varies by servicer. Ask yours how long review typically takes.
 
 ### Stage 6: New amortization schedule generation (Day 30–45)
 
@@ -83,18 +77,13 @@ Your new lower payment takes effect on the first payment due date after recast f
 
 If you have autopay set up, you may need to update the amount manually. Some lenders auto-adjust autopay; many don't.
 
-## Lender-by-lender averages
+## Timing varies by servicer
 
-| Lender | Typical Total Timeline | Notes |
-|---|---|---|
-| Chase | 30–45 days | Online recast form available, faster than mailed requests |
-| Wells Fargo | 30–60 days | Phone-initiated recast tends to be faster than mailed |
-| Bank of America | 45–60 days | Slowest of the big four for recasting |
-| US Bank | 30–45 days | Strong online portal, processing relatively fast |
-| Rocket Mortgage | 30–45 days | Allows recasting on conventional loans only |
-| PNC | 45–60 days | Mid-pack timing |
-| Truist | 45–60 days | Variable based on loan vintage |
-| Credit unions / portfolio lenders | 60–90 days | Highly variable; some don't allow recasting at all |
+Few servicers publish how long a recast takes. The company that services your loan (which may not be the lender you borrowed from) sets the process, so ask it directly:
+
+- How long does a recast usually take from the day you receive my request?
+- When will the new payment take effect?
+- What should I keep paying until then?
 
 ## What can slow you down
 
@@ -140,6 +129,6 @@ Conservative estimate. The 8–12 week answer is the worst case. Most recasts co
 
 ---
 
-*Lender timing data based on publicly disclosed servicing standards and homeowner reports as of April 2026. Verify current timing with your specific servicer before relying on these estimates. RecastCalc is not a lender.*
+*Timing varies by servicer. Verify current timing with your specific servicer before relying on these estimates. RecastCalc is not a lender.*
 
 *About the author: Ivan Stamenov is the founder of RecastCalc and operates Marcon Groupe LLC.*

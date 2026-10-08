@@ -110,26 +110,42 @@ const schema = [
         name: 'Which lenders allow mortgage recasting?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Major lenders that allow recasting include Chase, Wells Fargo, Bank of America, US Bank, Citizens Bank, PNC, and most credit unions. Rocket Mortgage and most online-only lenders generally do not allow recasting. Always verify with your specific servicer.',
+          text: 'Few servicers publish their recast terms. Chase and Citizens Bank publish theirs, and Mr. Cooper (Rocket Mortgage servicing) describes its recast process. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from.',
         },
       },
     ],
   },
 ];
 
-// Lender data (to be expanded into the full study)
+// Only servicers that publish recast terms, each with its source
 const lenders = [
-  { name: 'Chase', allows: 'Yes', fee: '$150', minLump: '$5,000', notes: 'Conventional only' },
-  { name: 'Wells Fargo', allows: 'Yes', fee: '$0–$500', minLump: '$20,000', notes: 'Portfolio loans, case-by-case' },
-  { name: 'Bank of America', allows: 'Yes', fee: '$250', minLump: '$5,000', notes: 'Once per 12 months' },
-  { name: 'US Bank', allows: 'Yes', fee: '$250', minLump: '$5,000', notes: 'Conventional + jumbo' },
-  { name: 'PNC', allows: 'Yes', fee: '$200–$300', minLump: '$5,000', notes: 'Held in portfolio' },
-  { name: 'Citizens Bank', allows: 'Yes', fee: '$250', minLump: '$5,000', notes: '-' },
-  { name: 'Truist', allows: 'Yes', fee: '$150', minLump: '$5,000', notes: '-' },
-  { name: 'Rocket Mortgage', allows: 'No', fee: 'Not offered', minLump: 'Not offered', notes: 'Refinance only' },
-  { name: 'Better.com', allows: 'No', fee: 'Not offered', minLump: 'Not offered', notes: 'Refinance only' },
-  { name: 'LoanDepot', allows: 'Limited', fee: 'Varies', minLump: '$10,000', notes: 'Servicer-dependent' },
-  { name: 'Navy Federal CU', allows: 'Yes', fee: '$250', minLump: '$10,000', notes: 'Conventional only' },
+  {
+    name: 'Chase',
+    offers: 'Conventional loans',
+    minLump: 'No minimum ("there is no minimum amount required")',
+    fee: 'Not published ("Fees may apply")',
+    notEligible: 'FHA, VA, and USDA loans',
+    source: 'https://www.chase.com/personal/mortgage/recast',
+    sourceLabel: 'chase.com',
+  },
+  {
+    name: 'Citizens Bank',
+    offers: 'Not stated',
+    minLump: '$5,000',
+    fee: '$150 processing fee',
+    notEligible: 'Not stated',
+    source: 'https://www.citizensbank.com/learning/mortgage-servicing-fees.aspx',
+    sourceLabel: 'citizensbank.com',
+  },
+  {
+    name: 'Mr. Cooper (Rocket Mortgage servicing)',
+    offers: 'Offered',
+    minLump: 'Not stated',
+    fee: 'Up to $250, non-refundable, where required by state',
+    notEligible: 'Government-backed, interest-only, option ARM, and commercial loans',
+    source: 'https://www.mrcooper.com/help-center/payments/mortgage-recast',
+    sourceLabel: 'mrcooper.com',
+  },
 ];
 ---
 
@@ -259,40 +275,56 @@ const lenders = [
       your lender won't allow it (most government-backed loans).
     </p>
 
-    <h2 id="lenders">Which lenders allow mortgage recasting</h2>
+    <h2 id="lenders">Servicers that publish recast terms</h2>
     <p>
       Recasting is offered at the discretion of your loan servicer, not guaranteed by any law or
-      regulation. Most large banks and credit unions allow recasting on conventional loans they
-      service themselves; most online-only lenders do not. Always verify the current policy with
-      your specific servicer before assuming you can recast.
+      regulation. This table lists only servicers that publish their recast terms, with a link to
+      each source.
     </p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Lender</th>
-          <th>Allows recast?</th>
-          <th>Typical fee</th>
-          <th>Min. lump sum</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody>
-        {lenders.map((lender) => (
+    <div class="overflow-x-auto">
+      <table>
+        <thead>
           <tr>
-            <td><strong>{lender.name}</strong></td>
-            <td>{lender.allows}</td>
-            <td>{lender.fee}</td>
-            <td>{lender.minLump}</td>
-            <td>{lender.notes}</td>
+            <th>Servicer</th>
+            <th>Offers recasts on</th>
+            <th>Min. lump sum</th>
+            <th>Fee</th>
+            <th>Not eligible</th>
+            <th>Source</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {lenders.map((lender) => (
+            <tr>
+              <td><strong>{lender.name}</strong></td>
+              <td>{lender.offers}</td>
+              <td>{lender.minLump}</td>
+              <td>{lender.fee}</td>
+              <td>{lender.notEligible}</td>
+              <td><a href={lender.source} rel="noopener">{lender.sourceLabel}</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
 
     <p class="text-sm text-ink-500 italic">
-      Last verified: April 2026.
+      Last verified: October 2026.
     </p>
+
+    <p>
+      Most lenders don't publish recast terms. The company that services your loan sets them, and
+      that may not be the lender you borrowed from. Call your servicer to confirm.
+    </p>
+    <p>Questions to ask:</p>
+    <ul>
+      <li>Do you offer recasts on my loan type?</li>
+      <li>What is the minimum lump sum?</li>
+      <li>What is the fee?</li>
+      <li>How long does it take?</li>
+      <li>Does the investor who owns my loan allow it?</li>
+    </ul>
   </article>
 
   <!-- Mid-content ad -->
