@@ -246,6 +246,7 @@ const rPmi = rates.rates["pmi_typical"];
 </section>
 
 <script>
+  import { trackCalculatorUsed, trackResultButtons } from '../scripts/analytics.js';
   import {
     calculateRecast,
     formatCurrency,
@@ -319,12 +320,18 @@ const rPmi = rates.rates["pmi_typical"];
 
     const calloutEl = document.querySelector('[data-result="strategyCallout"]');
     if (calloutEl) calloutEl.innerHTML = callout;
+    return true;
+  }
+
+  // Count a use once the visitor's own values produce results (defaults show on load)
+  function onUserInput() {
+    if (update()) trackCalculatorUsed('recast');
   }
 
   // Update on any input change (debounced via blur for mobile UX, instant on desktop)
   inputs.forEach((input) => {
-    input.addEventListener('input', update);
-    input.addEventListener('change', update);
+    input.addEventListener('input', onUserInput);
+    input.addEventListener('change', onUserInput);
   });
 
   // Initial calculation
@@ -361,4 +368,6 @@ const rPmi = rates.rates["pmi_typical"];
     document.getElementById('recastFee').value = urlParams.get('f') || '250';
     update();
   }
+
+  trackResultButtons('recast');
 </script>

@@ -5,9 +5,11 @@ export interface Props {
   ctaText: string;
   href: string;
   partner?: string;
+  /** GA4 calculator_name of the page (e.g. recast, pmi_removal) for lender_link_click */
+  calculatorName: string;
 }
 
-const { title, description, ctaText, href, partner } = Astro.props;
+const { title, description, ctaText, href, partner, calculatorName } = Astro.props;
 ---
 
 <aside class="cta-card not-prose">
@@ -21,6 +23,8 @@ const { title, description, ctaText, href, partner } = Astro.props;
   <a
     href={href}
     rel="sponsored noopener"
+    data-lender-link
+    data-calculator-name={calculatorName}
     target="_blank"
     class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-600 underline underline-offset-4 decoration-2 decoration-accent/40 hover:decoration-accent"
   >
@@ -30,3 +34,9 @@ const { title, description, ctaText, href, partner } = Astro.props;
     </svg>
   </a>
 </aside>
+
+<script>
+  import { trackLenderLinks } from '../scripts/analytics.js';
+
+  trackLenderLinks();
+</script>

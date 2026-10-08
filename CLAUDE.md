@@ -30,7 +30,20 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 
 ## Analytics
 
-- Analytics are Cloudflare Web Analytics, enabled through Cloudflare's automatic setup: Cloudflare injects the script at the edge, so it is not in this repo. Confirmed active in the Cloudflare dashboard (October 2026). It is cookieless. Do not add another analytics script without updating the privacy policy.
+- **Cloudflare Web Analytics:** enabled through Cloudflare's automatic setup. Cloudflare injects the script at the edge, so it is not in this repo. Confirmed active in the Cloudflare dashboard (October 2026). It is cookieless.
+- **Google Analytics 4:** Measurement ID `G-2NGB8PC3RQ`. The gtag.js tag is in `<head>` of `src/layouts/BaseLayout.astro`, so it runs once on every page, including 404.
+  - **Consent mode v2:** defaults are set before the tag config and before the AdSense script. `ad_storage`, `ad_user_data`, `ad_personalization`, and `analytics_storage` are `denied` in the EEA (EU 27 plus IS, LI, NO), GB, and CH (with `wait_for_update: 500`) and `granted` elsewhere. The Google Privacy & messaging consent message (configured in AdSense, loaded by the AdSense script) updates consent for those visitors.
+  - **Google signals:** not enabled in code.
+  - **Query strings:** the tag sets `page_location` and same-site `page_referrer` without query strings, because shared calculator links carry entered values. Only `utm_*`, `gclid`, `gbraid`, `wbraid`, and `dclid` are kept.
+  - **Events** (helpers in `src/scripts/analytics.js`):
+    - `calculator_used` (`calculator_name`): once per page view, the first time results appear from the visitor's own input or submit. Default results on load and shared-link loads don't count.
+    - `result_link_copied` and `result_printed` (`calculator_name`): the copy-link and print buttons.
+    - `lender_link_click` (`calculator_name`, `destination` = domain only): AffiliateCTA links. Each page passes `calculatorName` to `AffiliateCTA`.
+    - `calculator_name` values: `recast`, `pmi_removal`, `biweekly`, `arm_reset`, `heloc_vs_refi`, `buy_vs_rent`, `home_equity`.
+  - **Enhanced measurement** covers page views, scrolls, and outbound clicks; don't add events that duplicate them.
+  - **Property settings** (data retention, internal traffic filter, AI channel group, Search Console link, Google signals) live in the GA4 admin, not the repo.
+- **Rule:** never send entered amounts, rates, or other form values, or any personal data, to any analytics tool.
+- Don't add another analytics script without updating the privacy policy (`/privacy/`, Analytics section).
 
 ## Cloudflare configuration (not in repo)
 

@@ -98,6 +98,52 @@ const orgSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema).replace(/</g, '\\u003c')} />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />}
 
+    <!-- Google Analytics 4 (see CLAUDE.md, Analytics). Consent mode v2 defaults come first:
+         denied in the EEA, UK, and Switzerland until the Google Privacy & messaging consent
+         message (loaded by the AdSense script below) updates them; granted elsewhere.
+         Query strings are dropped from page_location and same-site page_referrer because
+         shared calculator links carry entered values (?b=400000...); only utm_* and click IDs are kept. -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        region: [
+          'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE',
+          'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
+          'IS', 'LI', 'NO', 'GB', 'CH',
+        ],
+        wait_for_update: 500,
+      });
+      gtag('consent', 'default', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted',
+      });
+      gtag('js', new Date());
+      (function () {
+        var keep = /^(utm_[a-z_]+|gclid|gbraid|wbraid|dclid)$/;
+        function clean(href) {
+          var u = new URL(href);
+          var q = new URLSearchParams();
+          u.searchParams.forEach(function (v, k) { if (keep.test(k)) q.append(k, v); });
+          u.search = q.toString();
+          u.hash = '';
+          return u.href;
+        }
+        var ref = document.referrer;
+        if (ref && new URL(ref).hostname === location.hostname) ref = clean(ref);
+        // 'set' so every event (including enhanced measurement scrolls and clicks) uses the cleaned URLs
+        gtag('set', { page_location: clean(location.href), page_referrer: ref });
+        gtag('config', 'G-2NGB8PC3RQ');
+      })();
+    </script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2NGB8PC3RQ"></script>
+
     <!-- AdSense: loads on every page so Google can review the site. Ad units stay off until
          ADS_ENABLED=true (see AdSlot.astro). -->
     <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1634869400564839" crossorigin="anonymous"></script>

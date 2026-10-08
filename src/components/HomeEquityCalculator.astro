@@ -211,6 +211,7 @@
 </section>
 
 <script>
+  import { trackCalculatorUsed, trackResultButtons } from '../scripts/analytics.js';
   import { calculateHomeEquity, formatCurrency } from '../scripts/mortgage-math.js';
 
   const HEADLINES = {
@@ -328,11 +329,17 @@
 
     document.getElementById('underwater-callout').classList.toggle('hidden', !(r.status === 'underwater' || r.status === 'seriously-underwater'));
     document.getElementById('due-at-sale-note').classList.toggle('hidden', !r.hasDueAtSale);
+    return true;
+  }
+
+  // Count a use once the visitor's own values produce results (defaults show on load)
+  function onUserInput() {
+    if (update()) trackCalculatorUsed('home_equity');
   }
 
   form.querySelectorAll('input').forEach((input) => {
-    input.addEventListener('input', update);
-    input.addEventListener('change', update);
+    input.addEventListener('input', onUserInput);
+    input.addEventListener('change', onUserInput);
   });
 
   /* Shareable URL */
@@ -360,4 +367,6 @@
   }
 
   update();
+
+  trackResultButtons('home_equity');
 </script>

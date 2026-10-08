@@ -314,6 +314,7 @@ const r30 = rates.rates["30yr_fixed"];
 
 <script>
   import { calculateBuyVsRent, formatCurrency } from '../scripts/mortgage-math.js';
+  import { trackCalculatorUsed, trackResultButtons } from '../scripts/analytics.js';
 
   const form = document.getElementById('buyrent-form') as HTMLFormElement;
   const resultsEl = document.getElementById('results') as HTMLElement;
@@ -500,7 +501,11 @@ const r30 = rates.rates["30yr_fixed"];
     e.preventDefault();
     const inputs = getFormValues();
     const result = calculateBuyVsRent(inputs);
-    if (result) renderResults(result, inputs);
+    if (result) {
+      renderResults(result, inputs);
+      /* Shared-link loads auto-submit with a synthetic event; count only the visitor's own submits */
+      if (e.isTrusted) trackCalculatorUsed('buy_vs_rent');
+    }
   });
 
   /* Copy link button */
@@ -518,6 +523,8 @@ const r30 = rates.rates["30yr_fixed"];
   });
 
   document.getElementById('print-btn')?.addEventListener('click', () => window.print());
+
+  trackResultButtons('buy_vs_rent');
 
   hydrateFromUrl();
 </script>

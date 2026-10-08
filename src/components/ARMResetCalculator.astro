@@ -200,6 +200,7 @@ const rPmi = rates.rates["pmi_typical"];
 </section>
 
 <script>
+  import { trackCalculatorUsed, trackResultButtons } from '../scripts/analytics.js';
   import { calculateARMReset, formatCurrency } from '../scripts/mortgage-math.js';
 
   const form = document.getElementById('arm-form');
@@ -264,11 +265,17 @@ const rPmi = rates.rates["pmi_typical"];
 
     const calloutEl = document.querySelector('[data-result="strategyCallout"]');
     if (calloutEl) calloutEl.innerHTML = callout;
+    return true;
+  }
+
+  // Count a use once the visitor's own values produce results (defaults show on load)
+  function onUserInput() {
+    if (update()) trackCalculatorUsed('arm_reset');
   }
 
   inputs.forEach((input) => {
-    input.addEventListener('input', update);
-    input.addEventListener('change', update);
+    input.addEventListener('input', onUserInput);
+    input.addEventListener('change', onUserInput);
   });
 
   update();
@@ -308,4 +315,6 @@ const rPmi = rates.rates["pmi_typical"];
     document.getElementById('holdYears').value = urlParams.get('h') || '5';
     update();
   }
+
+  trackResultButtons('arm_reset');
 </script>
