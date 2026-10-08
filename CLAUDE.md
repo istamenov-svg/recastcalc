@@ -78,6 +78,18 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 
 - `.github/workflows/fred-lookup.yml` (manual dispatch: series ID, start date, end date) prints FRED observations and the range's max and min to the job log. Use it to verify historical rate figures before publishing them; this container cannot reach FRED. It is read-only and never commits.
 
+## Time-sensitive facts
+
+Claims on published pages that depend on laws, program rules, or third-party figures that can change. Any new page that cites a law, program rule, or third-party statistic gets a row here. When a fact is rechecked, update the page if needed and the "Last checked" date.
+
+| Page | Claim | Source | Last checked | Recheck |
+|---|---|---|---|---|
+| Guide 10 (`/guides/underwater-mortgage-options/`) | The main-home forgiven-debt exclusion doesn't apply to debt forgiven, or agreements made, after Dec 31, 2025 | [IRS Publication 4681](https://www.irs.gov/publications/p4681) | Oct 2026 | Each January when the new Publication 4681 is published, and whenever Congress passes housing tax legislation |
+| Guide 10 | FHA Streamline Refinance can be done without an appraisal | [Archived HUD reference guide](https://archives.hud.gov/offices/hsg/sfh/ref/sfhp2-19.cfm) (current HUD Handbook 4000.1 is PDF-only) | Oct 2026 | Annually |
+| `/home-equity-calculator/` | ATTOM: 3.2% of mortgaged homes seriously underwater in Q1 2026 | [ATTOM Q1 2026 Home Equity & Underwater Report](https://www.attomdata.com/news/market-trends/home-sales-prices/q1-2026-home-equity-and-underwater-report/) | Oct 2026 | When ATTOM publishes a newer quarter that states the number |
+| Guide 09 (`/guides/escrow-shortage-mortgage-payment-went-up/`) | Cotality: payments up about $175/month in 2026 from taxes and insurance; Neighbors Bank: taxes and insurance 21% of the average payment | WTOP coverage, July 2026 (URL not recorded) | Oct 2026 | Mid-2027 |
+| `/recast/` lender table | Lender recast fees and minimum lump sums ("Last verified: April 2026") | Not recorded | Apr 2026 | Re-verify now (the page says the table is updated quarterly), then quarterly |
+
 ## Content backlog
 
 Guides from the original content plan that were linked but never written. Links to them were removed or redirected (October 2026); restore them when each guide is written.
