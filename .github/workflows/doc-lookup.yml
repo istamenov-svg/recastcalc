@@ -47,6 +47,11 @@ jobs:
               'tcss.legis.texas.gov',  # statute text behind statutes.capitol.texas.gov
               'contentsignals.org',
               'recastcalc.com',  # our own site, e.g. to check the live robots.txt
+              # mortgage servicers (recast terms)
+              'pennymac.com', 'mrcooper.com', 'roundpointmortgage.com', 'newamericanfunding.com',
+              'gocolonial.com', 'trustmark.com', 'onitymortgage.com', 'newrezcorrespondent.com',
+              'truistsellerguide.com', 'wellsfargo.com', 'usbank.com', 'bankofamerica.com',
+              'navyfederal.org', 'freedommortgage.com',
           )
           url, pattern = os.environ['URL'].strip(), os.environ['PATTERN'].strip()
           parts = urllib.parse.urlsplit(url)
