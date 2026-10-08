@@ -13,6 +13,11 @@ on:
         description: 'Optional case-insensitive regex; print only paragraphs that match'
         required: false
         default: ''
+      raw:
+        description: 'Search the raw response (HTML source, before tags are stripped) instead of its text'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -28,6 +33,7 @@ jobs:
         env:
           URL: ${{ inputs.url }}
           PATTERN: ${{ inputs.pattern }}
+          RAW: ${{ inputs.raw }}
         shell: python
         run: |
           import html, io, os, re, sys, urllib.parse, urllib.request
@@ -50,7 +56,10 @@ jobs:
           with urllib.request.urlopen(req, timeout=60) as res:
               body = res.read()
 
-          if body.startswith(b'%PDF'):
+          if os.environ.get('RAW') == 'true':
+              # Raw mode: one paragraph per source line, e.g. to find the data URL a JavaScript page loads.
+              chunks = body.decode('utf-8', 'replace').split('\n')
+          elif body.startswith(b'%PDF'):
               # PDF (e.g. session laws on laws.flrules.org): extract text, then split at
               # "Section N." headings so a pattern like ^Section ?42\. returns one whole section.
               from pypdf import PdfReader
