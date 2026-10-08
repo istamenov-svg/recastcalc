@@ -51,7 +51,8 @@ jobs:
               'pennymac.com', 'mrcooper.com', 'roundpointmortgage.com', 'newamericanfunding.com',
               'gocolonial.com', 'trustmark.com', 'onitymortgage.com', 'newrezcorrespondent.com',
               'truistsellerguide.com', 'wellsfargo.com', 'usbank.com', 'bankofamerica.com',
-              'navyfederal.org', 'freedommortgage.com',
+              'navyfederal.org', 'freedommortgage.com', 'rocketmortgage.com', 'rocket.com',
+    'gatewayfirst.com',
           )
           url, pattern = os.environ['URL'].strip(), os.environ['PATTERN'].strip()
           parts = urllib.parse.urlsplit(url)
