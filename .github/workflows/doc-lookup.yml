@@ -32,7 +32,7 @@ jobs:
           ALLOWED = (
               'ecfr.gov', 'consumerfinance.gov', 'federalreserve.gov',
               'hud.gov', 'va.gov', 'irs.gov', 'fanniemae.com', 'attomdata.com',
-              'leg.state.fl.us', 'flsenate.gov',
+              'leg.state.fl.us', 'flsenate.gov', 'laws.flrules.org',
               'statutes.capitol.texas.gov', 'comptroller.texas.gov',
           )
           url, pattern = os.environ['URL'].strip(), os.environ['PATTERN'].strip()
