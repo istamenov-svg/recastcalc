@@ -94,7 +94,7 @@ const schema = [
         name: 'Can I recast an FHA, VA, or USDA loan?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Recasts are generally limited to conventional loans. FHA, VA, and USDA loans aren’t eligible at the servicers that publish their terms: Chase and Mr. Cooper both exclude them.',
+          text: 'Recasts are generally limited to conventional loans. FHA, VA, and USDA loans aren’t eligible at any servicer in our table that states which loan types qualify, including Chase.',
         },
       },
       {
@@ -110,7 +110,7 @@ const schema = [
         name: 'Which lenders allow mortgage recasting?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Few servicers publish their recast terms. Bank of America, Chase, Citizens Bank, Colonial Savings, Freedom Mortgage, Mr. Cooper (Rocket Mortgage servicing), New American Funding, PennyMac, Trustmark, U.S. Bank, and Wells Fargo publish at least some terms on their own sites, and Newrez, Onity, and Truist publish them in documents for partner lenders. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from.',
+          text: 'Few servicers publish their recast terms. Bank of America, Chase, Citizens Bank, Colonial Savings, Freedom Mortgage, Gateway Mortgage, New American Funding, PennyMac, Trustmark, U.S. Bank, and Wells Fargo publish at least some terms on their own sites, and Newrez and Onity publish them in documents for partner lenders. Rocket Mortgage, which now services former Mr. Cooper loans, doesn’t publish its terms; call (800) 4-ROCKET. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from.',
         },
       },
     ],
@@ -171,14 +171,14 @@ const lenders = [
     docType: 'Borrower education page',
   },
   {
-    name: 'Mr. Cooper (Rocket Mortgage servicing)',
-    offers: 'Offered',
-    minLump: 'Not stated',
-    fee: 'Usually up to $250, non-refundable; charged if required in your state',
-    notEligible: 'Government-backed, interest-only, option ARM, and commercial loans',
-    source: 'https://www.mrcooper.com/help-center/payments/mortgage-recast',
-    sourceLabel: 'mrcooper.com',
-    docType: 'Borrower help page',
+    name: 'Gateway Mortgage',
+    offers: 'Conventional and jumbo loans that are current, after the first payment; written request within 30 days of the lump sum',
+    minLump: '10% of the current loan balance',
+    fee: '$350, non-refundable',
+    notEligible: 'FHA, VA, and USDA loans',
+    source: 'https://www.gatewayfirst.com/loan-recast-re-amortization-faq',
+    sourceLabel: 'gatewayfirst.com',
+    docType: 'Borrower FAQ',
   },
   {
     name: 'New American Funding',
@@ -221,6 +221,16 @@ const lenders = [
     docType: 'Borrower FAQ',
   },
   {
+    name: 'Rocket Mortgage (formerly Mr. Cooper)',
+    offers: 'Recast terms not published; call (800) 4-ROCKET to confirm',
+    minLump: 'Not published',
+    fee: 'Not published',
+    notEligible: 'Not published',
+    source: 'https://www.mrcooper.com/',
+    sourceLabel: 'mrcooper.com (now Rocket Mortgage)',
+    docType: 'Mr. Cooper retirement notice',
+  },
+  {
     name: 'Trustmark',
     offers: 'Conventional first mortgages, at least 60 days after the first payment due date',
     minLump: '$10,000',
@@ -229,16 +239,6 @@ const lenders = [
     source: 'https://www.trustmark.com/content/dam/trustmark/pdf/mortgage/mortgage_loan_recast_flyer_and_application.pdf',
     sourceLabel: 'trustmark.com',
     docType: 'Borrower flyer and application (PDF)',
-  },
-  {
-    name: 'Truist',
-    offers: 'Conventional loans',
-    minLump: '10% of the unpaid principal balance (may be paid over the last 12 months)',
-    fee: '$250; not charged in some states, including New York',
-    notEligible: 'FHA, VA, and USDA (Rural Housing) loans',
-    source: 'https://www.truistsellerguide.com/Manual/cor/communications/TAT193.pdf',
-    sourceLabel: 'truistsellerguide.com',
-    docType: 'Partner-lender document, January 2026 (PDF)',
   },
   {
     name: 'U.S. Bank',
@@ -472,13 +472,13 @@ const lenders = [
     <p>It depends. Recast is better when your current rate is lower than today's rates, you want to avoid closing costs, and you have a lump sum. Refinancing tends to make sense when the monthly savings repay the closing costs before you expect to sell or refinance again. For the math, see our <a href="/guides/recast-vs-refinance/">recast vs. refinance guide</a> or the <a href="/heloc-vs-refi/">HELOC vs. cash-out refinance calculator</a>.</p>
 
     <h3>Can I recast an FHA, VA, or USDA loan?</h3>
-    <p>Recasts are generally limited to conventional loans. FHA, VA, and USDA loans aren't eligible at the servicers that publish their terms: <a href="https://www.chase.com/personal/mortgage/recast" rel="noopener">Chase</a> and <a href="https://www.mrcooper.com/help-center/payments/mortgage-recast" rel="noopener">Mr. Cooper</a> both exclude them.</p>
+    <p>Recasts are generally limited to conventional loans. FHA, VA, and USDA loans aren't eligible at any servicer in our <a href="#lenders">table</a> that states which loan types qualify, including <a href="https://www.chase.com/personal/mortgage/recast" rel="noopener">Chase</a>.</p>
 
     <h3>Does recasting affect my credit score?</h3>
     <p>No. A recast does not require a credit check or hard inquiry. Your loan, term, and rate all remain the same, so it has no direct effect on your credit score.</p>
 
     <h3>Which lenders allow mortgage recasting?</h3>
-    <p>Few servicers publish their recast terms. Bank of America, Chase, Citizens Bank, Colonial Savings, Freedom Mortgage, Mr. Cooper (Rocket Mortgage servicing), New American Funding, PennyMac, Trustmark, U.S. Bank, and Wells Fargo publish at least some terms on their own sites, and Newrez, Onity, and Truist publish them in documents for partner lenders. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from. See the <a href="#lenders">table of servicers that publish recast terms</a>.</p>
+    <p>Few servicers publish their recast terms. Bank of America, Chase, Citizens Bank, Colonial Savings, Freedom Mortgage, Gateway Mortgage, New American Funding, PennyMac, Trustmark, U.S. Bank, and Wells Fargo publish at least some terms on their own sites, and Newrez and Onity publish them in documents for partner lenders. Rocket Mortgage, which now services former Mr. Cooper loans, doesn't publish its terms; call (800) 4-ROCKET. For most other servicers, you need to call and ask. The company that services your loan sets the terms, and it may not be the lender you borrowed from. See the <a href="#lenders">table of servicers that publish recast terms</a>.</p>
 
     <h3>How long does a recast take?</h3>
     <p>It varies by servicer, and few publish a timeline, so ask yours. The lump sum is applied first, then the lender processes the re-amortization, sends paperwork, and the new payment takes effect on the following monthly cycle.</p>

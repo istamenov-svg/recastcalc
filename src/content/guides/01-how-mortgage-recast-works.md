@@ -87,7 +87,7 @@ When recasting is the **wrong** move:
 
 The mechanics vary by lender, but the general process:
 
-1. **Verify your servicer allows recasting.** Chase and Citizens Bank publish their recast terms, and Mr. Cooper (Rocket Mortgage servicing) describes its recast process; most other servicers require a call. Government-backed loans (FHA, VA, USDA) generally don't qualify.
+1. **Verify your servicer allows recasting.** Chase, Citizens Bank, and the other servicers in our [recast lender table](/recast/#lenders) publish at least some of their recast terms; Rocket Mortgage (which now services former Mr. Cooper loans) and most other servicers require a call. Government-backed loans (FHA, VA, USDA) generally don't qualify.
 
 2. **Confirm the minimum lump sum.** [Bankrate](https://www.bankrate.com/mortgages/what-is-mortgage-recasting-and-why-do-it) says minimums are often $5,000 or $10,000; [Chase](https://www.chase.com/personal/mortgage/recast) says it has no minimum.
 
