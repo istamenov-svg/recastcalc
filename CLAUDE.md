@@ -176,6 +176,23 @@ Guides from the original content plan that were linked but never written. Links 
 | `recast-minimum-lump-sum` | guide 01 | Redirected to the /recast/ lender table (`#lenders`) |
 | `recast-fha-va-usda` | guide 04 | Redirected to guide 01's "What most articles get wrong" section |
 
+### Article queue
+
+Publish 2 per week (Tuesday and Thursday), in this order. Mark each item done, with its URL and publish date, when it goes live. Each follows the guide conventions above and gets register rows for any law, program rule, or third-party figure it cites.
+
+1. [ ] Your ARM is resetting: what are your options? (covers backlog slug `arm-rate-reset`). In the same change, fix the ARM reset calculator's "Expected new rate (after reset)" default: it is currently `5_1_arm` from `rates.json` (today's starting rate on a new ARM; `src/components/ARMResetCalculator.astro`), but a reset rate is the loan's index plus its margin, subject to its caps.
+2. [ ] The Fed raised rates: what happens to your HELOC?
+3. [ ] Does the Fed set mortgage rates?
+4. [ ] Should you take an ARM right now?
+5. [ ] Servicer recast guides from published terms: PennyMac, Bank of America, Citizens Bank (one guide each, like guide 06 for Chase; terms from the register rows).
+6. [ ] How to remove PMI, including the 80% (request) vs. 78% (automatic) rules (covers backlog slugs `how-to-remove-pmi`, `drop-pmi-without-refinancing`, `pmi-removal-ltv`).
+7. [ ] Biweekly mortgage payments explained (covers backlog slug `biweekly-mortgage-payments`).
+8. [ ] Refinance break-even explained (covers backlog slug `refinance-break-even`).
+9. [ ] Buy now or keep renting?
+10. [ ] Assumable mortgages (verify current FHA, VA, and USDA program status against primary sources before writing).
+
+When an item covers a backlog slug, restore the removed links listed in the table above.
+
 ### Sourcing sweep for non-recast figures
 
 Unsourced figures found in the October 2026 recast sweep, outside its scope. Source or soften each.
