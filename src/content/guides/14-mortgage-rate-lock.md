@@ -2,8 +2,8 @@
 title: "Mortgage Rate Lock: When to Lock and What It Costs"
 description: "A rate lock protects you if mortgage rates rise before closing. How locks work, what extensions and float-downs cost, and how to decide when to lock."
 urlSlug: mortgage-rate-lock
-pubDate: 2026-10-14
-updatedDate: 2026-10-14
+pubDate: 2026-10-15
+updatedDate: 2026-10-15
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /buy-vs-rent/
