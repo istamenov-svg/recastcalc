@@ -2,8 +2,8 @@
 title: "Are Mortgage Points Worth It? Buydowns Explained"
 description: "Paying points lowers your rate for the life of the loan; a temporary buydown lowers it for the first few years. How each works and when it pays off."
 urlSlug: mortgage-points-buydowns
-pubDate: 2026-10-15
-updatedDate: 2026-10-15
+pubDate: 2026-10-18
+updatedDate: 2026-10-18
 author: Ivan Stamenov
 reviewer: TBD
 pillar: /buy-vs-rent/
