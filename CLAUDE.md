@@ -24,15 +24,19 @@ Project conventions for recastcalc (Astro 5 + Tailwind, deployed on Cloudflare P
 ## Ads
 
 - AdSense publisher ID: `ca-pub-1634869400564839`. `public/ads.txt` holds the matching line (`google.com, pub-1634869400564839, DIRECT, f08c47fec0942fa0`), served at `https://recastcalc.com/ads.txt`.
-- The AdSense script loads in `<head>` on every page (`src/layouts/BaseLayout.astro`), independent of `ADS_ENABLED`, so Google can review the site.
+- **Status:** AdSense rejected the site in October 2026 for "low value content". The AdSense review script (`adsbygoogle.js`) was removed from `<head>` in `src/layouts/BaseLayout.astro` to recover page performance. `public/ads.txt` stays unchanged. Target checkpoint to reapply: January 15, 2027.
+- **To reapply:**
+  1. Restore the script exactly as before, as the last element in `<head>` after the GA4 tag: `<script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1634869400564839" crossorigin="anonymous"></script>`, with its comment ("AdSense: loads on every page so Google can review the site. Ad units stay off until ADS_ENABLED=true (see AdSlot.astro).").
+  2. Confirm the European regulations (EEA, UK, Switzerland) consent message is published in AdSense (Privacy & messaging).
+  3. Request review in AdSense.
 - Ad units stay off until approval: `src/components/AdSlot.astro` renders nothing unless the build-time env variable `ADS_ENABLED` is `true` (default off). After approval: replace `TODO_SLOT_ID` with real slot IDs, uncomment the `<ins>` block and delete the dashed placeholder `<div>` in `AdSlot.astro`, set `ADS_ENABLED=true` in Cloudflare Pages (Settings, Environment variables, Production), then redeploy.
-- Keep Auto ads off in the AdSense dashboard unless intended: with the script on every page, Auto ads would place ads without `AdSlot`.
+- Keep Auto ads off in the AdSense dashboard unless intended: once the script is back on every page, Auto ads would place ads without `AdSlot`.
 
 ## Analytics
 
 - **Cloudflare Web Analytics:** enabled through Cloudflare's automatic setup. Cloudflare injects the script at the edge, so it is not in this repo. Confirmed active in the Cloudflare dashboard (October 2026). It is cookieless.
 - **Google Analytics 4:** Measurement ID `G-ED8HGD08LN`. The gtag.js tag is in `<head>` of `src/layouts/BaseLayout.astro`, so it runs once on every page, including 404.
-  - **Consent mode v2:** defaults are set before the tag config and before the AdSense script. `ad_storage`, `ad_user_data`, `ad_personalization`, and `analytics_storage` are `denied` in the EEA (EU 27 plus IS, LI, NO), GB, and CH (with `wait_for_update: 500`) and `granted` elsewhere. The Google Privacy & messaging consent message (configured in AdSense, loaded by the AdSense script) updates consent for those visitors.
+  - **Consent mode v2:** defaults are set before the tag config and before the AdSense script. `ad_storage`, `ad_user_data`, `ad_personalization`, and `analytics_storage` are `denied` in the EEA (EU 27 plus IS, LI, NO), GB, and CH (with `wait_for_update: 500`) and `granted` elsewhere. The Google Privacy & messaging consent message (configured in AdSense, loaded by the AdSense script) updates consent for those visitors. While the AdSense script is removed (see Ads), the message doesn't load, so consent stays `denied` for those visitors.
   - **Google signals:** not enabled in code.
   - **Query strings:** the tag sets `page_location` and same-site `page_referrer` without query strings, because shared calculator links carry entered values. Only `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, and `utm_content` are kept; every other parameter, including all calculator parameters and click IDs, is dropped.
   - **Events** (helpers in `src/scripts/analytics.js`):
