@@ -65,7 +65,7 @@ const schema = [
         name: 'How do I know what my new ARM rate will be?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Your new rate equals the index value plus the margin specified in your loan documents, subject to the cap structure. Common indexes include SOFR (Secured Overnight Financing Rate) and Treasury yields. Your servicer is required to send you a notice 60 to 120 days before reset stating your new rate. You can also calculate it yourself by checking the current index value and adding your margin.',
+          text: 'Your new rate equals the index value plus the margin specified in your loan documents, subject to the cap structure. Common indexes include SOFR (Secured Overnight Financing Rate) and Treasury yields. Before your first adjustment, federal rules require your servicer to send a notice at least 210, but no more than 240, days before the first payment at the new rate is due; it may show an estimated rate if the index is not yet set. For later adjustments that change your payment, the notice comes at least 60, but no more than 120, days before the first new payment is due. You can also calculate it yourself by checking the current index value and adding your margin.',
         },
       },
       {
@@ -169,7 +169,7 @@ const schema = [
       Common margins: 2.25% to 2.75%, depending on credit profile and lender.
     </p>
     <p>
-      Your servicer is required by federal regulation to send you a written rate-change notice 60 to 120 days before the reset takes effect. The notice will state the new rate and new payment. If you have not received a notice and your reset is within 60 days, contact your servicer immediately.
+      Federal rules (Regulation Z, 12 CFR 1026.20) require your servicer to send you a written notice before your first rate adjustment: at least 210, but no more than 240, days before the first payment at the new rate is due. Because the index value may not be known yet, that notice can show an estimated new rate and payment. For later adjustments that change your payment, the servicer must send a notice at least 60, but no more than 120, days before the first payment at the new rate is due (at least 25 days for some loans that adjust very frequently). If a payment at a new rate is coming up and you have not received a notice, contact your servicer.
     </p>
 
     <h2 id="what-to-do-now">What to do now</h2>
