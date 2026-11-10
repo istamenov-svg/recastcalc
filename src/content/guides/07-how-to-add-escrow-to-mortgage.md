@@ -129,6 +129,7 @@ Yes, but it's harder than adding escrow in the first place. Most lenders require
 ## Related guides
 
 - [PMI Removal Calculator: When You Can Drop Private Mortgage Insurance](/pmi-removal/) (escrow accounts often hold the PMI premium until removal)
+- [How to Remove PMI: The 80% and 78% Rules Explained](/guides/how-to-remove-pmi/)
 - [Mortgage Recast vs. Refinance: Which Saves More?](/guides/recast-vs-refinance/) (a refinance can be the trigger that forces escrow back on)
 - [How a Mortgage Recast Works](/guides/how-mortgage-recast-works/) (recasting doesn't change escrow status, but interacts with the math)
 
