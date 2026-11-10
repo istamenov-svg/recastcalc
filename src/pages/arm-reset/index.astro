@@ -41,7 +41,7 @@ const schema = [
         name: 'When does an ARM reset?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'A 5/1 ARM resets after 5 years and then annually; a 7/1 ARM resets after 7 years and then annually; a 10/1 ARM resets after 10 years. The first reset replaces your fixed introductory rate with a variable rate based on an index plus margin defined in your loan documents.',
+          text: 'The first number is the fixed period in years. A 5/1 ARM first resets after 5 years and then every year; a 5/6 ARM first resets after 5 years and then every six months; 7-year and 10-year ARMs follow the same pattern. The first reset replaces your fixed introductory rate with a variable rate based on an index plus margin defined in your loan documents.',
         },
       },
       {
@@ -49,7 +49,7 @@ const schema = [
         name: 'What is the cap structure on an ARM?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Most ARMs use a 2/2/5 cap structure. The first 2 is the initial cap, limiting how much the rate can change at the first reset (typically 2 percentage points). The second 2 is the periodic cap, limiting subsequent annual changes (typically 2 percentage points each). The 5 is the lifetime cap, the maximum increase ever from the original rate (typically 5 percentage points).',
+          text: 'ARM caps are often written as three numbers, such as 2/1/5. The first is the initial cap, the most the rate can change at the first reset. The second is the periodic cap, the most it can change at each later reset. The third is the lifetime cap, the most it can ever rise above the starting rate. Fannie Mae’s standard 3/6 and 5/6 ARMs use 2/1/5 caps; its 7/6 and 10/6 ARMs use 5/1/5. Your note lists yours.',
         },
       },
       {
@@ -130,7 +130,7 @@ const schema = [
       A 5/1, 7/1, or 10/1 adjustable-rate mortgage gives you a fixed introductory rate for the first 5, 7, or 10 years. At the end of that period, the rate resets based on an index (commonly SOFR or Treasury yields) plus a fixed margin defined in your loan documents.
     </p>
     <p>
-      After the first reset, the rate adjusts annually for the remainder of the loan. Each adjustment is bounded by your cap structure. Most ARMs use a 2/2/5 structure: maximum 2 percentage points at the first reset, 2 percentage points each year after, and 5 percentage points lifetime over your original rate.
+      After the first reset, the rate keeps adjusting on a set schedule: every year on older ARMs such as a 5/1, and every six months on newer ARMs such as a 5/6. Each adjustment is limited by your caps, often written as three numbers. On Fannie Mae's standard 5/6 ARM, the caps are 2/1/5: the rate can move up to 2 percentage points at the first reset, 1 point at each later reset, and never more than 5 points above your starting rate.
     </p>
     <p>
       The key practical insight: even in a worst-case scenario, your payment cannot exceed what 5 percentage points above your original rate would generate. The cap structure caps your downside.
@@ -141,10 +141,10 @@ const schema = [
       Many homeowners panic at reset and rush to refinance into a fixed rate. The math often says don't.
     </p>
     <p>
-      Consider a homeowner who locked a 4.5% ARM in 2021. At reset, the expected new rate might be 7.5%. Available refinance rates might be 6.5%. The natural reaction is to refinance to lock in the lower fixed rate.
+      Consider a homeowner who locked a 4.5% ARM in 2021. At reset, the index plus margin might come to 7.5%. Available refinance rates might be 6.5%. The natural reaction is to refinance to lock in the lower fixed rate.
     </p>
     <p>
-      But the worst-case ARM rate under a 5-percentage-point lifetime cap is 9.5%. The expected new rate is 7.5%. Refinancing locks in 6.5% but costs $5,000 to $10,000 in closing costs, and gives up the option that the index drops in future years.
+      But the worst-case ARM rate under a 5-percentage-point lifetime cap is 9.5%. The rate at reset is 7.5% in this example. Refinancing locks in 6.5% but costs $5,000 to $10,000 in closing costs, and gives up the option that the index drops in future years.
     </p>
     <p>
       Run the numbers and the answer often becomes: hold the ARM if you'll be in the home less than 5 to 7 more years. The closing costs of refinancing exceed the interest savings over a short hold period.
@@ -160,13 +160,13 @@ const schema = [
 
     <h2 id="how-to-find-your-expected-new-rate">How to find your expected new rate</h2>
     <p>
-      Your loan documents specify the index and margin. The new rate is index value plus margin, subject to caps.
+      Your loan documents specify the index, the margin, the caps, and how often the rate changes. The new rate is the index value plus the margin, limited by your caps. The calculator above starts with today's 30-day average SOFR as the index; change it if your loan uses a different one.
     </p>
     <p>
       Common indexes: 30-day Average SOFR (Secured Overnight Financing Rate), 1-year Constant Maturity Treasury, 11th District Cost of Funds. Each one has different rate behavior; check yours.
     </p>
     <p>
-      Common margins: 2.25% to 2.75%, depending on credit profile and lender.
+      Margins vary by lender and loan; your note states yours. For the ARMs Fannie Mae buys, the margin can be no more than 3 percentage points. Generally, an ARM's rate never falls below its margin.
     </p>
     <p>
       Federal rules (Regulation Z, 12 CFR 1026.20) require your servicer to send you a written notice before your first rate adjustment: at least 210, but no more than 240, days before the first payment at the new rate is due. Because the index value may not be known yet, that notice can show an estimated new rate and payment. For later adjustments that change your payment, the servicer must send a notice at least 60, but no more than 120, days before the first payment at the new rate is due (at least 25 days for some loans that adjust very frequently). If a payment at a new rate is coming up and you have not received a notice, contact your servicer.
@@ -174,7 +174,7 @@ const schema = [
 
     <h2 id="what-to-do-now">What to do now</h2>
     <p>
-      First, calculate the new payment using your specific numbers. The calculator above lets you input your expected new rate and lifetime cap to see both the typical and worst-case payment scenarios.
+      First, calculate the new payment using your specific numbers. Enter your index, margin, and caps above to see the payment at each reset, the payment once the rate is fully adjusted, and the worst case at your lifetime cap. If your servicer's notice already states your new rate, enter it as well.
     </p>
     <p>
       Second, compare against the cost of refinancing to a fixed rate, accounting for closing costs and your expected time horizon. If you'll hold more than 5 to 7 years and the rate gap is meaningful, refinancing usually wins. If less, holding the ARM usually wins.
@@ -186,12 +186,12 @@ const schema = [
     <h2 id="frequently-asked-questions">Frequently asked questions</h2>
     <h3>When does my ARM reset?</h3>
     <p>
-      A 5/1 ARM resets after 5 years and then annually. 7/1 resets after 7 years and then annually. 10/1 resets after 10 years. Check your loan documents for your specific reset date.
+      The first number is the fixed period in years. A 5/1 ARM first resets after 5 years and then every year; a 5/6 ARM first resets after 5 years and then every six months. The same pattern applies to 7-year and 10-year ARMs. Check your loan documents for your specific reset date.
     </p>
 
-    <h3>What is the 2/2/5 cap structure?</h3>
+    <h3>What do cap numbers like 2/1/5 mean?</h3>
     <p>
-      Maximum 2 percentage points at the first reset, 2 percentage points each subsequent year, and 5 percentage points lifetime above your original rate.
+      The first number is the most your rate can change at the first reset, the second is the most it can change at each later reset, and the third is the most it can ever rise above your starting rate, all in percentage points. Fannie Mae's standard 3/6 and 5/6 ARMs use 2/1/5 caps; its 7/6 and 10/6 ARMs use 5/1/5. Your note lists yours.
     </p>
 
     <h3>Should I refinance my ARM before it resets?</h3>

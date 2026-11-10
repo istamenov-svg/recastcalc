@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Updates src/data/rates.json from FRED (Freddie Mac PMMS + prime rate).
+ * Updates src/data/rates.json from FRED (Freddie Mac PMMS, prime rate, 30-day average SOFR).
  * Run by .github/workflows/update-rates.yml every Thursday; safe to run locally.
  *
  * Exit codes: 0 = updated or unchanged, 1 = sanity check failed (file untouched).
@@ -19,6 +19,8 @@ const MAX_WEEKLY_CHANGE = 1.0;
 const MAX_DATA_AGE_DAYS = 14;
 const MAX_ARM_REVIEW_AGE_DAYS = 90;
 const HELOC_PRIME_MARGIN = 1.0;
+// SOFR has been near zero (2020-2021), so its floor is 0, not MIN_RATE.
+const MIN_SOFR = 0;
 
 const today = new Date();
 const errors = [];
@@ -72,7 +74,7 @@ function yearAgo(series, date) {
 
 const current = JSON.parse(readFileSync(RATES_PATH, 'utf8'));
 
-const [s30, s15, prime] = await Promise.all(['MORTGAGE30US', 'MORTGAGE15US', 'DPRIME'].map(fetchSeries));
+const [s30, s15, prime, sofr] = await Promise.all(['MORTGAGE30US', 'MORTGAGE15US', 'DPRIME', 'SOFR30DAYAVG'].map(fetchSeries));
 
 const r30 = checkWeekly('30yr_fixed (MORTGAGE30US)', s30);
 const r15 = checkWeekly('15yr_fixed (MORTGAGE15US)', s15);
@@ -83,6 +85,19 @@ if (r30.latest.date !== r15.latest.date) {
 const primeLatest = prime.at(-1);
 if (ageDays(primeLatest.date) > MAX_DATA_AGE_DAYS) {
   errors.push(`Prime rate (DPRIME) latest observation ${primeLatest.date} is ${ageDays(primeLatest.date)} days old; limit is ${MAX_DATA_AGE_DAYS}`);
+}
+
+// 30-day average SOFR (daily): range, move versus about a week earlier, and age.
+const sofrLatest = sofr.at(-1);
+const sofrWeekAgo = [...sofr].reverse().find((row) => ageDays(row.date) - ageDays(sofrLatest.date) >= 7) ?? sofr[0];
+if (sofrLatest.value < MIN_SOFR || sofrLatest.value > MAX_RATE) {
+  errors.push(`30-day average SOFR (SOFR30DAYAVG) latest value ${sofrLatest.value} is outside ${MIN_SOFR} to ${MAX_RATE}`);
+}
+if (Math.abs(sofrLatest.value - sofrWeekAgo.value) > MAX_WEEKLY_CHANGE) {
+  errors.push(`SOFR30DAYAVG moved ${Math.abs(sofrLatest.value - sofrWeekAgo.value).toFixed(2)} points in a week (${sofrWeekAgo.value} on ${sofrWeekAgo.date} to ${sofrLatest.value}); limit is ${MAX_WEEKLY_CHANGE}`);
+}
+if (ageDays(sofrLatest.date) > MAX_DATA_AGE_DAYS) {
+  errors.push(`SOFR30DAYAVG latest observation ${sofrLatest.date} is ${ageDays(sofrLatest.date)} days old; limit is ${MAX_DATA_AGE_DAYS}`);
 }
 
 // ARM review is a reminder, not a blocker: warn and keep updating PMMS rates.
@@ -109,7 +124,9 @@ const next = {
     '30yr_fixed': r30.latest.value,
     '15yr_fixed': r15.latest.value,
     heloc: round2(primeLatest.value + HELOC_PRIME_MARGIN),
+    sofr_30day: round2(sofrLatest.value),
   },
+  sofrAsOf: sofrLatest.date,
   trend: {
     ...current.trend,
     '30yr_fixed_prior_week': prior30,
@@ -124,7 +141,7 @@ const changed = before !== after;
 
 if (changed) writeFileSync(RATES_PATH, after);
 console.log(changed
-  ? `Updated rates.json: week of ${next.asOf}, 30yr ${next.rates['30yr_fixed']}, 15yr ${next.rates['15yr_fixed']}, HELOC ${next.rates.heloc} (prime ${primeLatest.value} on ${primeLatest.date})`
+  ? `Updated rates.json: week of ${next.asOf}, 30yr ${next.rates['30yr_fixed']}, 15yr ${next.rates['15yr_fixed']}, HELOC ${next.rates.heloc} (prime ${primeLatest.value} on ${primeLatest.date}), SOFR 30-day ${next.rates.sofr_30day} on ${sofrLatest.date}`
   : `rates.json already current (week of ${next.asOf}); nothing to do`);
 
 if (process.env.GITHUB_OUTPUT) {

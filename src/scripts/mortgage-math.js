@@ -468,75 +468,143 @@ export function calculateBiweekly({
  * ARM Reset math
  * ============================================================================
  *
- * Adjustable-rate mortgages (ARMs) reset to a new rate after their initial
- * fixed period (typically 5, 7, or 10 years). The new rate is bounded by:
- *   - Initial cap: max change at first reset (typical 2 percentage points)
- *   - Periodic cap: max change at each subsequent reset (typical 2 points)
- *   - Lifetime cap: max change ever from original rate (typical 5 points)
+ * An adjustable-rate mortgage (ARM) resets after its fixed period to the
+ * fully indexed rate (index + margin), limited by its caps:
+ *   - Initial cap: max change at the first reset (e.g. 2 points)
+ *   - Periodic cap: max change at each later reset (e.g. 1 point)
+ *   - Lifetime cap: max rate above the starting rate, ever (e.g. 5 points)
+ * Per-adjustment caps limit moves in both directions (Fannie Mae Selling Guide
+ * B2-1.4-02), and the rate generally never falls below the margin (CFPB
+ * Consumer Handbook on ARMs), so the margin is the floor.
  *
- * The honest math: the worst case is bounded. Many homeowners panic-refinance
- * to a higher fixed rate when the math says hold the ARM (because the cap
- * structure caps their downside more cheaply than refinancing eliminates it).
- *
- * Three scenarios:
- *   1. Hold the ARM at the expected new rate
- *   2. Refinance to fixed at current market rate
- *   3. Recast with a lump sum (if available): keeps the ARM but lowers payment
+ * The index is held constant: each reset moves the rate toward the fully
+ * indexed rate by at most the cap until it gets there.
  */
+
+const roundRate = (r) => Math.round(r * 1000) / 1000;
+
+/**
+ * Rates at each reset, starting with the first, until the rate reaches its
+ * target (the fully indexed rate within the lifetime cap and the floor).
+ * firstRate (optional) replaces the computed first reset rate, e.g. when the
+ * servicer's notice already states it.
+ */
+export function armRatePath({
+  startRate,
+  index,
+  margin,
+  initialCap,
+  periodicCap,
+  lifetimeCap,
+  firstRate,
+  maxResets = 60,
+}) {
+  const maxRate = startRate + lifetimeCap;
+  const floor = margin;
+  const fullyIndexed = index + margin;
+  const target = Math.min(Math.max(fullyIndexed, floor), maxRate);
+  const clamp = (rate, from, cap) =>
+    Math.min(Math.max(rate, from - cap, floor), from + cap, maxRate);
+
+  const path = [];
+  let rate = firstRate > 0 ? firstRate : clamp(target, startRate, initialCap);
+  path.push(roundRate(rate));
+  while (Math.abs(rate - target) > 1e-9 && path.length < maxResets && periodicCap > 0) {
+    rate = clamp(target, rate, periodicCap);
+    path.push(roundRate(rate));
+  }
+  return { fullyIndexed: roundRate(fullyIndexed), target: roundRate(target), maxRate: roundRate(maxRate), floor, path };
+}
+
+/**
+ * Month-by-month schedule along a rate path. The payment is recalculated on
+ * the remaining balance and term at each reset, every adjustmentMonths.
+ * Month 1 is the first payment at the first reset rate.
+ */
+export function armSchedule(balance, path, adjustmentMonths, termMonths) {
+  const schedule = [];
+  const steps = [];
+  let remaining = balance;
+  let cumulativeInterest = 0;
+  let payment = 0;
+  let rate = path[0];
+  for (let month = 1; month <= termMonths && remaining > 0.01; month++) {
+    const step = Math.floor((month - 1) / adjustmentMonths);
+    if (month === 1 || ((month - 1) % adjustmentMonths === 0 && step < path.length)) {
+      rate = path[Math.min(step, path.length - 1)];
+      payment = monthlyPayment(remaining, rate, termMonths - month + 1);
+      steps.push({ month, rate, payment, balance: remaining });
+    }
+    const interest = remaining * (rate / 100 / 12);
+    remaining = Math.max(0, remaining - (payment - interest));
+    cumulativeInterest += interest;
+    schedule.push({ month, rate, payment, interest, balance: remaining, cumulativeInterest });
+  }
+  return { schedule, steps };
+}
+
 export function calculateARMReset({
   currentBalance,
-  originalRate,
-  expectedNewRate,
+  startRate,
+  index,
+  margin,
+  initialCap,
+  periodicCap,
   lifetimeCap,
+  adjustmentMonths = 6,
+  firstRate,
   remainingTermMonths,
   refiRate,
   refiClosingCosts = 5000,
   holdYears = 5,
 }) {
-  if (currentBalance <= 0 || expectedNewRate < 0 || refiRate < 0 || remainingTermMonths <= 0 || holdYears <= 0) {
+  if (
+    !(currentBalance > 0) || !(remainingTermMonths > 0) || !(holdYears > 0) ||
+    !(startRate >= 0) || !(index >= 0) || !(margin >= 0) ||
+    !(initialCap >= 0) || !(periodicCap >= 0) || !(lifetimeCap >= 0) ||
+    !(adjustmentMonths >= 1) || !(refiRate >= 0)
+  ) {
     return null;
   }
 
-  const lifetimeMaxRate = originalRate + lifetimeCap;
+  const rates = armRatePath({ startRate, index, margin, initialCap, periodicCap, lifetimeCap, firstRate });
   const holdMonths = Math.min(holdYears * 12, remainingTermMonths);
 
-  /* Scenario 1: Hold the ARM at expected new rate */
-  const armPayment = monthlyPayment(currentBalance, expectedNewRate, remainingTermMonths);
-  const armSchedule = amortizationSchedule(currentBalance, expectedNewRate, remainingTermMonths);
-  const armCostOverHold = armPayment * holdMonths;
-  const armBalanceAtEnd = armSchedule[holdMonths - 1]?.balance ?? 0;
-  const armInterestOverHold = armSchedule[holdMonths - 1]?.cumulativeInterest ?? 0;
+  /* Scenario 1: hold the ARM along the rate path (index held constant) */
+  const { schedule: armSched, steps } = armSchedule(currentBalance, rates.path, adjustmentMonths, remainingTermMonths);
+  const armInterestOverHold = armSched[holdMonths - 1]?.cumulativeInterest ?? 0;
+  const armBalanceAtEnd = armSched[holdMonths - 1]?.balance ?? 0;
+  const firstStep = steps[0];
+  const lastStep = steps[steps.length - 1];
 
-  /* Scenario 1b: Worst case ARM payment if rates hit lifetime cap */
-  const armWorstCasePayment = monthlyPayment(currentBalance, lifetimeMaxRate, remainingTermMonths);
+  /* Scenario 1b: worst case if the rate reaches the lifetime cap right away */
+  const armWorstCasePayment = monthlyPayment(currentBalance, rates.maxRate, remainingTermMonths);
 
-  /* Scenario 2: Refinance to fixed */
+  /* Scenario 2: refinance to fixed */
   const refiPayment = monthlyPayment(currentBalance, refiRate, remainingTermMonths);
-  const refiSchedule = amortizationSchedule(currentBalance, refiRate, remainingTermMonths);
-  const refiCostOverHold = refiPayment * holdMonths + refiClosingCosts;
-  const refiBalanceAtEnd = refiSchedule[holdMonths - 1]?.balance ?? 0;
-  const refiInterestOverHold = refiSchedule[holdMonths - 1]?.cumulativeInterest ?? 0;
+  const refiSched = amortizationSchedule(currentBalance, refiRate, remainingTermMonths);
+  const refiInterestOverHold = refiSched[holdMonths - 1]?.cumulativeInterest ?? 0;
+  const refiBalanceAtEnd = refiSched[holdMonths - 1]?.balance ?? 0;
 
-  /* Comparison: net cost over hold period (interest paid + closing costs - balance reduction) */
+  /* Comparison: interest paid over the hold period, plus closing costs for the refinance */
   const armNetCost = armInterestOverHold;
   const refiNetCost = refiInterestOverHold + refiClosingCosts;
-  const holdSavingsVsRefi = refiNetCost - armNetCost;
 
   return {
     inputs: {
-      currentBalance,
-      originalRate,
-      expectedNewRate,
-      lifetimeCap,
-      remainingTermMonths,
-      refiRate,
-      refiClosingCosts,
-      holdYears,
+      currentBalance, startRate, index, margin, initialCap, periodicCap, lifetimeCap,
+      adjustmentMonths, firstRate, remainingTermMonths, refiRate, refiClosingCosts, holdYears,
     },
-    lifetimeMaxRate,
+    fullyIndexedRate: rates.fullyIndexed,
+    targetRate: rates.target,
+    lifetimeMaxRate: rates.maxRate,
+    floorRate: rates.floor,
+    firstResetRate: rates.path[0],
+    ratePath: steps.map((s, i) => ({ reset: i + 1, month: s.month, rate: s.rate, payment: s.payment })),
     holdMonths,
     holdArm: {
-      monthlyPayment: armPayment,
+      monthlyPayment: firstStep.payment,
+      targetMonthlyPayment: lastStep.payment,
       worstCaseMonthlyPayment: armWorstCasePayment,
       interestOverHold: armInterestOverHold,
       balanceAtEnd: armBalanceAtEnd,
@@ -551,7 +619,6 @@ export function calculateARMReset({
       netCostOverHold: refiNetCost,
       strategyName: 'Refinance to fixed',
     },
-    /* Honest comparison */
     bestStrategy: armNetCost <= refiNetCost ? 'holdArm' : 'refinance',
     differenceOverHold: Math.abs(armNetCost - refiNetCost),
   };
