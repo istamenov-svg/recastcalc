@@ -25,7 +25,7 @@ If you put down less than 20% on a conventional loan, you probably pay **private
 
 1. **You ask, at 80%.** You can request cancellation once your balance reaches 80% of your home's original value.
 2. **It ends automatically, at 78%.** Your servicer must cancel it when your balance is scheduled to hit 78% of the original value.
-3. **You ask based on today's value.** If your home has risen in value, loans owned by Fannie Mae or Freddie Mac can drop PMI based on a new valuation, sometimes years earlier.
+3. **You ask based on today's value.** If your home has risen in value, some loan owners, including Fannie Mae, let you drop PMI based on a new valuation, sometimes years earlier.
 
 Use the [PMI removal calculator](/pmi-removal/) to see when you reach each point.
 
@@ -51,18 +51,18 @@ Note the word "scheduled." The 78% date is based on your original payment schedu
 
 ## Rule 3: Removal based on today's value
 
-The federal rules use your home's original value. But Fannie Mae and Freddie Mac, which own most conventional loans, also let borrowers request removal based on the home's **current** value. Under Fannie Mae's servicing guidelines, for a one-unit primary residence or second home, your balance must be:
+The federal rules use your home's original value. But loan owners, including Fannie Mae and Freddie Mac, often set their own cancellation guidelines, which can't be less favorable to you than the federal rules, according to the CFPB. Fannie Mae's let borrowers request removal based on the home's **current** value. For a one-unit primary residence or second home, your balance must be:
 
 - **75% or less** of the current value if the loan is **two to five years old**
 - **80% or less** of the current value if the loan is **more than five years old**
 
-Your servicer will need a new valuation, such as an appraisal or a broker price opinion, typically at your expense. Fannie Mae's guidelines also say servicers can't solicit you for this; **you have to ask.**
+Your servicer will need a new valuation based on an inspection of the inside and outside of the home; ask your servicer how it's ordered and who pays for it. You also need a clean recent payment history: no payment 30 or more days late in the last 12 months, and none 60 or more days late in the last 24 months. Fannie Mae's guidelines also say servicers can't solicit you for this; **you have to ask.**
 
 To find out who owns your loan, ask your servicer, or use Fannie Mae's and Freddie Mac's online loan lookup tools.
 
 ## How much earlier can today's value get you there?
 
-National home prices rose sharply in 2021 and 2022: the Federal Housing Finance Agency (FHFA) measured year-over-year gains of 17.3% and 16.6% in the second quarters of those years. Since mid-2021, its national index has risen about [X]% in total (through the second quarter of 2026).
+National home prices rose sharply in 2021 and 2022: in the Federal Housing Finance Agency (FHFA) purchase-only index (seasonally adjusted), national prices rose about 17.4% in the year to the second quarter of 2021 and 16.6% in the year to the second quarter of 2022. From the second quarter of 2021 to the second quarter of 2026, the national index rose about 33% in total.
 
 Here's what that can mean, using example numbers. You bought a $400,000 home in mid-2021 with 10% down: a $360,000 loan at 3.0% for 30 years.
 
@@ -70,7 +70,7 @@ Here's what that can mean, using example numbers. You bought a $400,000 home in 
 |---|---|
 | Rule 1: request at 80% of $400,000 ($320,000 balance) | about 5 years in |
 | Rule 2: automatic at 78% ($312,000 balance) | about 6 years in |
-| Rule 3: if the home is now worth $480,000, request at 75% of current value | about 4 years in, when the balance is about $328,500 |
+| Rule 3: request at 75% of current value, if the home is worth $480,000 four years in | about 4 years in: the balance is then about $328,500, below 75% of $480,000 ($360,000) |
 
 At a PMI cost of 0.75% of the loan a year, that's about $225 a month, so qualifying a year or more early can save several thousand dollars.
 
@@ -79,20 +79,20 @@ At a PMI cost of 0.75% of the loan a year, that's about $225 a month, so qualify
 ## How to request PMI removal: step by step
 
 1. **Check your numbers.** Find your current balance on your statement and your original value on your closing documents. The [PMI removal calculator](/pmi-removal/) shows which rule you can use.
-2. **Find out who owns your loan.** Rule 3 applies to Fannie Mae and Freddie Mac loans; other owners may have their own policies.
+2. **Find out who owns your loan.** The current-value rules above are Fannie Mae's; Freddie Mac and other owners set their own.
 3. **Call your servicer and ask for its process.** Ask what it requires, whether it orders the valuation, and what that costs.
 4. **Send a written request.** Even if your servicer accepts calls, a written request creates a record.
 5. **Check your next statements.** Once approved, the PMI charge should disappear from your monthly payment.
 
 ## FHA and VA loans are different
 
-These rules apply to private mortgage insurance on conventional loans. Federal Housing Administration (FHA) loans have their own mortgage insurance premium with different rules, and VA loans don't carry monthly mortgage insurance. If you have an FHA loan, ask your servicer how and when its premium ends.
+These rules apply to private mortgage insurance on conventional loans. Mortgages through the Federal Housing Administration (FHA) or the Department of Veterans Affairs (VA) have different requirements, according to the CFPB. If you have an FHA or VA loan, ask your servicer about its mortgage insurance.
 
 ## Frequently asked questions
 
 ### Can I get PMI removed if my home value went up?
 
-Often, yes, if Fannie Mae or Freddie Mac owns your loan and you meet their current-value rules: 75% of today's value if the loan is two to five years old, 80% if it's older than five years. You'll need a new valuation and must make the request yourself.
+Often, yes. If Fannie Mae owns your loan, its current-value rules apply: 75% of today's value if the loan is two to five years old, 80% if it's older than five years. You'll need a new valuation and must make the request yourself. Freddie Mac and other owners set their own rules; ask your servicer.
 
 ### Does PMI go away automatically?
 
@@ -109,8 +109,8 @@ A recast doesn't cancel PMI by itself, but the lump sum you pay lowers your bala
 ## Sources
 
 - Consumer Financial Protection Bureau: [When can I remove private mortgage insurance (PMI) from my loan?](https://www.consumerfinance.gov/ask-cfpb/when-can-i-remove-private-mortgage-insurance-pmi-from-my-loan-en-202/)
-- Office of the Comptroller of the Currency, HelpWithMyBank.gov: PMI removal
+- Office of the Comptroller of the Currency, HelpWithMyBank.gov: [At what point can I remove the Private Mortgage Insurance (PMI) from my loan?](https://www.helpwithmybank.gov/help-topics/mortgages-home-equity/private-mortgage-insurance/pmi-removal.html)
 - Fannie Mae Servicing Guide: [B-8.1-04, Termination of Conventional Mortgage Insurance](https://guide-servicing.fanniemae.com/svc/b-8.1-04/termination-conventional-mortgage-insurance)
-- Federal Housing Finance Agency: House Price Index quarterly reports (2025Q4, 2026Q1, 2026Q2)
+- Federal Housing Finance Agency: House Price Index reports for [2025Q4](https://www.fhfa.gov/document/d/hpi/fhfa-house-price-index-report-2025q4) and [2026Q1](https://www.fhfa.gov/document/d/hpi/fhfa-house-price-index-report-2026q1), and the [purchase-only quarterly index for the U.S.](https://www.fhfa.gov/hpi/download/quarterly_datasets/hpi_po_us_and_census.txt) (seasonally adjusted, as of November 2026)
 
 *Example figures use illustrative numbers. Information here is general guidance, not financial advice. Confirm your loan's specific rules with your servicer.*

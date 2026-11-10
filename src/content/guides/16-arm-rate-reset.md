@@ -25,7 +25,7 @@ An **adjustable-rate mortgage (ARM)** has a fixed rate for its first few years (
 
 Your new rate isn't today's advertised mortgage rate. It's calculated from three things in your loan documents:
 
-1. **The index:** a published market rate your loan follows. Most newer ARMs use the Secured Overnight Financing Rate (SOFR).
+1. **The index:** a published market rate your loan follows. Newer ARMs commonly use the Secured Overnight Financing Rate (SOFR); Fannie Mae requires the ARMs it buys to use the 30-day average of SOFR.
 2. **The margin:** a fixed amount added to the index, set when you got the loan.
 3. **The caps:** limits on how much your rate can rise at the first adjustment, at each later adjustment, and over the life of the loan.
 
@@ -49,18 +49,18 @@ These numbers are illustrations, not your loan. Check your own documents for you
 
 Say you took a $400,000, 30-year ARM in mid-2021 with a 5-year fixed period at **2.75%**. Your payment has been about **$1,633** a month, and after five years you owe about **$354,000**.
 
-At the reset, assume the index is about **3.9%** (the New York Fed's 30-day average SOFR was [VALUE] on [DATE]) and your margin is **2.75%**, for a fully indexed rate of about **6.65%**.
+At the reset, assume the index is about **3.9%** (the New York Fed's 30-day average SOFR was 3.91% on November 10, 2026) and your margin is **2.75%**, for a fully indexed rate of about **6.65%**.
 
 | Cap structure | New rate at first reset | New payment (25 years left) | Increase |
 |---|---|---|---|
 | 2/1/5 caps | 4.75% (capped at 2.75% + 2) | about $2,018 | about $385 a month |
 | 5/2/5 caps | 6.65% (fully indexed, below the 5-point cap) | about $2,424 | about $791 a month |
 
-**The first cap delays the increase; it doesn't prevent it.** With 2/1/5 caps on a loan that adjusts every six months (common for SOFR ARMs), the rate in this example would rise to 4.75%, then 5.75% six months later, then about 6.65% after that, if the index stays where it is. Plan for the fully indexed payment, not just the first step.
+**The first cap delays the increase; it doesn't prevent it.** With 2/1/5 caps on a loan that adjusts every six months (Fannie Mae's standard SOFR ARMs adjust every six months after the fixed period), the rate in this example would rise to 4.75%, then 5.75% six months later, then about 6.65% after that, if the index stays where it is. Plan for the fully indexed payment, not just the first step.
 
 ## If your ARM used LIBOR
 
-Many ARMs from before 2022 were tied to LIBOR, an index that stopped being published in mid-2023. Under a 2022 federal law, the Adjustable Interest Rate (LIBOR) Act, contracts without a workable fallback were switched to a SOFR-based replacement rate selected by the Federal Reserve, including a fixed spread adjustment. Your servicer should have notified you of the change; if you're unsure what your loan's index is now, ask.
+Many ARMs from before 2022 were tied to LIBOR, an index that stopped being published in mid-2023. Under a 2022 federal law, the Adjustable Interest Rate (LIBOR) Act, contracts without an adequate fallback were switched to a SOFR-based replacement rate selected by the Federal Reserve, including a spread adjustment set by the law. If you're unsure what your loan's index is now, ask your servicer.
 
 ## Your options before and after the reset
 
@@ -78,7 +78,7 @@ Many ARMs from before 2022 were tied to LIBOR, an index that stopped being publi
 
 ### How do I know when my ARM resets?
 
-Your loan documents list the first adjustment date. Federal rules also require your servicer to send you a notice before the first rate adjustment, giving you time to plan.
+Your loan documents list the first adjustment date. Federal rules also require your servicer to send you a notice at least 210 days, but no more than 240 days, before the first payment at the new rate is due (for most ARMs with terms longer than one year), giving you time to plan.
 
 ### Will my rate go up to today's mortgage rates?
 
@@ -86,7 +86,7 @@ Not exactly. Your new rate is your index plus your margin, limited by your caps.
 
 ### Can my rate go down at the reset?
 
-Yes, if the fully indexed rate is below your current rate. Many ARMs also have a floor, often equal to the margin, below which the rate can't fall. Check your note.
+Yes, if the fully indexed rate is below your current rate. Generally, an ARM's rate is never lower than the margin, according to the CFPB. Check your note for your loan's minimum rate.
 
 ### What's the most my payment can go up?
 
@@ -94,8 +94,10 @@ Use your lifetime cap: calculate the payment at your starting rate plus the life
 
 ## Sources
 
-- Consumer Financial Protection Bureau: [Consumer Handbook on Adjustable-Rate Mortgages](https://www.consumerfinance.gov/)
-- Federal Reserve Bank of New York: SOFR Averages and Index Data (30-day average SOFR)
-- Board of Governors of the Federal Reserve System: Adjustable Interest Rate (LIBOR) Act implementation (Regulation ZZ)
+- Consumer Financial Protection Bureau: [Consumer Handbook on Adjustable-Rate Mortgages](https://files.consumerfinance.gov/f/documents/cfpb_charm_booklet.pdf)
+- Consumer Financial Protection Bureau: [Regulation Z, 12 CFR 1026.20](https://www.consumerfinance.gov/rules-policy/regulations/1026/20/) (adjustment notices)
+- Fannie Mae Selling Guide: [B2-1.4-02, Adjustable-Rate Mortgages (ARMs)](https://selling-guide.fanniemae.com/sel/b2-1.4-02/adjustable-rate-mortgages-arms) and its Standard ARM Plan Matrix
+- Federal Reserve Bank of New York: 30-day average SOFR, via [FRED series SOFR30DAYAVG](https://fred.stlouisfed.org/series/SOFR30DAYAVG)
+- Board of Governors of the Federal Reserve System: [final rule implementing the Adjustable Interest Rate (LIBOR) Act](https://www.federalreserve.gov/newsevents/pressreleases/bcreg20221216a.htm) (Regulation ZZ), December 16, 2022
 
 *Example figures use illustrative rates, margins, and caps. Information here is general guidance, not financial advice. Your loan documents control; confirm the details with your servicer.*

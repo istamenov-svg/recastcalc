@@ -33,7 +33,7 @@ According to Bank of America's published mortgage FAQ, here's what it requires:
 | How often | Once every 12 months |
 | Other conditions | The rules of whoever owns your loan (the investor) apply |
 
-*Terms verified against Bank of America's published FAQ in October 2026. Policies change; confirm with Bank of America before sending a lump sum.*
+*Terms verified against Bank of America's published FAQ in November 2026. Policies change; confirm with Bank of America before sending a lump sum.*
 
 Run your own numbers with the [mortgage recast calculator](/recast/).
 
@@ -67,7 +67,7 @@ Compare that with refinancing: when today's rates are higher than yours, refinan
 
 ## How to request a recast
 
-Bank of America doesn't publish a step-by-step process online, so confirm the details by phone or through your online account. A typical sequence:
+Bank of America's FAQ covers the basics: if you request a recast before paying the principal, you have 30 days to send at least $5,000, and the FAQ lists 800.669.6607 for recast requests. Confirm the details with Bank of America. A typical sequence:
 
 1. **Confirm eligibility.** Ask whether your specific loan can be recast, given its owner and type.
 2. **Make the principal payment.** Make sure it's applied to principal, not to future payments. Ask how Bank of America wants larger payments sent.
@@ -104,6 +104,7 @@ Government-backed loans are generally not eligible for recasting at the servicer
 
 ## Sources
 
-- Bank of America: mortgage FAQ on recasting (see the source link in our [servicer table](/recast/#lenders))
+- Bank of America: [Mortgage FAQs](https://www.bankofamerica.com/mortgage/faqs/) (recast questions)
+- RecastCalc: [servicer recast table](/recast/#lenders)
 
 *Example figures are illustrations. Information here is general guidance, not financial advice. Confirm current terms with Bank of America before making a payment.*
